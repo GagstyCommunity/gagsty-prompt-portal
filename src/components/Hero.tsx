@@ -1,20 +1,35 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Hero = () => {
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleWaitlistSignup = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      // TODO: Connect to Supabase for actual signup
-      toast({
-        title: "Welcome to the future! 🚀",
-        description: "You've joined the Gagsty waitlist. Get ready to create games with just a prompt!",
-      });
+      if (user) {
+        toast({
+          title: "Already signed up! 🚀",
+          description: "You're already part of the Gagsty community!",
+        });
+        navigate('/dashboard');
+      } else {
+        // Store email in localStorage for the signup process
+        localStorage.setItem('waitlist_email', email);
+        toast({
+          title: "Join us now! 🚀",
+          description: "Sign up to join the Gagsty community and get 500 G-Chips!",
+        });
+        navigate('/auth');
+      }
       setEmail('');
     }
   };
@@ -70,8 +85,9 @@ const Hero = () => {
             <Button 
               type="submit"
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-8 py-3 transition-all duration-300 transform hover:scale-105"
+              disabled={loading}
             >
-              Join the Waitlist
+              {user ? 'Go to Dashboard' : 'Join Now & Get 500 Chips'}
             </Button>
           </form>
           

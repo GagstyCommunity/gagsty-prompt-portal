@@ -9,16 +9,224 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      badges: {
+        Row: {
+          chips_reward: number | null
+          created_at: string | null
+          criteria: Json | null
+          description: string
+          icon: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          chips_reward?: number | null
+          created_at?: string | null
+          criteria?: Json | null
+          description: string
+          icon?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          chips_reward?: number | null
+          created_at?: string | null
+          criteria?: Json | null
+          description?: string
+          icon?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      blog_posts: {
+        Row: {
+          author_id: string
+          category: string | null
+          content: string
+          created_at: string | null
+          excerpt: string | null
+          featured_image: string | null
+          id: string
+          published: boolean | null
+          published_at: string | null
+          slug: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          author_id: string
+          category?: string | null
+          content: string
+          created_at?: string | null
+          excerpt?: string | null
+          featured_image?: string | null
+          id?: string
+          published?: boolean | null
+          published_at?: string | null
+          slug: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          author_id?: string
+          category?: string | null
+          content?: string
+          created_at?: string | null
+          excerpt?: string | null
+          featured_image?: string | null
+          id?: string
+          published?: boolean | null
+          published_at?: string | null
+          slug?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      game_prompts: {
+        Row: {
+          admin_comment: string | null
+          chips_reward: number | null
+          created_at: string | null
+          description: string
+          game_type: string
+          id: string
+          status: string | null
+          thumbnail_url: string | null
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          admin_comment?: string | null
+          chips_reward?: number | null
+          created_at?: string | null
+          description: string
+          game_type: string
+          id?: string
+          status?: string | null
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          admin_comment?: string | null
+          chips_reward?: number | null
+          created_at?: string | null
+          description?: string
+          game_type?: string
+          id?: string
+          status?: string | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string | null
+          full_name: string | null
+          gagsty_chips: number | null
+          id: string
+          profile_completed: boolean | null
+          updated_at: string | null
+          username: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          gagsty_chips?: number | null
+          id: string
+          profile_completed?: boolean | null
+          updated_at?: string | null
+          username?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          gagsty_chips?: number | null
+          id?: string
+          profile_completed?: boolean | null
+          updated_at?: string | null
+          username?: string | null
+        }
+        Relationships: []
+      }
+      user_badges: {
+        Row: {
+          badge_id: string
+          earned_at: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          badge_id: string
+          earned_at?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          badge_id?: string
+          earned_at?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_badges_badge_id_fkey"
+            columns: ["badge_id"]
+            isOneToOne: false
+            referencedRelation: "badges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["user_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _user_id: string
+          _role: Database["public"]["Enums"]["user_role"]
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      user_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +341,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      user_role: ["admin", "moderator", "user"],
+    },
   },
 } as const

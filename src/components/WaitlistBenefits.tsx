@@ -1,11 +1,15 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 
 const WaitlistBenefits = () => {
   const [email, setEmail] = useState('');
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   const benefits = [
     {
@@ -37,10 +41,20 @@ const WaitlistBenefits = () => {
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      toast({
-        title: "Founding Creator Badge Claimed! 🏆",
-        description: "Welcome to the exclusive Gagsty founders circle!",
-      });
+      if (user) {
+        toast({
+          title: "Already a founding member! 🏆",
+          description: "Welcome to the exclusive Gagsty founders circle!",
+        });
+        navigate('/dashboard');
+      } else {
+        localStorage.setItem('waitlist_email', email);
+        toast({
+          title: "Join now! 🏆",
+          description: "Sign up to claim your founding creator badge!",
+        });
+        navigate('/auth');
+      }
       setEmail('');
     }
   };
@@ -96,7 +110,7 @@ const WaitlistBenefits = () => {
               type="submit"
               className="bg-gradient-to-r from-purple-600 to-emerald-600 hover:from-purple-700 hover:to-emerald-700 text-white font-semibold px-8 py-3 transition-all duration-300 transform hover:scale-105"
             >
-              Claim Badge
+              {user ? 'Go to Dashboard' : 'Claim Badge'}
             </Button>
           </form>
         </div>
