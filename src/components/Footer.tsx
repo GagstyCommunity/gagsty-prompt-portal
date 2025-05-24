@@ -1,16 +1,17 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
     <footer className="py-12 px-4 border-t border-gray-800">
       <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
+        <div className="grid md:grid-cols-5 gap-8 mb-8">
           {/* Logo and description */}
           <div className="md:col-span-2">
-            <div className="inline-block p-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
+            <Link to="/" className="inline-block p-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
               <span className="text-xl font-bold text-white">GAGSTY</span>
-            </div>
+            </Link>
             <p className="text-gray-300 leading-relaxed mb-4">
               The future of game creation is here. Join thousands of creators building the next generation of games with AI and Web3.
             </p>
@@ -19,25 +20,36 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Quick links */}
+          {/* Platform */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-white font-semibold mb-4">Platform</h3>
             <ul className="space-y-2 text-gray-300">
-              <li><a href="#" className="hover:text-blue-400 transition-colors">About Gagsty</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition-colors">How It Works</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition-colors">Contact Us</a></li>
+              <li><Link to="/submit" className="hover:text-blue-400 transition-colors">Submit Game</Link></li>
+              <li><Link to="/battle" className="hover:text-blue-400 transition-colors">Prompt Battle</Link></li>
+              <li><Link to="/events" className="hover:text-blue-400 transition-colors">Events</Link></li>
+              <li><Link to="/jobs" className="hover:text-blue-400 transition-colors">Gigs</Link></li>
             </ul>
           </div>
 
-          {/* Community */}
+          {/* Resources */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Community</h3>
+            <h3 className="text-white font-semibold mb-4">Resources</h3>
             <ul className="space-y-2 text-gray-300">
-              <li><a href="#" className="hover:text-blue-400 transition-colors">Discord</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition-colors">Telegram</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition-colors">Twitter</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition-colors">Reddit</a></li>
+              <li><Link to="/codex" className="hover:text-blue-400 transition-colors">Codex</Link></li>
+              <li><Link to="/about" className="hover:text-blue-400 transition-colors">About Us</Link></li>
+              <li><Link to="/privacy" className="hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="hover:text-blue-400 transition-colors">Terms of Service</Link></li>
+            </ul>
+          </div>
+
+          {/* Business */}
+          <div>
+            <h3 className="text-white font-semibold mb-4">Business</h3>
+            <ul className="space-y-2 text-gray-300">
+              <li><Link to="/investors" className="hover:text-blue-400 transition-colors">For Investors</Link></li>
+              <li><Link to="/partnerships" className="hover:text-blue-400 transition-colors">Partnerships</Link></li>
+              <li><Link to="/press" className="hover:text-blue-400 transition-colors">Press Kit</Link></li>
+              <li><Link to="/contact" className="hover:text-blue-400 transition-colors">Contact Us</Link></li>
             </ul>
           </div>
         </div>
