@@ -14,6 +14,7 @@ import Jobs from "./pages/Jobs";
 import About from "./pages/About";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/admin" element={<Admin />} />
             <Route path="/submit" element={<Submit />} />
             <Route path="/codex" element={<Codex />} />
             <Route path="/battle" element={<Battle />} />
