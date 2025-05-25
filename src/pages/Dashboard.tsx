@@ -15,17 +15,24 @@ import {
   Settings, 
   BookOpen,
   LogOut,
-  Edit
+  Edit,
+  Users,
+  Target,
+  Bell,
+  Share2
 } from 'lucide-react';
 import UserPromptSubmission from '@/components/UserPromptSubmission';
 import UserPromptsList from '@/components/UserPromptsList';
 import UserBadges from '@/components/UserBadges';
 import CompleteProfileModal from '@/components/CompleteProfileModal';
+import WelcomeHeader from '@/components/dashboard/WelcomeHeader';
+import WaitlistStatus from '@/components/dashboard/WaitlistStatus';
+import ChipsOverview from '@/components/dashboard/ChipsOverview';
 
 const Dashboard = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('submit');
+  const [activeTab, setActiveTab] = useState('overview');
   const [profile, setProfile] = useState<any>(null);
   const [showCompleteProfile, setShowCompleteProfile] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -69,10 +76,16 @@ const Dashboard = () => {
   };
 
   const sidebarItems = [
+    { id: 'overview', label: 'Dashboard Overview', icon: Trophy },
+    { id: 'waitlist', label: 'Waitlist Status', icon: Users },
+    { id: 'badges', label: 'Badges & Achievements', icon: Trophy },
+    { id: 'chips', label: 'G-Chips & Rewards', icon: Coins },
     { id: 'submit', label: 'Submit Prompt', icon: FileText },
     { id: 'prompts', label: 'My Prompts', icon: User },
-    { id: 'badges', label: 'Badges & Chips', icon: Trophy },
-    { id: 'settings', label: 'Settings', icon: Settings },
+    { id: 'events', label: 'Events & Rewards', icon: Target },
+    { id: 'referrals', label: 'Referral System', icon: Share2 },
+    { id: 'notifications', label: 'Notifications', icon: Bell },
+    { id: 'settings', label: 'Account Settings', icon: Settings },
   ];
 
   if (loading) {
@@ -82,6 +95,66 @@ const Dashboard = () => {
       </div>
     );
   }
+
+  const renderMainContent = () => {
+    switch(activeTab) {
+      case 'overview':
+        return <WelcomeHeader profile={profile} waitlistPosition={124} />;
+      case 'waitlist':
+        return <WaitlistStatus profile={profile} />;
+      case 'chips':
+        return <ChipsOverview profile={profile} />;
+      case 'submit':
+        return <UserPromptSubmission onSubmitSuccess={fetchProfile} />;
+      case 'prompts':
+        return <UserPromptsList />;
+      case 'badges':
+        return <UserBadges />;
+      case 'events':
+        return (
+          <Card className="bg-gray-900/50 border-gray-800">
+            <CardHeader>
+              <CardTitle className="text-white">Events & Rewards</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-300">Coming soon! Exclusive events for GAGSTY members.</p>
+            </CardContent>
+          </Card>
+        );
+      case 'referrals':
+        return <WaitlistStatus profile={profile} />;
+      case 'notifications':
+        return (
+          <Card className="bg-gray-900/50 border-gray-800">
+            <CardHeader>
+              <CardTitle className="text-white">Notifications</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-300">No new notifications.</p>
+            </CardContent>
+          </Card>
+        );
+      case 'settings':
+        return (
+          <Card className="bg-gray-900/50 border-gray-800">
+            <CardHeader>
+              <CardTitle className="text-white">Account Settings</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Button
+                onClick={() => setShowCompleteProfile(true)}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              >
+                <Edit className="mr-2" size={16} />
+                Edit Profile
+              </Button>
+            </CardContent>
+          </Card>
+        );
+      default:
+        return <WelcomeHeader profile={profile} waitlistPosition={124} />;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-black text-white flex">
@@ -108,7 +181,7 @@ const Dashboard = () => {
                   }`}
                 >
                   <Icon size={20} />
-                  <span>{item.label}</span>
+                  <span className="text-sm">{item.label}</span>
                 </button>
               );
             })}
@@ -118,7 +191,7 @@ const Dashboard = () => {
               className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-colors"
             >
               <BookOpen size={20} />
-              <span>Codex</span>
+              <span className="text-sm">Learning Hub</span>
             </button>
 
             <button
@@ -126,7 +199,7 @@ const Dashboard = () => {
               className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-red-600 hover:text-white transition-colors"
             >
               <LogOut size={20} />
-              <span>Logout</span>
+              <span className="text-sm">Logout</span>
             </button>
           </nav>
         </div>
@@ -139,14 +212,14 @@ const Dashboard = () => {
                 <User size={20} />
               </div>
               <div>
-                <div className="font-medium">{profile.full_name || 'Anonymous'}</div>
-                <div className="text-sm text-gray-400">{user?.email}</div>
+                <div className="font-medium text-sm">{profile.full_name || 'Anonymous'}</div>
+                <div className="text-xs text-gray-400">{user?.email}</div>
               </div>
             </div>
             
             <div className="flex items-center space-x-2 p-3 bg-gradient-to-r from-yellow-600/20 to-orange-600/20 rounded-lg border border-yellow-600/30">
-              <Coins className="text-yellow-500" size={20} />
-              <span className="text-yellow-400 font-bold text-lg">{profile.gagsty_chips} G-Chips</span>
+              <Coins className="text-yellow-500" size={16} />
+              <span className="text-yellow-400 font-bold text-sm">{profile.gagsty_chips} G-Chips</span>
             </div>
           </div>
         )}
@@ -154,25 +227,7 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <div className="flex-1 p-8 bg-gradient-to-br from-gray-900 via-black to-gray-900">
-        {activeTab === 'submit' && <UserPromptSubmission onSubmitSuccess={fetchProfile} />}
-        {activeTab === 'prompts' && <UserPromptsList />}
-        {activeTab === 'badges' && <UserBadges />}
-        {activeTab === 'settings' && (
-          <Card className="bg-gray-900/50 border-gray-800">
-            <CardHeader>
-              <CardTitle className="text-white">Profile Settings</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Button
-                onClick={() => setShowCompleteProfile(true)}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-              >
-                <Edit className="mr-2" size={16} />
-                Edit Profile
-              </Button>
-            </CardContent>
-          </Card>
-        )}
+        {renderMainContent()}
       </div>
 
       {/* Complete Profile Modal */}

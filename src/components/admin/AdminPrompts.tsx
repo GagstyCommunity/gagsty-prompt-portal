@@ -63,14 +63,16 @@ const AdminPrompts = () => {
       if (status === 'approved' && chipsReward > 0) {
         const prompt = prompts.find(p => p.id === promptId);
         if (prompt) {
-          const { error: chipsError } = await supabase.rpc('add_chips_to_user', {
-            p_user_id: prompt.user_id,
-            p_amount: chipsReward
-          });
+          // Update user's chips directly in profiles table
+          const { error: chipsError } = await supabase
+            .from('profiles')
+            .update({ 
+              gagsty_chips: chipsReward 
+            })
+            .eq('id', prompt.user_id);
           
           if (chipsError) {
             console.error('Error adding chips:', chipsError);
-            // Don't throw error here, just log it
           }
         }
       }
