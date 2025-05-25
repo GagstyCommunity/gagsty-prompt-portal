@@ -107,7 +107,7 @@ const Battle = () => {
             </p>
 
             {/* Countdown Timer */}
-            <Card className="bg-gradient-to-r from-red-900/20 to-pink-900/20 border-red-800/20 max-w-md mx-auto">
+            <Card className="bg-gray-900/50 border-gray-800 max-w-md mx-auto">
               <CardContent className="py-6">
                 <div className="flex items-center justify-center space-x-2 mb-4">
                   <Clock className="text-red-400" size={24} />
@@ -226,13 +226,13 @@ const Battle = () => {
           </div>
 
           {/* Submit CTA */}
-          <Card className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border-purple-800/20 mb-12">
+          <Card className="bg-gray-900/50 border-gray-800 mb-12">
             <CardContent className="text-center py-12">
               <h3 className="text-2xl font-bold text-white mb-4">Ready to Compete?</h3>
               <p className="text-gray-300 mb-6 max-w-md mx-auto">
                 Submit your game prompt and let the community decide if it's worthy of being built!
               </p>
-              <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
                 Submit Your Prompt
               </Button>
               <p className="text-sm text-gray-400 mt-2">Login required to participate</p>

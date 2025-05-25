@@ -215,7 +215,7 @@ const About = () => {
           </div>
 
           {/* Press Mentions */}
-          <Card className="bg-gradient-to-r from-emerald-900/20 to-blue-900/20 border-emerald-800/20">
+          <Card className="bg-gray-900/50 border-gray-800">
             <CardContent className="text-center py-12">
               <h2 className="text-2xl font-bold text-white mb-6">Press & Recognition</h2>
               <div className="grid md:grid-cols-3 gap-8">

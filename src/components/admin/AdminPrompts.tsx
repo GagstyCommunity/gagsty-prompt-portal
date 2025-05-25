@@ -1,12 +1,12 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
+import { Eye, CheckCircle, XCircle, Award, Coins } from 'lucide-react';
 import { 
   Table,
   TableBody,
@@ -46,48 +46,46 @@ const AdminPrompts = () => {
     }
   };
 
-  const updatePromptStatus = async (promptId: string, status: string) => {
+  const updatePromptStatus = async (promptId: string, status: string, comment: string, chipsReward: number) => {
     try {
       const { error } = await supabase
         .from('game_prompts')
-        .update({
-          status,
-          admin_comment: adminComment,
-          chips_reward: chipsReward,
+        .update({ 
+          status, 
+          admin_comment: comment,
+          chips_reward: chipsReward
         })
         .eq('id', promptId);
 
       if (error) throw error;
 
-      // If approved, award chips to user
+      // If approved and chips reward > 0, add chips to user
       if (status === 'approved' && chipsReward > 0) {
         const prompt = prompts.find(p => p.id === promptId);
         if (prompt) {
-          const { error: chipError } = await supabase.rpc('add_chips_to_user', {
-            user_id: prompt.user_id,
-            amount: chipsReward
+          const { error: chipsError } = await supabase.rpc('add_chips_to_user', {
+            p_user_id: prompt.user_id,
+            p_amount: chipsReward
           });
-
-          if (chipError) {
-            console.error('Error adding chips:', chipError);
+          
+          if (chipsError) {
+            console.error('Error adding chips:', chipsError);
+            // Don't throw error here, just log it
           }
         }
       }
 
       toast({
         title: "Prompt Updated",
-        description: `Prompt ${status} successfully.`,
+        description: `Prompt has been ${status}`,
       });
 
       fetchPrompts();
-      setSelectedPrompt(null);
-      setAdminComment('');
-      setChipsReward(0);
     } catch (error) {
       console.error('Error updating prompt:', error);
       toast({
         title: "Error",
-        description: "Failed to update prompt.",
+        description: "Failed to update prompt",
         variant: "destructive",
       });
     }
@@ -192,19 +190,19 @@ const AdminPrompts = () => {
 
             <div className="flex space-x-3">
               <Button
-                onClick={() => updatePromptStatus(selectedPrompt.id, 'approved')}
+                onClick={() => updatePromptStatus(selectedPrompt.id, 'approved', adminComment, chipsReward)}
                 className="bg-green-600 hover:bg-green-700"
               >
                 Approve
               </Button>
               <Button
-                onClick={() => updatePromptStatus(selectedPrompt.id, 'rejected')}
+                onClick={() => updatePromptStatus(selectedPrompt.id, 'rejected', adminComment, chipsReward)}
                 className="bg-red-600 hover:bg-red-700"
               >
                 Reject
               </Button>
               <Button
-                onClick={() => updatePromptStatus(selectedPrompt.id, 'in_review')}
+                onClick={() => updatePromptStatus(selectedPrompt.id, 'in_review', adminComment, chipsReward)}
                 className="bg-blue-600 hover:bg-blue-700"
               >
                 Mark In Review

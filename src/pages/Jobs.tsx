@@ -241,7 +241,7 @@ const Jobs = () => {
           </div>
 
           {/* Post Gig CTA */}
-          <Card className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 border-blue-800/20">
+          <Card className="bg-gray-900/50 border-gray-800">
             <CardContent className="text-center py-12">
               <h3 className="text-2xl font-bold text-white mb-4">Have a Project? Post a Gig</h3>
               <p className="text-gray-300 mb-6 max-w-md mx-auto">
