@@ -12,18 +12,30 @@ import {
   BookOpen, 
   Settings, 
   LogOut,
-  Shield
+  Shield,
+  BarChart,
+  Coins,
+  Bell,
+  UserPlus,
+  Calendar,
+  Tool,
+  Home
 } from 'lucide-react';
+import AdminDashboard from '@/components/admin/AdminDashboard';
 import AdminPrompts from '@/components/admin/AdminPrompts';
 import AdminUsers from '@/components/admin/AdminUsers';
 import AdminBadges from '@/components/admin/AdminBadges';
 import AdminBlog from '@/components/admin/AdminBlog';
 import AdminSettings from '@/components/admin/AdminSettings';
+import AdminAnalytics from '@/components/admin/AdminAnalytics';
+import AdminChipsManagement from '@/components/admin/AdminChipsManagement';
+import AdminNotifications from '@/components/admin/AdminNotifications';
+import AdminReferrals from '@/components/admin/AdminReferrals';
 
 const Admin = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('prompts');
+  const [activeTab, setActiveTab] = useState('dashboard');
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -77,11 +89,18 @@ const Admin = () => {
   };
 
   const sidebarItems = [
-    { id: 'prompts', label: 'All Prompt Submissions', icon: FileText },
-    { id: 'users', label: 'Users & Moderators', icon: Users },
-    { id: 'badges', label: 'Badges System', icon: Award },
-    { id: 'blog', label: 'Blog/Codex Manager', icon: BookOpen },
-    { id: 'settings', label: 'Settings', icon: Settings },
+    { id: 'dashboard', label: 'Dashboard Overview', icon: Home },
+    { id: 'prompts', label: 'Prompt Submissions', icon: FileText },
+    { id: 'users', label: 'User Management', icon: Users },
+    { id: 'badges', label: 'Badge Control', icon: Award },
+    { id: 'chips', label: 'Chips Management', icon: Coins },
+    { id: 'analytics', label: 'Analytics & Reports', icon: BarChart },
+    { id: 'notifications', label: 'Notifications', icon: Bell },
+    { id: 'referrals', label: 'Referral System', icon: UserPlus },
+    { id: 'events', label: 'Events & Rewards', icon: Calendar },
+    { id: 'tools', label: 'Tools & Partnerships', icon: Tool },
+    { id: 'blog', label: 'Content Hub', icon: BookOpen },
+    { id: 'settings', label: 'Admin Settings', icon: Settings },
   ];
 
   if (loading) {
@@ -122,7 +141,7 @@ const Admin = () => {
                   }`}
                 >
                   <Icon size={20} />
-                  <span>{item.label}</span>
+                  <span className="text-sm">{item.label}</span>
                 </button>
               );
             })}
@@ -132,7 +151,7 @@ const Admin = () => {
               className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-red-600 hover:text-white transition-colors"
             >
               <LogOut size={20} />
-              <span>Logout</span>
+              <span className="text-sm">Logout</span>
             </button>
           </nav>
         </div>
@@ -140,11 +159,33 @@ const Admin = () => {
 
       {/* Main Content */}
       <div className="flex-1 p-8">
+        {activeTab === 'dashboard' && <AdminDashboard />}
         {activeTab === 'prompts' && <AdminPrompts />}
         {activeTab === 'users' && <AdminUsers />}
         {activeTab === 'badges' && <AdminBadges />}
+        {activeTab === 'chips' && <AdminChipsManagement />}
+        {activeTab === 'analytics' && <AdminAnalytics />}
+        {activeTab === 'notifications' && <AdminNotifications />}
+        {activeTab === 'referrals' && <AdminReferrals />}
         {activeTab === 'blog' && <AdminBlog />}
         {activeTab === 'settings' && <AdminSettings />}
+        
+        {/* Placeholder components for remaining sections */}
+        {activeTab === 'events' && (
+          <div className="text-center text-gray-400 mt-20">
+            <Calendar size={64} className="mx-auto mb-4" />
+            <h2 className="text-2xl font-bold mb-2">Events & Rewards Management</h2>
+            <p>Coming soon - Event creation and management tools</p>
+          </div>
+        )}
+        
+        {activeTab === 'tools' && (
+          <div className="text-center text-gray-400 mt-20">
+            <Tool size={64} className="mx-auto mb-4" />
+            <h2 className="text-2xl font-bold mb-2">Tools & Partnerships</h2>
+            <p>Coming soon - Tool partnerships and affiliate tracking</p>
+          </div>
+        )}
       </div>
     </div>
   );
