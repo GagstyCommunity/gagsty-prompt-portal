@@ -25,7 +25,7 @@ const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ profile, waitlistPosition
 
       {/* Progress & Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border-blue-800/30">
+        <Card className="bg-gray-900/50 border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
               <Trophy className="text-yellow-500" size={24} />
@@ -39,7 +39,7 @@ const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ profile, waitlistPosition
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-green-900/30 to-emerald-900/30 border-green-800/30">
+        <Card className="bg-gray-900/50 border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
               <Coins className="text-yellow-500" size={24} />
@@ -52,7 +52,7 @@ const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ profile, waitlistPosition
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 border-purple-800/30">
+        <Card className="bg-gray-900/50 border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
               <Users className="text-blue-500" size={24} />

@@ -19,7 +19,10 @@ import {
   Users,
   Target,
   Bell,
-  Share2
+  Share2,
+  Wrench,
+  Lightbulb,
+  Calendar
 } from 'lucide-react';
 import UserPromptSubmission from '@/components/UserPromptSubmission';
 import UserPromptsList from '@/components/UserPromptsList';
@@ -28,6 +31,10 @@ import CompleteProfileModal from '@/components/CompleteProfileModal';
 import WelcomeHeader from '@/components/dashboard/WelcomeHeader';
 import WaitlistStatus from '@/components/dashboard/WaitlistStatus';
 import ChipsOverview from '@/components/dashboard/ChipsOverview';
+import LearningHub from '@/components/dashboard/LearningHub';
+import GameIdeas from '@/components/dashboard/GameIdeas';
+import ToolsOffers from '@/components/dashboard/ToolsOffers';
+import Notifications from '@/components/dashboard/Notifications';
 
 const Dashboard = () => {
   const { user, signOut } = useAuth();
@@ -77,12 +84,16 @@ const Dashboard = () => {
 
   const sidebarItems = [
     { id: 'overview', label: 'Dashboard Overview', icon: Trophy },
-    { id: 'waitlist', label: 'Waitlist Status', icon: Users },
-    { id: 'badges', label: 'Badges & Achievements', icon: Trophy },
-    { id: 'chips', label: 'G-Chips & Rewards', icon: Coins },
+    { id: 'waitlist', label: 'My Waitlist Status', icon: Users },
+    { id: 'badges', label: 'My Badges', icon: Trophy },
+    { id: 'chips', label: 'My G-Chips', icon: Coins },
+    { id: 'prompt-battle', label: 'Prompt Battle Zone', icon: Target },
     { id: 'submit', label: 'Submit Prompt', icon: FileText },
     { id: 'prompts', label: 'My Prompts', icon: User },
-    { id: 'events', label: 'Events & Rewards', icon: Target },
+    { id: 'game-ideas', label: 'My Game Ideas', icon: Lightbulb },
+    { id: 'events', label: 'Events & Rewards', icon: Calendar },
+    { id: 'learning', label: 'Learning Hub', icon: BookOpen },
+    { id: 'tools', label: 'Tools & Offers', icon: Wrench },
     { id: 'referrals', label: 'Referral System', icon: Share2 },
     { id: 'notifications', label: 'Notifications', icon: Bell },
     { id: 'settings', label: 'Account Settings', icon: Settings },
@@ -104,6 +115,45 @@ const Dashboard = () => {
         return <WaitlistStatus profile={profile} />;
       case 'chips':
         return <ChipsOverview profile={profile} />;
+      case 'learning':
+        return <LearningHub />;
+      case 'game-ideas':
+        return <GameIdeas />;
+      case 'tools':
+        return <ToolsOffers />;
+      case 'notifications':
+        return <Notifications />;
+      case 'prompt-battle':
+        return (
+          <Card className="bg-gray-900/50 border-gray-800">
+            <CardHeader>
+              <CardTitle className="text-white">Prompt Battle Zone</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-300 mb-4">Test your creativity against other members!</p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="p-4 bg-gray-800/50 rounded-lg">
+                  <h3 className="text-white font-medium mb-2">Current Battle</h3>
+                  <p className="text-gray-400 text-sm mb-3">Theme: "Space Adventure"</p>
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700">Join Battle</Button>
+                </div>
+                <div className="p-4 bg-gray-800/50 rounded-lg">
+                  <h3 className="text-white font-medium mb-2">Your Stats</h3>
+                  <div className="space-y-1 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Battles Won:</span>
+                      <span className="text-green-400">3</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Win Rate:</span>
+                      <span className="text-blue-400">75%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        );
       case 'submit':
         return <UserPromptSubmission onSubmitSuccess={fetchProfile} />;
       case 'prompts':
@@ -117,30 +167,31 @@ const Dashboard = () => {
               <CardTitle className="text-white">Events & Rewards</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-300">Coming soon! Exclusive events for GAGSTY members.</p>
+              <p className="text-gray-300 mb-4">Participate in exclusive events to earn rewards!</p>
+              <div className="space-y-4">
+                <div className="p-4 bg-gradient-to-r from-purple-900/30 to-blue-900/30 border border-purple-800/30 rounded-lg">
+                  <h3 className="text-white font-medium mb-2">Winter Game Jam 2024</h3>
+                  <p className="text-gray-300 text-sm mb-2">Create a winter-themed game in 48 hours</p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-green-400 font-medium">Reward: 10,000 G-Chips</span>
+                    <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+                      Register
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </CardContent>
           </Card>
         );
       case 'referrals':
         return <WaitlistStatus profile={profile} />;
-      case 'notifications':
-        return (
-          <Card className="bg-gray-900/50 border-gray-800">
-            <CardHeader>
-              <CardTitle className="text-white">Notifications</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-300">No new notifications.</p>
-            </CardContent>
-          </Card>
-        );
       case 'settings':
         return (
           <Card className="bg-gray-900/50 border-gray-800">
             <CardHeader>
               <CardTitle className="text-white">Account Settings</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-4">
               <Button
                 onClick={() => setShowCompleteProfile(true)}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
@@ -148,6 +199,21 @@ const Dashboard = () => {
                 <Edit className="mr-2" size={16} />
                 Edit Profile
               </Button>
+              
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="p-4 bg-gray-800/50 rounded-lg">
+                  <h3 className="text-white font-medium mb-2">Account Security</h3>
+                  <Button variant="outline" className="w-full border-gray-600 text-gray-300 hover:bg-gray-800">
+                    Change Password
+                  </Button>
+                </div>
+                <div className="p-4 bg-gray-800/50 rounded-lg">
+                  <h3 className="text-white font-medium mb-2">Privacy Settings</h3>
+                  <Button variant="outline" className="w-full border-gray-600 text-gray-300 hover:bg-gray-800">
+                    Manage Privacy
+                  </Button>
+                </div>
+              </div>
             </CardContent>
           </Card>
         );

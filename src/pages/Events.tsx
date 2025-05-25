@@ -175,7 +175,7 @@ const Events = () => {
 
           {/* Community Links */}
           <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <Card className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 border-purple-800/20">
+            <Card className="bg-gray-900/50 border-gray-800">
               <CardContent className="text-center py-12">
                 <h3 className="text-2xl font-bold text-white mb-4">Join Our Discord</h3>
                 <p className="text-gray-300 mb-6">
@@ -187,7 +187,7 @@ const Events = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-r from-blue-900/20 to-cyan-900/20 border-blue-800/20">
+            <Card className="bg-gray-900/50 border-gray-800">
               <CardContent className="text-center py-12">
                 <h3 className="text-2xl font-bold text-white mb-4">Follow on Telegram</h3>
                 <p className="text-gray-300 mb-6">
@@ -201,7 +201,7 @@ const Events = () => {
           </div>
 
           {/* Claim Rewards CTA */}
-          <Card className="bg-gradient-to-r from-emerald-900/20 to-green-900/20 border-emerald-800/20">
+          <Card className="bg-gray-900/50 border-gray-800">
             <CardContent className="text-center py-12">
               <h3 className="text-2xl font-bold text-white mb-4">Ready to Start Earning?</h3>
               <p className="text-gray-300 mb-6 max-w-md mx-auto">
