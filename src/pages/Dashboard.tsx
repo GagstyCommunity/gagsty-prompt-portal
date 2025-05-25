@@ -103,7 +103,7 @@ const Dashboard = () => {
                   onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
                     activeTab === item.id
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
                       : 'text-gray-300 hover:bg-gray-800 hover:text-white'
                   }`}
                 >
@@ -144,16 +144,16 @@ const Dashboard = () => {
               </div>
             </div>
             
-            <div className="flex items-center space-x-2">
-              <Coins className="text-yellow-500" size={16} />
-              <span className="text-yellow-500 font-medium">{profile.gagsty_chips} G-Chips</span>
+            <div className="flex items-center space-x-2 p-3 bg-gradient-to-r from-yellow-600/20 to-orange-600/20 rounded-lg border border-yellow-600/30">
+              <Coins className="text-yellow-500" size={20} />
+              <span className="text-yellow-400 font-bold text-lg">{profile.gagsty_chips} G-Chips</span>
             </div>
           </div>
         )}
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-8">
+      <div className="flex-1 p-8 bg-gradient-to-br from-gray-900 via-black to-gray-900">
         {activeTab === 'submit' && <UserPromptSubmission onSubmitSuccess={fetchProfile} />}
         {activeTab === 'prompts' && <UserPromptsList />}
         {activeTab === 'badges' && <UserBadges />}

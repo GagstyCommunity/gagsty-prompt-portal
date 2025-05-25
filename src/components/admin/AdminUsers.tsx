@@ -1,25 +1,25 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
 import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@/components/ui/table';
-import { User, Shield, Edit, Coins } from 'lucide-react';
 
 const AdminUsers = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [selectedUser, setSelectedUser] = useState<any>(null);
-  const [chipAmount, setChipAmount] = useState(0);
+  const [newRole, setNewRole] = useState('user');
+  const [chipAdjustment, setChipAdjustment] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const AdminUsers = () => {
         .from('profiles')
         .select(`
           *,
-          user_roles(role)
+          user_roles!inner(role)
         `)
         .order('created_at', { ascending: false });
 
@@ -40,42 +40,28 @@ const AdminUsers = () => {
       setUsers(data || []);
     } catch (error) {
       console.error('Error fetching users:', error);
-      toast({
-        title: "Error",
-        description: "Failed to fetch users.",
-        variant: "destructive",
-      });
     } finally {
       setLoading(false);
     }
   };
 
-  const updateUserRole = async (userId: string, newRole: string) => {
+  const updateUserRole = async (userId: string, role: 'user' | 'moderator' | 'admin') => {
     try {
-      // First, delete existing role
-      await supabase
-        .from('user_roles')
-        .delete()
-        .eq('user_id', userId);
-
-      // Then insert new role
       const { error } = await supabase
         .from('user_roles')
-        .insert({
-          user_id: userId,
-          role: newRole
-        });
+        .update({ role })
+        .eq('user_id', userId);
 
       if (error) throw error;
 
       toast({
-        title: "Success",
-        description: `User role updated to ${newRole}.`,
+        title: "Role Updated",
+        description: `User role updated to ${role}.`,
       });
 
       fetchUsers();
     } catch (error) {
-      console.error('Error updating user role:', error);
+      console.error('Error updating role:', error);
       toast({
         title: "Error",
         description: "Failed to update user role.",
@@ -87,27 +73,29 @@ const AdminUsers = () => {
   const adjustUserChips = async (userId: string, amount: number) => {
     try {
       const user = users.find(u => u.id === userId);
-      const newChipAmount = user.gagsty_chips + amount;
+      if (!user) return;
+
+      const newAmount = Math.max(0, user.gagsty_chips + amount);
 
       const { error } = await supabase
         .from('profiles')
-        .update({ gagsty_chips: newChipAmount })
+        .update({ gagsty_chips: newAmount })
         .eq('id', userId);
 
       if (error) throw error;
 
       toast({
-        title: "Success",
-        description: `${amount > 0 ? 'Added' : 'Removed'} ${Math.abs(amount)} chips.`,
+        title: "Chips Updated",
+        description: `User chips adjusted by ${amount}.`,
       });
 
-      setChipAmount(0);
       fetchUsers();
+      setChipAdjustment(0);
     } catch (error) {
       console.error('Error adjusting chips:', error);
       toast({
         title: "Error",
-        description: "Failed to adjust chips.",
+        description: "Failed to adjust user chips.",
         variant: "destructive",
       });
     }
@@ -116,8 +104,8 @@ const AdminUsers = () => {
   const getRoleColor = (role: string) => {
     switch (role) {
       case 'admin': return 'bg-red-500';
-      case 'moderator': return 'bg-purple-500';
-      default: return 'bg-blue-500';
+      case 'moderator': return 'bg-blue-500';
+      default: return 'bg-gray-500';
     }
   };
 
@@ -134,7 +122,7 @@ const AdminUsers = () => {
         <CardContent>
           <Table>
             <TableHeader>
-              <TableRow>
+              <TableRow className="border-gray-700">
                 <TableHead className="text-gray-300">Name</TableHead>
                 <TableHead className="text-gray-300">Username</TableHead>
                 <TableHead className="text-gray-300">Role</TableHead>
@@ -145,33 +133,27 @@ const AdminUsers = () => {
             </TableHeader>
             <TableBody>
               {users.map((user) => (
-                <TableRow key={user.id}>
+                <TableRow key={user.id} className="border-gray-700">
                   <TableCell className="text-white font-medium">
-                    {user.full_name || 'No name'}
+                    {user.full_name || 'Anonymous'}
                   </TableCell>
-                  <TableCell className="text-gray-300">
-                    {user.username || 'No username'}
-                  </TableCell>
+                  <TableCell className="text-gray-300">{user.username || 'N/A'}</TableCell>
                   <TableCell>
-                    <Badge className={`${getRoleColor(user.user_roles?.[0]?.role || 'user')} text-white`}>
-                      {user.user_roles?.[0]?.role || 'user'}
+                    <Badge className={`${getRoleColor(user.user_roles?.[0]?.role)} text-white`}>
+                      {user.user_roles?.[0]?.role?.toUpperCase() || 'USER'}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-yellow-500 font-medium">
-                    {user.gagsty_chips}
-                  </TableCell>
+                  <TableCell className="text-yellow-500">{user.gagsty_chips}</TableCell>
                   <TableCell className="text-gray-300">
                     {new Date(user.created_at).toLocaleDateString()}
                   </TableCell>
                   <TableCell>
                     <Button
-                      size="sm"
-                      variant="outline"
                       onClick={() => setSelectedUser(user)}
-                      className="text-white border-gray-600 hover:bg-gray-800"
+                      className="bg-blue-600 hover:bg-blue-700"
+                      size="sm"
                     >
-                      <Edit size={16} className="mr-1" />
-                      Edit
+                      Manage
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -181,83 +163,60 @@ const AdminUsers = () => {
         </CardContent>
       </Card>
 
-      {/* User Edit Modal */}
       {selectedUser && (
         <Card className="bg-gray-900/50 border-gray-800">
           <CardHeader>
             <CardTitle className="text-white">
-              Edit User: {selectedUser.full_name || selectedUser.username}
+              Manage User: {selectedUser.full_name || 'Anonymous'}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <h3 className="text-white font-semibold mb-3">Change Role</h3>
-              <div className="flex space-x-2">
-                <Button
-                  size="sm"
-                  onClick={() => updateUserRole(selectedUser.id, 'user')}
-                  className="bg-blue-600 hover:bg-blue-700"
-                >
-                  <User size={16} className="mr-1" />
-                  User
-                </Button>
-                <Button
-                  size="sm"
-                  onClick={() => updateUserRole(selectedUser.id, 'moderator')}
-                  className="bg-purple-600 hover:bg-purple-700"
-                >
-                  <Shield size={16} className="mr-1" />
-                  Moderator
-                </Button>
-                <Button
-                  size="sm"
-                  onClick={() => updateUserRole(selectedUser.id, 'admin')}
-                  className="bg-red-600 hover:bg-red-700"
-                >
-                  <Shield size={16} className="mr-1" />
-                  Admin
-                </Button>
-              </div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Update Role
+              </label>
+              <select
+                value={newRole}
+                onChange={(e) => setNewRole(e.target.value)}
+                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white"
+              >
+                <option value="user">User</option>
+                <option value="moderator">Moderator</option>
+                <option value="admin">Admin</option>
+              </select>
+              <Button
+                onClick={() => updateUserRole(selectedUser.id, newRole as 'user' | 'moderator' | 'admin')}
+                className="mt-2 bg-blue-600 hover:bg-blue-700"
+              >
+                Update Role
+              </Button>
             </div>
 
             <div>
-              <h3 className="text-white font-semibold mb-3">Adjust G-Chips</h3>
-              <div className="flex items-center space-x-2">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Adjust Chips (Current: {selectedUser.gagsty_chips})
+              </label>
+              <div className="flex space-x-2">
                 <Input
                   type="number"
-                  value={chipAmount}
-                  onChange={(e) => setChipAmount(Number(e.target.value))}
-                  className="bg-gray-800 border-gray-700 text-white w-32"
-                  placeholder="Amount"
+                  value={chipAdjustment}
+                  onChange={(e) => setChipAdjustment(Number(e.target.value))}
+                  placeholder="Amount to add/subtract"
+                  className="bg-gray-800 border-gray-700 text-white"
                 />
                 <Button
-                  size="sm"
-                  onClick={() => adjustUserChips(selectedUser.id, chipAmount)}
-                  className="bg-green-600 hover:bg-green-700"
-                  disabled={chipAmount === 0}
+                  onClick={() => adjustUserChips(selectedUser.id, chipAdjustment)}
+                  className="bg-yellow-600 hover:bg-yellow-700"
                 >
-                  <Coins size={16} className="mr-1" />
-                  Add
-                </Button>
-                <Button
-                  size="sm"
-                  onClick={() => adjustUserChips(selectedUser.id, -chipAmount)}
-                  className="bg-red-600 hover:bg-red-700"
-                  disabled={chipAmount === 0}
-                >
-                  <Coins size={16} className="mr-1" />
-                  Remove
+                  Adjust
                 </Button>
               </div>
-              <p className="text-sm text-gray-400 mt-2">
-                Current balance: {selectedUser.gagsty_chips} G-Chips
-              </p>
             </div>
 
             <Button
-              variant="outline"
               onClick={() => setSelectedUser(null)}
-              className="text-white border-gray-600 hover:bg-gray-800"
+              variant="outline"
+              className="border-gray-600 text-gray-300 hover:bg-gray-800"
             >
               Close
             </Button>
