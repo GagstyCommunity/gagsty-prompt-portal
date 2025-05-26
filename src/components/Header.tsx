@@ -12,12 +12,11 @@ const Header = () => {
   const { user, signOut } = useAuth();
 
   const navigationItems = [
-    { name: 'How It Works', path: '/how-it-works' },
     { name: 'Prompt Battle', path: '/battle' },
     { name: 'Earn', path: '/events' },
     { name: 'Codex', path: '/codex' },
-    { name: 'Community', path: '/community' },
-    { name: 'About Us', path: '/about' },
+    { name: 'Gigs', path: '/jobs' },
+    { name: 'US', path: '/about' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -33,7 +32,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="p-2 rounded-lg bg-gradient-to-r from-purple-600 to-emerald-600">
+            <div className="p-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600">
               <span className="text-lg font-bold text-white">GAGSTY</span>
             </div>
           </Link>
@@ -44,8 +43,8 @@ const Header = () => {
               <Link
                 key={item.name}
                 to={item.path}
-                className={`text-sm font-medium transition-colors hover:text-purple-400 ${
-                  isActive(item.path) ? 'text-purple-400' : 'text-gray-300'
+                className={`text-sm font-medium transition-colors hover:text-blue-400 ${
+                  isActive(item.path) ? 'text-blue-400' : 'text-gray-300'
                 }`}
               >
                 {item.name}
@@ -78,8 +77,8 @@ const Header = () => {
                   </Button>
                 </Link>
                 <Link to="/auth">
-                  <Button className="bg-gradient-to-r from-purple-600 to-emerald-600 hover:from-purple-700 hover:to-emerald-700">
-                    Join Waitlist
+                  <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                    Sign Up
                   </Button>
                 </Link>
               </>
@@ -103,8 +102,8 @@ const Header = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`text-sm font-medium transition-colors hover:text-purple-400 ${
-                    isActive(item.path) ? 'text-purple-400' : 'text-gray-300'
+                  className={`text-sm font-medium transition-colors hover:text-blue-400 ${
+                    isActive(item.path) ? 'text-blue-400' : 'text-gray-300'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -138,8 +137,8 @@ const Header = () => {
                       </Button>
                     </Link>
                     <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
-                      <Button className="bg-gradient-to-r from-purple-600 to-emerald-600 hover:from-purple-700 hover:to-emerald-700 justify-start">
-                        Join Waitlist
+                      <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 justify-start">
+                        Sign Up
                       </Button>
                     </Link>
                   </>

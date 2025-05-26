@@ -4,79 +4,50 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, Target, Rocket, Calendar, CheckCircle, Star } from 'lucide-react';
+import { Target, Users, Zap, Globe } from 'lucide-react';
 
 const About = () => {
-  const team = [
+  const teamMembers = [
     {
       name: 'Alex Chen',
-      role: 'CEO & Co-Founder',
-      bio: 'Former game developer at Epic Games with 10+ years in AI and gaming.',
-      avatar: '👨‍💻'
+      role: 'Founder & CEO',
+      bio: 'Former game dev at major studios, passionate about democratizing game creation.',
+      avatar: '/placeholder.svg'
     },
     {
-      name: 'Sarah Kim',
-      role: 'CTO & Co-Founder',
-      bio: 'AI researcher and former Google engineer specializing in natural language processing.',
-      avatar: '👩‍💻'
+      name: 'Sarah Johnson',
+      role: 'Head of AI',
+      bio: 'ML researcher specializing in creative AI and natural language processing.',
+      avatar: '/placeholder.svg'
     },
     {
-      name: 'Marcus Rivera',
-      role: 'Head of Product',
-      bio: 'Product leader with experience at Unity and Roblox, passionate about creator tools.',
-      avatar: '👨‍🎨'
+      name: 'Marcus Rodriguez',
+      role: 'Head of Community',
+      bio: 'Community builder with 10+ years in gaming and Web3 ecosystems.',
+      avatar: '/placeholder.svg'
     },
     {
-      name: 'Emma Thompson',
-      role: 'Lead AI Engineer',
-      bio: 'PhD in Machine Learning, previously at OpenAI working on creative AI systems.',
-      avatar: '👩‍🔬'
+      name: 'Elena Petrov',
+      role: 'Lead Designer',
+      bio: 'UI/UX designer focused on making complex technology accessible to everyone.',
+      avatar: '/placeholder.svg'
     }
   ];
 
-  const roadmap = [
-    {
-      phase: 'Q3 2024',
-      title: 'Foundation',
-      status: 'completed',
-      items: ['Core AI engine development', 'Initial prompt processing system', 'Basic game templates']
-    },
-    {
-      phase: 'Q4 2024',
-      title: 'Beta Development',
-      status: 'completed',
-      items: ['Advanced AI training', 'Game genre expansion', 'Community features']
-    },
-    {
-      phase: 'Q1 2025',
-      title: 'Alpha Testing',
-      status: 'in-progress',
-      items: ['Closed alpha with select creators', 'Prompt battle system', 'Revenue sharing framework']
-    },
-    {
-      phase: 'Q2 2025',
-      title: 'Platform Refinement',
-      status: 'upcoming',
-      items: ['Public beta launch', 'Mobile optimization', 'Creator monetization tools']
-    },
-    {
-      phase: 'Q3 2025',
-      title: 'Full Launch',
-      status: 'upcoming',
-      items: ['Public platform launch', 'Marketplace opening', 'Advanced creator tools']
-    }
+  const partners = [
+    { name: 'OpenAI', type: 'AI Partner' },
+    { name: 'Unity Technologies', type: 'Development Partner' },
+    { name: 'Polygon', type: 'Blockchain Partner' },
+    { name: 'Y Combinator', type: 'Accelerator' }
   ];
 
-  const mission = {
-    vision: "To democratize game development and empower anyone to become a successful game creator",
-    mission: "We're building the world's first AI-powered platform where creativity meets technology, allowing anyone to turn their imagination into profitable games",
-    values: [
-      { title: 'Accessibility', description: 'Game creation should be accessible to everyone, regardless of technical background' },
-      { title: 'Innovation', description: 'We push the boundaries of what AI can achieve in creative industries' },
-      { title: 'Community', description: 'Success is shared - our creators are partners, not just users' },
-      { title: 'Quality', description: 'Every game created on our platform meets professional standards' }
-    ]
-  };
+  const milestones = [
+    { year: '2023', event: 'Gagsty founded with vision to democratize game creation' },
+    { year: '2024 Q1', event: 'First AI-generated game prototype completed' },
+    { year: '2024 Q2', event: 'Community beta with 1,000+ creators' },
+    { year: '2024 Q3', event: 'Waitlist launch and first Prompt Battle' },
+    { year: '2024 Q4', event: 'Platform launch with full features' }
+  ];
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -86,73 +57,123 @@ const About = () => {
         <div className="max-w-6xl mx-auto">
           {/* Hero Section */}
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-purple-400 to-emerald-400 bg-clip-text text-transparent">
-                About Gagsty
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                What is Gagsty?
               </span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-              We're on a mission to democratize game development and create a new generation of game creators who earn from their creativity.
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              We're building the future of game creation—a world where anyone can turn their wildest ideas into playable games using nothing but natural language prompts.
             </p>
-            <Badge className="bg-gradient-to-r from-purple-600 to-emerald-600 text-white px-6 py-3 text-lg">
-              <Rocket className="mr-2" size={20} />
-              Launching August 30, 2025
-            </Badge>
           </div>
 
-          {/* Mission & Vision */}
-          <div className="grid lg:grid-cols-2 gap-8 mb-16">
-            <Card className="bg-gray-900/50 border-purple-700/50">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center">
-                  <Target className="mr-2 text-purple-400" size={24} />
-                  Our Vision
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-300 text-lg leading-relaxed">{mission.vision}</p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gray-900/50 border-purple-700/50">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center">
-                  <Rocket className="mr-2 text-emerald-400" size={24} />
-                  Our Mission
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-300 text-lg leading-relaxed">{mission.mission}</p>
-              </CardContent>
-            </Card>
-          </div>
+          {/* Vision Statement */}
+          <Card className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 border-purple-800/20 mb-16">
+            <CardContent className="py-12 text-center">
+              <Target className="mx-auto mb-6 text-purple-400" size={48} />
+              <h2 className="text-2xl font-bold text-white mb-4">Our Mission</h2>
+              <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                To democratize game development by combining AI technology with human creativity, 
+                creating an ecosystem where anyone can be a game creator regardless of their technical background.
+              </p>
+            </CardContent>
+          </Card>
 
           {/* Core Values */}
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <Card className="bg-gray-900/50 border-gray-800 text-center">
+              <CardHeader>
+                <Zap className="mx-auto mb-4 text-yellow-400" size={40} />
+                <CardTitle className="text-white">Innovation</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-300">
+                  Pushing the boundaries of what's possible with AI-powered creativity and Web3 technology.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gray-900/50 border-gray-800 text-center">
+              <CardHeader>
+                <Users className="mx-auto mb-4 text-blue-400" size={40} />
+                <CardTitle className="text-white">Community</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-300">
+                  Building a supportive ecosystem where creators collaborate, learn, and succeed together.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gray-900/50 border-gray-800 text-center">
+              <CardHeader>
+                <Globe className="mx-auto mb-4 text-green-400" size={40} />
+                <CardTitle className="text-white">Accessibility</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-300">
+                  Making game development accessible to everyone, regardless of coding experience or background.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Founding Story */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-white text-center mb-12">Our Core Values</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {mission.values.map((value, index) => (
-                <Card key={index} className="bg-gray-900/50 border-gray-800 hover:border-purple-600 transition-all">
-                  <CardContent className="p-6 text-center">
-                    <Star className="w-8 h-8 text-yellow-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold text-white mb-2">{value.title}</h3>
-                    <p className="text-gray-300 text-sm">{value.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
+            <h2 className="text-3xl font-bold text-white text-center mb-8">Our Story</h2>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <p className="text-gray-300 leading-relaxed mb-6">
+                  Gagsty was born from a simple observation: millions of people have incredible game ideas, 
+                  but only a tiny fraction have the technical skills to bring them to life.
+                </p>
+                <p className="text-gray-300 leading-relaxed mb-6">
+                  Our founders, seasoned game developers and AI researchers, realized that breakthrough advances 
+                  in artificial intelligence could finally bridge this gap. What if creating a game could be as 
+                  simple as describing your vision in plain English?
+                </p>
+                <p className="text-gray-300 leading-relaxed">
+                  Today, Gagsty combines cutting-edge AI with a passionate community of creators to make this 
+                  vision a reality. We're not just building tools—we're creating a new creative economy where 
+                  imagination is the only limit.
+                </p>
+              </div>
+              <div className="bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-2xl p-8 border border-blue-800/20">
+                <h3 className="text-xl font-bold text-white mb-4">By the Numbers</h3>
+                <div className="grid grid-cols-2 gap-4 text-center">
+                  <div>
+                    <div className="text-2xl font-bold text-blue-400">10K+</div>
+                    <div className="text-sm text-gray-400">Waitlist Members</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-purple-400">500+</div>
+                    <div className="text-sm text-gray-400">Games Created</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-green-400">$2M+</div>
+                    <div className="text-sm text-gray-400">Creator Earnings</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-yellow-400">50+</div>
+                    <div className="text-sm text-gray-400">Countries</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Team Section */}
+          {/* Team */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-white text-center mb-12">Meet Our Team</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {team.map((member, index) => (
-                <Card key={index} className="bg-gray-900/50 border-purple-700/50 text-center">
-                  <CardContent className="p-6">
-                    <div className="text-4xl mb-4">{member.avatar}</div>
-                    <h3 className="text-lg font-semibold text-white mb-1">{member.name}</h3>
-                    <p className="text-purple-300 font-medium mb-3">{member.role}</p>
+            <h2 className="text-3xl font-bold text-white text-center mb-8">Meet the Team</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {teamMembers.map((member, index) => (
+                <Card key={index} className="bg-gray-900/50 border-gray-800 text-center">
+                  <CardHeader>
+                    <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full mx-auto mb-4"></div>
+                    <CardTitle className="text-white text-lg">{member.name}</CardTitle>
+                    <Badge className="bg-gray-700 text-gray-300">{member.role}</Badge>
+                  </CardHeader>
+                  <CardContent>
                     <p className="text-gray-300 text-sm">{member.bio}</p>
                   </CardContent>
                 </Card>
@@ -160,75 +181,56 @@ const About = () => {
             </div>
           </div>
 
-          {/* Roadmap */}
+          {/* Timeline */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-white text-center mb-12">Development Roadmap</h2>
+            <h2 className="text-3xl font-bold text-white text-center mb-8">Our Journey</h2>
             <div className="space-y-6">
-              {roadmap.map((phase, index) => (
-                <Card key={index} className={`border-2 ${
-                  phase.status === 'completed' ? 'border-emerald-600 bg-emerald-900/20' :
-                  phase.status === 'in-progress' ? 'border-yellow-600 bg-yellow-900/20' :
-                  'border-gray-700 bg-gray-900/50'
-                }`}>
-                  <CardContent className="p-6">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                      <div className="flex items-center space-x-4 mb-2 md:mb-0">
-                        <Badge className={`${
-                          phase.status === 'completed' ? 'bg-emerald-600' :
-                          phase.status === 'in-progress' ? 'bg-yellow-600' :
-                          'bg-gray-600'
-                        } text-white`}>
-                          <Calendar className="mr-1" size={14} />
-                          {phase.phase}
-                        </Badge>
-                        <h3 className="text-xl font-semibold text-white">{phase.title}</h3>
-                      </div>
-                      <Badge className={`${
-                        phase.status === 'completed' ? 'bg-emerald-600' :
-                        phase.status === 'in-progress' ? 'bg-yellow-600' :
-                        'bg-gray-600'
-                      } text-white`}>
-                        {phase.status === 'completed' ? 'Completed' :
-                         phase.status === 'in-progress' ? 'In Progress' :
-                         'Upcoming'}
-                      </Badge>
-                    </div>
-                    <div className="grid md:grid-cols-3 gap-4">
-                      {phase.items.map((item, itemIndex) => (
-                        <div key={itemIndex} className="flex items-center text-gray-300">
-                          <CheckCircle className={`w-4 h-4 mr-2 ${
-                            phase.status === 'completed' ? 'text-emerald-400' :
-                            phase.status === 'in-progress' ? 'text-yellow-400' :
-                            'text-gray-600'
-                          }`} />
-                          <span className="text-sm">{item}</span>
-                        </div>
-                      ))}
-                    </div>
+              {milestones.map((milestone, index) => (
+                <div key={index} className="flex items-start space-x-4">
+                  <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full w-20 h-8 flex items-center justify-center text-sm font-bold flex-shrink-0">
+                    {milestone.year}
+                  </div>
+                  <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4 flex-1">
+                    <p className="text-gray-300">{milestone.event}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Partners */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold text-white text-center mb-8">Partners & Supporters</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {partners.map((partner, index) => (
+                <Card key={index} className="bg-gray-900/50 border-gray-800 text-center">
+                  <CardContent className="py-6">
+                    <div className="w-16 h-16 bg-gradient-to-br from-gray-600 to-gray-800 rounded-lg mx-auto mb-4"></div>
+                    <h3 className="font-semibold text-white">{partner.name}</h3>
+                    <p className="text-sm text-gray-400">{partner.type}</p>
                   </CardContent>
                 </Card>
               ))}
             </div>
           </div>
 
-          {/* Contact CTA */}
-          <Card className="bg-gradient-to-r from-purple-900/30 to-emerald-900/30 border-purple-700/50">
+          {/* Press Mentions */}
+          <Card className="bg-gray-900/50 border-gray-800">
             <CardContent className="text-center py-12">
-              <h3 className="text-2xl font-bold text-white mb-4">Want to Learn More?</h3>
-              <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-                Have questions about our platform, team, or vision? We'd love to hear from you.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="mailto:hello@gagsty.com" className="inline-block">
-                  <button className="bg-gradient-to-r from-purple-600 to-emerald-600 hover:from-purple-700 hover:to-emerald-700 text-white font-semibold px-8 py-3 rounded-lg transition-all">
-                    Contact Us
-                  </button>
-                </a>
-                <a href="#" className="inline-block">
-                  <button className="border border-purple-600 text-purple-300 hover:bg-purple-600 hover:text-white font-semibold px-8 py-3 rounded-lg transition-all">
-                    Join Our Discord
-                  </button>
-                </a>
+              <h2 className="text-2xl font-bold text-white mb-6">Press & Recognition</h2>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div>
+                  <h3 className="font-semibold text-emerald-400 mb-2">TechCrunch</h3>
+                  <p className="text-gray-300 text-sm">"Gagsty is revolutionizing how games are made"</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-blue-400 mb-2">VentureBeat</h3>
+                  <p className="text-gray-300 text-sm">"The future of collaborative game development"</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-purple-400 mb-2">Game Developer</h3>
+                  <p className="text-gray-300 text-sm">"AI-powered creativity at its finest"</p>
+                </div>
               </div>
             </CardContent>
           </Card>

@@ -6,14 +6,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Index from "./pages/Index";
-import HowItWorks from "./pages/HowItWorks";
-import Community from "./pages/Community";
-import About from "./pages/About";
 import Submit from "./pages/Submit";
 import Codex from "./pages/Codex";
 import Battle from "./pages/Battle";
 import Events from "./pages/Events";
 import Jobs from "./pages/Jobs";
+import About from "./pages/About";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
@@ -30,9 +28,6 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/how-it-works" element={<HowItWorks />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/about" element={<About />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/admin" element={<Admin />} />
@@ -41,6 +36,7 @@ const App = () => (
             <Route path="/battle" element={<Battle />} />
             <Route path="/events" element={<Events />} />
             <Route path="/jobs" element={<Jobs />} />
+            <Route path="/about" element={<About />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
