@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Wand2, Gamepad2, Sparkles, Play, Share2 } from 'lucide-react';
+import { Wand2, Gamepad2, Sparkles, Eye, Share2, Clock, Calendar } from 'lucide-react';
 
 const InteractiveDemo = () => {
   const [prompt, setPrompt] = useState('');
@@ -52,7 +52,7 @@ const InteractiveDemo = () => {
         ...randomGame,
         prompt: prompt,
         title: `${prompt.split(' ').slice(0, 3).join(' ')} Game`,
-        description: `An AI-generated game based on: "${prompt}"`
+        description: `An AI-generated game concept based on: "${prompt}"`
       });
       setIsGenerating(false);
     }, 2000);
@@ -63,13 +63,17 @@ const InteractiveDemo = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-400 to-emerald-400 bg-clip-text text-transparent">
               See AI Magic in Action
             </span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Type any game idea below and watch our AI transform it into a playable game concept
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-4">
+            Experience how our AI transforms simple prompts into game concepts
           </p>
+          <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2">
+            <Calendar className="mr-2" size={16} />
+            Full Platform Launches August 30, 2025
+          </Badge>
         </div>
 
         {/* Interactive Demo */}
@@ -88,7 +92,7 @@ const InteractiveDemo = () => {
                 <Button
                   onClick={handleGenerate}
                   disabled={!prompt.trim() || isGenerating}
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-8 py-4 text-lg"
+                  className="bg-gradient-to-r from-purple-600 to-emerald-600 hover:from-purple-700 hover:to-emerald-700 px-8 py-4 text-lg"
                 >
                   {isGenerating ? (
                     <>
@@ -98,7 +102,7 @@ const InteractiveDemo = () => {
                   ) : (
                     <>
                       <Wand2 className="mr-2" size={20} />
-                      Create Game
+                      Preview Game Concept
                     </>
                   )}
                 </Button>
@@ -106,7 +110,7 @@ const InteractiveDemo = () => {
 
               {/* Generated Game Preview */}
               {generatedGame && (
-                <div className="mt-8 p-6 bg-gradient-to-r from-purple-900/30 to-blue-900/30 rounded-lg border border-purple-700/50">
+                <div className="mt-8 p-6 bg-gradient-to-r from-purple-900/30 to-emerald-900/30 rounded-lg border border-purple-700/50">
                   <div className="flex items-center mb-4">
                     <div className="text-4xl mr-4">{generatedGame.image}</div>
                     <div>
@@ -127,18 +131,18 @@ const InteractiveDemo = () => {
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4 text-sm text-gray-400">
-                      <span>🎮 {generatedGame.stats.plays.toLocaleString()} plays</span>
-                      <span>⭐ {generatedGame.stats.rating}/5.0</span>
+                      <span>🎮 Demo concept</span>
+                      <span>⭐ AI-generated</span>
                     </div>
                     
                     <div className="flex space-x-2">
-                      <Button className="bg-green-600 hover:bg-green-700">
-                        <Play className="mr-2" size={16} />
-                        Try Demo
+                      <Button className="bg-purple-600 hover:bg-purple-700">
+                        <Eye className="mr-2" size={16} />
+                        Preview Concept
                       </Button>
                       <Button variant="outline" className="border-gray-600 text-gray-300">
                         <Share2 className="mr-2" size={16} />
-                        Share
+                        Share Idea
                       </Button>
                     </div>
                   </div>
@@ -150,34 +154,47 @@ const InteractiveDemo = () => {
 
         {/* Example Games Gallery */}
         <div className="text-center mb-8">
-          <h3 className="text-2xl font-bold text-white mb-4">Popular AI-Generated Games</h3>
-          <p className="text-gray-400">Created by our community using simple prompts</p>
+          <h3 className="text-2xl font-bold text-white mb-4">Game Concepts Created by AI</h3>
+          <p className="text-gray-400">Examples of what you'll be able to create at launch</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
           {demoGames.map((game, index) => (
-            <Card key={index} className="bg-gray-900/50 border-gray-700 hover:border-gray-600 transition-all">
+            <Card key={index} className="bg-gray-900/50 border-gray-700 hover:border-purple-600 transition-all">
               <CardContent className="p-6">
                 <div className="text-center mb-4">
                   <div className="text-4xl mb-2">{game.image}</div>
                   <h4 className="text-lg font-bold text-white">{game.title}</h4>
-                  <Badge className="bg-blue-600 text-white">{game.genre}</Badge>
+                  <Badge className="bg-purple-600 text-white">{game.genre}</Badge>
                 </div>
                 
                 <p className="text-gray-300 text-sm mb-4">{game.description}</p>
                 
                 <div className="flex justify-between items-center text-sm text-gray-400 mb-4">
-                  <span>🎮 {game.stats.plays.toLocaleString()}</span>
+                  <span>🎯 Concept</span>
                   <span>⭐ {game.stats.rating}</span>
                 </div>
 
-                <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                  <Gamepad2 className="mr-2" size={16} />
-                  Play Now
+                <Button className="w-full bg-gradient-to-r from-purple-600 to-emerald-600 hover:from-purple-700 hover:to-emerald-700">
+                  <Clock className="mr-2" size={16} />
+                  Coming August 30
                 </Button>
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        {/* Call to action for waitlist */}
+        <div className="mt-16 text-center">
+          <Card className="bg-gradient-to-r from-purple-900/30 to-emerald-900/30 border-purple-700/50 p-8">
+            <CardContent>
+              <h3 className="text-2xl font-bold text-white mb-4">Ready to Create Your Own Games?</h3>
+              <p className="text-gray-300 mb-6">Join our waitlist to be first in line when we launch on August 30, 2025</p>
+              <Button className="bg-gradient-to-r from-purple-600 to-emerald-600 hover:from-purple-700 hover:to-emerald-700 px-8 py-3">
+                Join Waitlist Now
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>

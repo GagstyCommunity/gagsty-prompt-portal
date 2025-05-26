@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, Play, Heart, Share2, Trophy, Filter, Grid, List } from 'lucide-react';
+import { Search, Eye, Heart, Share2, Trophy, Filter, Grid, List, Clock, Calendar } from 'lucide-react';
 
 const CreatorGallery = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -26,12 +26,13 @@ const CreatorGallery = () => {
       chips: 2500,
       featured: true,
       description: "High-speed cyberpunk action with stunning neon visuals",
-      tags: ["Fast-Paced", "Cyberpunk", "Leaderboards"]
+      tags: ["Fast-Paced", "Cyberpunk", "Leaderboards"],
+      status: "concept"
     },
     {
       id: 2,
       title: "Mystical Garden",
-      creator: "Sofia Rodriguez",
+      creator: "Sofia Rodriguez", 
       prompt: "A peaceful garden where magical creatures help you grow plants",
       genre: "Simulation",
       image: "🌸",
@@ -41,7 +42,8 @@ const CreatorGallery = () => {
       chips: 1800,
       featured: true,
       description: "Zen gardening experience with magical companions",
-      tags: ["Relaxing", "Magic", "Zen"]
+      tags: ["Relaxing", "Magic", "Zen"],
+      status: "concept"
     },
     {
       id: 3,
@@ -56,7 +58,8 @@ const CreatorGallery = () => {
       chips: 3100,
       featured: false,
       description: "Strategic resource management in the depths of space",
-      tags: ["Strategy", "Resource Management", "Space"]
+      tags: ["Strategy", "Resource Management", "Space"],
+      status: "concept"
     },
     {
       id: 4,
@@ -71,7 +74,8 @@ const CreatorGallery = () => {
       chips: 1200,
       featured: false,
       description: "Create music while solving challenging puzzles",
-      tags: ["Music", "Creative", "Brain Training"]
+      tags: ["Music", "Creative", "Brain Training"],
+      status: "concept"
     },
     {
       id: 5,
@@ -86,7 +90,8 @@ const CreatorGallery = () => {
       chips: 2200,
       featured: true,
       description: "Epic dragon training and tournament battles",
-      tags: ["Dragons", "Training", "Competition"]
+      tags: ["Dragons", "Training", "Competition"],
+      status: "concept"
     },
     {
       id: 6,
@@ -101,7 +106,8 @@ const CreatorGallery = () => {
       chips: 890,
       featured: false,
       description: "Learn quantum physics through interactive puzzles",
-      tags: ["Educational", "Science", "Mind Bending"]
+      tags: ["Educational", "Science", "Mind Bending"],
+      status: "concept"
     }
   ];
 
@@ -124,12 +130,16 @@ const CreatorGallery = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
             <span className="bg-gradient-to-r from-purple-400 to-emerald-400 bg-clip-text text-transparent">
-              Creator Gallery
+              Future Creator Gallery
             </span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Discover amazing games created by our community using simple prompts
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-4">
+            Preview amazing game concepts that will be created by our community
           </p>
+          <Badge className="bg-gradient-to-r from-purple-600 to-emerald-600 text-white px-4 py-2">
+            <Calendar className="mr-2" size={16} />
+            Games Available August 30, 2025
+          </Badge>
         </div>
 
         {/* Search and Filters */}
@@ -137,7 +147,7 @@ const CreatorGallery = () => {
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-3 text-gray-400" size={20} />
             <Input
-              placeholder="Search games, creators, or prompts..."
+              placeholder="Search game concepts, creators, or prompts..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10 bg-gray-900 border-gray-700 text-white placeholder-gray-400"
@@ -182,17 +192,17 @@ const CreatorGallery = () => {
         {featuredGamesList.length > 0 && (
           <div className="mb-12">
             <div className="flex items-center mb-6">
-              <Trophy className="text-yellow-500 mr-2" size={24} />
-              <h3 className="text-2xl font-bold text-white">Featured Creations</h3>
+              <Trophy className="text-purple-500 mr-2" size={24} />
+              <h3 className="text-2xl font-bold text-white">Featured Concepts</h3>
             </div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredGamesList.map(game => (
-                <Card key={game.id} className="bg-gradient-to-br from-purple-900/30 to-blue-900/30 border-purple-700/50 hover:border-purple-600/70 transition-all group">
+                <Card key={game.id} className="bg-gradient-to-br from-purple-900/30 to-emerald-900/30 border-purple-700/50 hover:border-purple-600/70 transition-all group">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-4">
                       <div className="text-4xl">{game.image}</div>
-                      <Badge className="bg-yellow-600 text-white">Featured</Badge>
+                      <Badge className="bg-purple-600 text-white">Featured</Badge>
                     </div>
                     
                     <h4 className="text-xl font-bold text-white mb-2">{game.title}</h4>
@@ -214,16 +224,16 @@ const CreatorGallery = () => {
                     </div>
 
                     <div className="flex justify-between items-center text-sm text-gray-400 mb-4">
-                      <span>🎮 {game.plays.toLocaleString()}</span>
+                      <span>🎯 Concept</span>
                       <span>❤️ {game.likes}</span>
                       <span>⭐ {game.rating}</span>
                       <span>💎 {game.chips}</span>
                     </div>
 
                     <div className="flex space-x-2">
-                      <Button className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-                        <Play className="mr-2" size={16} />
-                        Play
+                      <Button className="flex-1 bg-gradient-to-r from-purple-600 to-emerald-600 hover:from-purple-700 hover:to-emerald-700">
+                        <Eye className="mr-2" size={16} />
+                        Preview Concept
                       </Button>
                       <Button variant="outline" className="border-gray-600 text-gray-300">
                         <Heart size={16} />
@@ -242,11 +252,11 @@ const CreatorGallery = () => {
         {/* Regular Games Grid */}
         {regularGamesList.length > 0 && (
           <div>
-            <h3 className="text-2xl font-bold text-white mb-6">Community Creations</h3>
+            <h3 className="text-2xl font-bold text-white mb-6">Community Concepts</h3>
             
             <div className={viewMode === 'grid' ? "grid md:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-4"}>
               {regularGamesList.map(game => (
-                <Card key={game.id} className={`bg-gray-900/50 border-gray-700 hover:border-gray-600 transition-all ${viewMode === 'list' ? 'p-4' : ''}`}>
+                <Card key={game.id} className={`bg-gray-900/50 border-gray-700 hover:border-purple-600 transition-all ${viewMode === 'list' ? 'p-4' : ''}`}>
                   <CardContent className={viewMode === 'list' ? "flex items-center space-x-6" : "p-6"}>
                     {viewMode === 'list' ? (
                       <>
@@ -254,25 +264,25 @@ const CreatorGallery = () => {
                         <div className="flex-1">
                           <div className="flex items-center space-x-2 mb-1">
                             <h4 className="text-lg font-bold text-white">{game.title}</h4>
-                            <Badge className="bg-gray-700 text-gray-300">{game.genre}</Badge>
+                            <Badge className="bg-purple-700 text-gray-300">{game.genre}</Badge>
                           </div>
                           <p className="text-gray-400 text-sm mb-2">by {game.creator}</p>
                           <p className="text-gray-300 text-sm">{game.description}</p>
                         </div>
                         <div className="text-right text-sm text-gray-400">
-                          <div>🎮 {game.plays.toLocaleString()}</div>
+                          <div>🎯 Concept</div>
                           <div>⭐ {game.rating}</div>
                         </div>
-                        <Button className="bg-blue-600 hover:bg-blue-700">
-                          <Play className="mr-2" size={16} />
-                          Play
+                        <Button className="bg-purple-600 hover:bg-purple-700">
+                          <Clock className="mr-2" size={16} />
+                          Coming Soon
                         </Button>
                       </>
                     ) : (
                       <>
                         <div className="flex items-center justify-between mb-4">
                           <div className="text-3xl">{game.image}</div>
-                          <Badge className="bg-gray-700 text-gray-300">{game.genre}</Badge>
+                          <Badge className="bg-purple-700 text-gray-300">{game.genre}</Badge>
                         </div>
                         
                         <h4 className="text-lg font-bold text-white mb-1">{game.title}</h4>
@@ -280,14 +290,14 @@ const CreatorGallery = () => {
                         <p className="text-gray-300 text-sm mb-4">{game.description}</p>
 
                         <div className="flex justify-between items-center text-sm text-gray-400 mb-4">
-                          <span>🎮 {game.plays.toLocaleString()}</span>
+                          <span>🎯 Concept</span>
                           <span>❤️ {game.likes}</span>
                           <span>⭐ {game.rating}</span>
                         </div>
 
-                        <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                          <Play className="mr-2" size={16} />
-                          Play Now
+                        <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                          <Clock className="mr-2" size={16} />
+                          Coming August 30
                         </Button>
                       </>
                     )}
@@ -302,10 +312,10 @@ const CreatorGallery = () => {
         <div className="mt-16 text-center">
           <Card className="bg-gradient-to-r from-purple-900/30 to-emerald-900/30 border-purple-700/50 p-8">
             <CardContent>
-              <h3 className="text-2xl font-bold text-white mb-4">Ready to Create Your Own Game?</h3>
-              <p className="text-gray-300 mb-6">Join thousands of creators and bring your ideas to life with AI</p>
+              <h3 className="text-2xl font-bold text-white mb-4">Ready to Create Your Own Games?</h3>
+              <p className="text-gray-300 mb-6">Join our waitlist to be first to create when we launch on August 30, 2025</p>
               <Button className="bg-gradient-to-r from-purple-600 to-emerald-600 hover:from-purple-700 hover:to-emerald-700 px-8 py-3">
-                Start Creating Now
+                Join Waitlist Now
               </Button>
             </CardContent>
           </Card>
