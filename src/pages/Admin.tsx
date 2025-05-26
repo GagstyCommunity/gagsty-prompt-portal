@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -17,7 +18,7 @@ import {
   Bell,
   UserPlus,
   Calendar,
-  Wrench,
+  Tool,
   Home
 } from 'lucide-react';
 import AdminDashboard from '@/components/admin/AdminDashboard';
@@ -97,7 +98,7 @@ const Admin = () => {
     { id: 'notifications', label: 'Notifications', icon: Bell },
     { id: 'referrals', label: 'Referral System', icon: UserPlus },
     { id: 'events', label: 'Events & Rewards', icon: Calendar },
-    { id: 'tools', label: 'Tools & Partnerships', icon: Wrench },
+    { id: 'tools', label: 'Tools & Partnerships', icon: Tool },
     { id: 'blog', label: 'Content Hub', icon: BookOpen },
     { id: 'settings', label: 'Admin Settings', icon: Settings },
   ];
@@ -180,7 +181,7 @@ const Admin = () => {
         
         {activeTab === 'tools' && (
           <div className="text-center text-gray-400 mt-20">
-            <Wrench size={64} className="mx-auto mb-4" />
+            <Tool size={64} className="mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-2">Tools & Partnerships</h2>
             <p>Coming soon - Tool partnerships and affiliate tracking</p>
           </div>

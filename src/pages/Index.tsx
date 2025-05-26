@@ -2,9 +2,6 @@
 import React from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
-import InteractiveDemo from '../components/InteractiveDemo';
-import CreatorGallery from '../components/CreatorGallery';
-import CommunityMetrics from '../components/CommunityMetrics';
 import HowItWorks from '../components/HowItWorks';
 import KeyFeatures from '../components/KeyFeatures';
 import WaitlistBenefits from '../components/WaitlistBenefits';
@@ -25,9 +22,6 @@ const Index = () => {
         {/* Main content */}
         <div className="relative z-10">
           <Hero />
-          <InteractiveDemo />
-          <CreatorGallery />
-          <CommunityMetrics />
           <HowItWorks />
           <KeyFeatures />
           <WaitlistBenefits />
