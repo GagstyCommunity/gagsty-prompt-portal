@@ -1,16 +1,19 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { Badge } from '@/components/ui/badge';
-import { Sparkles, Zap, Trophy, Users, Calendar, Clock } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
+import { Sparkles, Zap, Trophy, Users, Calendar, Clock, CheckCircle } from 'lucide-react';
 
 const Hero = () => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [step, setStep] = useState(1);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuth();
 
@@ -18,51 +21,64 @@ const Hero = () => {
   const launchDate = new Date('2025-08-30');
   const today = new Date();
   const daysUntilLaunch = Math.ceil((launchDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  const hoursUntilLaunch = Math.ceil((launchDate.getTime() - today.getTime()) / (1000 * 60 * 60));
+
+  // Countdown state
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = launchDate.getTime() - now;
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      setTimeLeft({ days, hours, minutes, seconds });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const waitlistCount = 2847;
+  const estimatedPosition = waitlistCount + Math.floor(Math.random() * 50);
 
   const handleWaitlistSignup = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      if (user) {
-        toast({
-          title: "Welcome back, Future Creator! 🚀",
-          description: "You're already part of the exclusive Gagsty waitlist!",
-        });
-        navigate('/dashboard');
-      } else {
-        localStorage.setItem('waitlist_email', email);
-        toast({
-          title: "Welcome to the Future of Gaming! 🎮",
-          description: "You'll get 500 G-Chips when we launch on August 30, 2025!",
-        });
-        navigate('/auth');
-      }
-      setEmail('');
+      setLoading(true);
+      
+      setTimeout(() => {
+        if (user) {
+          toast({
+            title: "Welcome back, Future Creator! 🚀",
+            description: "You're already part of the exclusive Gagsty waitlist!",
+          });
+          navigate('/dashboard');
+        } else {
+          localStorage.setItem('waitlist_email', email);
+          setShowConfirmation(true);
+          setStep(2);
+          toast({
+            title: "Welcome to the Future of Gaming! 🎮",
+            description: "Check your email to complete your waitlist registration!",
+          });
+        }
+        setLoading(false);
+      }, 1000);
     }
   };
 
-  const getDynamicCTA = () => {
-    if (user) {
-      return {
-        text: "View Waitlist Dashboard",
-        description: "Track your position and prepare for launch"
-      };
-    }
-    
-    const hasEmail = localStorage.getItem('waitlist_email');
-    if (hasEmail) {
-      return {
-        text: "Complete Waitlist Registration",
-        description: "Secure your spot for early access"
-      };
-    }
-    
-    return {
-      text: "Join Exclusive Waitlist + Get 500 Chips",
-      description: "Be first to create games when we launch"
-    };
+  const completeRegistration = () => {
+    navigate('/auth');
   };
-
-  const ctaInfo = getDynamicCTA();
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 py-20">
@@ -84,19 +100,42 @@ const Hero = () => {
           </div>
         </div>
 
+        {/* Countdown Timer */}
+        <div className="bg-gradient-to-r from-purple-900/30 to-emerald-900/30 rounded-2xl p-6 border border-purple-700/50 mb-8">
+          <h3 className="text-xl font-bold text-white mb-4">Platform Launches In:</h3>
+          <div className="grid grid-cols-4 gap-4 max-w-md mx-auto">
+            <div className="bg-purple-600 rounded-lg p-3">
+              <div className="text-2xl font-bold text-white">{timeLeft.days}</div>
+              <div className="text-purple-200 text-sm">Days</div>
+            </div>
+            <div className="bg-blue-600 rounded-lg p-3">
+              <div className="text-2xl font-bold text-white">{timeLeft.hours}</div>
+              <div className="text-blue-200 text-sm">Hours</div>
+            </div>
+            <div className="bg-emerald-600 rounded-lg p-3">
+              <div className="text-2xl font-bold text-white">{timeLeft.minutes}</div>
+              <div className="text-emerald-200 text-sm">Minutes</div>
+            </div>
+            <div className="bg-purple-500 rounded-lg p-3">
+              <div className="text-2xl font-bold text-white">{timeLeft.seconds}</div>
+              <div className="text-purple-200 text-sm">Seconds</div>
+            </div>
+          </div>
+        </div>
+
         {/* Launch countdown and waitlist badges */}
         <div className="flex flex-wrap justify-center gap-4 mb-6">
           <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 text-lg">
             <Calendar className="mr-2" size={16} />
-            Launching August 30, 2025
+            August 30, 2025
           </Badge>
           <Badge className="bg-gradient-to-r from-emerald-600 to-purple-600 text-white px-4 py-2">
-            <Clock className="mr-2" size={14} />
-            {daysUntilLaunch} Days Left
+            <Users className="mr-1" size={14} />
+            {waitlistCount.toLocaleString()}+ Creators Waiting
           </Badge>
           <Badge className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-4 py-2">
-            <Users className="mr-1" size={14} />
-            2,847+ Waitlist Members
+            <Trophy className="mr-1" size={14} />
+            Early Access Reserved
           </Badge>
         </div>
 
@@ -135,41 +174,67 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Enhanced waitlist signup form */}
+        {/* Enhanced waitlist signup form with progress */}
         <div className="max-w-md mx-auto mt-12">
-          <form onSubmit={handleWaitlistSignup} className="space-y-4">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Input
-                type="email"
-                placeholder="Enter your email for early access"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 bg-gray-900/50 border-gray-700 text-white placeholder-gray-400 focus:border-purple-500 focus:ring-purple-500 text-lg py-3"
-                required
-              />
+          {!showConfirmation ? (
+            <>
+              <div className="mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-gray-400">Step {step} of 2</span>
+                  <span className="text-sm text-purple-400">Join {waitlistCount.toLocaleString()}+ creators</span>
+                </div>
+                <Progress value={step * 50} className="h-2" />
+              </div>
+              
+              <form onSubmit={handleWaitlistSignup} className="space-y-4">
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Input
+                    type="email"
+                    placeholder="Enter your email for early access"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="flex-1 bg-gray-900/50 border-purple-700 text-white placeholder-gray-400 focus:border-purple-500 focus:ring-purple-500 text-lg py-3"
+                    required
+                  />
+                  <Button 
+                    type="submit"
+                    className="bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 hover:from-purple-700 hover:via-blue-700 hover:to-emerald-700 text-white font-semibold px-8 py-3 text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <>
+                        <Sparkles className="mr-2 animate-spin" size={18} />
+                        Joining...
+                      </>
+                    ) : (
+                      <>
+                        <Zap className="mr-2" size={18} />
+                        Join Waitlist
+                      </>
+                    )}
+                  </Button>
+                </div>
+                
+                <p className="text-sm text-gray-400">
+                  Get early access + 500 bonus G-Chips when we launch
+                </p>
+              </form>
+            </>
+          ) : (
+            <div className="bg-gradient-to-r from-purple-900/30 to-emerald-900/30 rounded-lg p-6 border border-purple-700/50">
+              <div className="flex items-center justify-center mb-4">
+                <CheckCircle className="text-emerald-400 mr-2" size={24} />
+                <h3 className="text-xl font-bold text-white">Email Confirmed!</h3>
+              </div>
+              <p className="text-gray-300 mb-4">You're now #{estimatedPosition.toLocaleString()} on our waitlist</p>
               <Button 
-                type="submit"
-                className="bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 hover:from-purple-700 hover:via-blue-700 hover:to-emerald-700 text-white font-semibold px-8 py-3 text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-                disabled={loading}
+                onClick={completeRegistration}
+                className="w-full bg-gradient-to-r from-purple-600 to-emerald-600 hover:from-purple-700 hover:to-emerald-700"
               >
-                {user ? (
-                  <>
-                    <Sparkles className="mr-2" size={18} />
-                    View Dashboard
-                  </>
-                ) : (
-                  <>
-                    <Zap className="mr-2" size={18} />
-                    {ctaInfo.text}
-                  </>
-                )}
+                Complete Profile (Step 2)
               </Button>
             </div>
-            
-            <p className="text-sm text-gray-400">
-              {ctaInfo.description}
-            </p>
-          </form>
+          )}
           
           <div className="flex items-center justify-center space-x-6 mt-6 text-sm text-gray-400">
             <span>✅ Free to join</span>
@@ -192,7 +257,7 @@ const Hero = () => {
             </div>
             <div className="text-center">
               <div className="text-2xl mb-2">🏆</div>
-              <p className="text-gray-300">Exclusive creator badge & perks</p>
+              <p className="text-gray-300">Founding Creator badge & perks</p>
             </div>
           </div>
         </div>
