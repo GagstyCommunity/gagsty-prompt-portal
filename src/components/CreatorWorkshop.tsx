@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -14,7 +13,7 @@ import {
   Target,
   Award,
   Crown,
-  Fire,
+  Flame,
   TrendingUp
 } from 'lucide-react';
 
@@ -82,7 +81,7 @@ const CreatorWorkshop = () => {
             From spectator to creator - Start building your game empire today
           </p>
           <Badge className="bg-gradient-to-r from-purple-600 to-emerald-600 text-white px-4 py-2">
-            <Fire className="mr-2" size={16} />
+            <Flame className="mr-2" size={16} />
             2,847 Creators Already Building
           </Badge>
         </div>
