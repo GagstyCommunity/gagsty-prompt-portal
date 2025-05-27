@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Header from '../components/Header';
+import EnhancedHeader from '../components/navigation/EnhancedHeader';
 import Hero from '../components/Hero';
 import SimpleDemo from '../components/SimpleDemo';
 import CreatorWorkshop from '../components/CreatorWorkshop';
@@ -13,7 +13,7 @@ import Footer from '../components/Footer';
 const Index = () => {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      <Header />
+      <EnhancedHeader />
       <div className="relative pt-16">
         {/* Enhanced animated background effects with waitlist theme colors */}
         <div className="fixed inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-emerald-900/20 pointer-events-none" />

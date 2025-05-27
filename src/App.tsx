@@ -12,6 +12,7 @@ import Battle from "./pages/Battle";
 import Events from "./pages/Events";
 import Jobs from "./pages/Jobs";
 import About from "./pages/About";
+import HowItWorks from "./pages/HowItWorks";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
@@ -37,6 +38,7 @@ const App = () => (
             <Route path="/events" element={<Events />} />
             <Route path="/jobs" element={<Jobs />} />
             <Route path="/about" element={<About />} />
+            <Route path="/how-it-works" element={<HowItWorks />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
