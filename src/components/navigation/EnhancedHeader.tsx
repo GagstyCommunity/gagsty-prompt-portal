@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, ChevronDown, Sparkles } from 'lucide-react';
+import { Menu, X, ChevronDown, GamepadIcon } from 'lucide-react';
 
 const EnhancedHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,29 +11,29 @@ const EnhancedHeader = () => {
 
   const primaryNavItems = [
     { name: 'How It Works', href: '/how-it-works' },
-    { name: 'Creator Showcase', href: '/showcase' },
-    { name: 'Prompt Battle', href: '/battle' },
-    { name: 'Earn', href: '/earn' },
-    { name: 'Community', href: '/community' },
-    { name: 'Blog', href: '/blog' },
+    { name: 'Prompt Battle', href: '/prompt-battle' },
+    { name: 'Submit Prompt', href: '/submit' },
+    { name: 'Earn', href: '/events' },
+    { name: 'Community', href: '/leaderboard' },
+    { name: 'Codex', href: '/codex' },
   ];
 
   const secondaryNavItems = [
     { name: 'About', href: '/about' },
-    { name: 'FAQ', href: '/faq' },
+    { name: 'Jobs', href: '/jobs' },
     { name: 'Contact', href: '/contact' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-lg border-b border-gray-800/50">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-lg border-b border-gray-800/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 hover-lift">
-            <div className="p-2 rounded-xl bg-gradient-to-r from-purple-600 to-emerald-600">
-              <Sparkles className="w-6 h-6 text-white" />
+          <Link to="/" className="flex items-center space-x-2 hover:scale-105 transition-transform">
+            <div className="p-2 rounded-xl bg-gradient-to-r from-blue-500 via-violet-500 to-orange-500">
+              <GamepadIcon className="w-6 h-6 text-white" />
             </div>
             <span className="text-xl font-display font-bold text-white">GAGSTY</span>
           </Link>
@@ -44,8 +44,8 @@ const EnhancedHeader = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`text-sm font-medium transition-colors hover:text-purple-400 ${
-                  isActive(item.href) ? 'text-purple-400' : 'text-gray-300'
+                className={`text-sm font-medium transition-colors hover:text-blue-400 ${
+                  isActive(item.href) ? 'text-blue-400' : 'text-gray-300'
                 }`}
               >
                 {item.name}
@@ -56,7 +56,7 @@ const EnhancedHeader = () => {
             <div className="relative">
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center text-sm font-medium text-gray-300 hover:text-purple-400 transition-colors"
+                className="flex items-center text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors"
               >
                 More
                 <ChevronDown className="ml-1 w-4 h-4" />
@@ -68,7 +68,7 @@ const EnhancedHeader = () => {
                     <Link
                       key={item.name}
                       to={item.href}
-                      className="block px-4 py-2 text-sm text-gray-300 hover:text-purple-400 hover:bg-gray-800/50 transition-colors first:rounded-t-lg last:rounded-b-lg"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:text-blue-400 hover:bg-gray-800/50 transition-colors first:rounded-t-lg last:rounded-b-lg"
                     >
                       {item.name}
                     </Link>
@@ -81,12 +81,12 @@ const EnhancedHeader = () => {
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center space-x-4">
             <Link to="/auth">
-              <Button variant="outline" className="border-purple-600 text-purple-300 hover:bg-purple-600/20">
+              <Button variant="outline" className="border-blue-600 text-blue-300 hover:bg-blue-600/20">
                 Sign In
               </Button>
             </Link>
             <Link to="/auth">
-              <Button className="btn-primary btn-medium">
+              <Button className="bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold px-6 py-2 rounded-lg">
                 Join Waitlist
               </Button>
             </Link>
@@ -110,7 +110,7 @@ const EnhancedHeader = () => {
                   key={item.name}
                   to={item.href}
                   className={`block text-base font-medium transition-colors ${
-                    isActive(item.href) ? 'text-purple-400' : 'text-gray-300 hover:text-purple-400'
+                    isActive(item.href) ? 'text-blue-400' : 'text-gray-300 hover:text-blue-400'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -123,7 +123,7 @@ const EnhancedHeader = () => {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className="block py-2 text-sm text-gray-400 hover:text-purple-400 transition-colors"
+                    className="block py-2 text-sm text-gray-400 hover:text-blue-400 transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
@@ -133,12 +133,12 @@ const EnhancedHeader = () => {
               
               <div className="pt-4 space-y-3">
                 <Link to="/auth" className="block" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="outline" className="w-full border-purple-600 text-purple-300 hover:bg-purple-600/20">
+                  <Button variant="outline" className="w-full border-blue-600 text-blue-300 hover:bg-blue-600/20">
                     Sign In
                   </Button>
                 </Link>
                 <Link to="/auth" className="block" onClick={() => setIsMenuOpen(false)}>
-                  <Button className="w-full btn-primary btn-medium">
+                  <Button className="w-full bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600">
                     Join Waitlist
                   </Button>
                 </Link>

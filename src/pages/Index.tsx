@@ -2,48 +2,53 @@
 import React from 'react';
 import EnhancedHeader from '../components/navigation/EnhancedHeader';
 import Hero from '../components/Hero';
-import SimpleDemo from '../components/SimpleDemo';
-import CreatorWorkshop from '../components/CreatorWorkshop';
-import MultiPathSignup from '../components/MultiPathSignup';
-import CommunityMetrics from '../components/CommunityMetrics';
-import WaitlistBenefits from '../components/WaitlistBenefits';
-import FAQ from '../components/FAQ';
+import HowPromptToGameWorks from '../components/HowPromptToGameWorks';
+import PromptBattlePreview from '../components/PromptBattlePreview';
+import WhyGagsty from '../components/WhyGagsty';
+import WaitlistSection from '../components/WaitlistSection';
+import BadgesLeaderboardPreview from '../components/BadgesLeaderboardPreview';
+import CodexPreview from '../components/CodexPreview';
+import CommunityShoutouts from '../components/CommunityShoutouts';
 import Footer from '../components/Footer';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-black text-white overflow-x-hidden">
+    <div className="min-h-screen bg-black text-white">
       <EnhancedHeader />
-      <div className="relative pt-16">
-        {/* Enhanced animated background effects with waitlist theme colors */}
-        <div className="fixed inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-emerald-900/20 pointer-events-none" />
-        <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,92,246,0.1),transparent_50%)] pointer-events-none" />
+      
+      <main className="pt-16">
+        {/* Enhanced animated background */}
+        <div className="fixed inset-0 bg-gradient-to-br from-blue-900/10 via-violet-900/10 to-orange-900/10 pointer-events-none" />
+        <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,191,255,0.1),transparent_50%)] pointer-events-none" />
         
-        {/* Main content optimized for waitlist experience */}
-        <div className="relative z-10">
+        <div className="relative z-10 space-y-20">
+          {/* Hero: Turn Prompts into Playable Games */}
           <Hero />
           
-          {/* Creator Workshop - The main conversion focus */}
-          <CreatorWorkshop />
+          {/* How Prompt-to-Game Works */}
+          <HowPromptToGameWorks />
           
-          {/* Simple Demo for immediate engagement */}
-          <section className="py-12 px-4">
-            <div className="max-w-4xl mx-auto">
-              <SimpleDemo />
-            </div>
-          </section>
+          {/* Prompt Battle Cards Preview */}
+          <PromptBattlePreview />
           
-          {/* Multi-path signup for different user types */}
-          <section className="py-20 px-4">
-            <MultiPathSignup />
-          </section>
+          {/* Why Gagsty? */}
+          <WhyGagsty />
           
-          <CommunityMetrics />
-          <WaitlistBenefits />
-          <FAQ />
-          <Footer />
+          {/* Waitlist Section */}
+          <WaitlistSection />
+          
+          {/* Badges & Leaderboard Preview */}
+          <BadgesLeaderboardPreview />
+          
+          {/* Codex Preview */}
+          <CodexPreview />
+          
+          {/* Community Shoutouts */}
+          <CommunityShoutouts />
         </div>
-      </div>
+      </main>
+      
+      <Footer />
     </div>
   );
 };

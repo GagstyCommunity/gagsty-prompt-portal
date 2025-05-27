@@ -17,6 +17,8 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import PromptBattle from "./pages/PromptBattle";
+import Leaderboard from "./pages/Leaderboard";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +37,8 @@ const App = () => (
             <Route path="/submit" element={<Submit />} />
             <Route path="/codex" element={<Codex />} />
             <Route path="/battle" element={<Battle />} />
+            <Route path="/prompt-battle" element={<PromptBattle />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/events" element={<Events />} />
             <Route path="/jobs" element={<Jobs />} />
             <Route path="/about" element={<About />} />
