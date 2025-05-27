@@ -2,14 +2,11 @@
 import React from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
-import HowItWorks from '../components/HowItWorks';
-import KeyFeatures from '../components/KeyFeatures';
-import InteractiveDemo from '../components/InteractiveDemo';
-import CreatorGallery from '../components/CreatorGallery';
+import SimpleDemo from '../components/SimpleDemo';
+import CreatorWorkshop from '../components/CreatorWorkshop';
+import MultiPathSignup from '../components/MultiPathSignup';
 import CommunityMetrics from '../components/CommunityMetrics';
 import WaitlistBenefits from '../components/WaitlistBenefits';
-import PromptCompetition from '../components/PromptCompetition';
-import CodexTeaser from '../components/CodexTeaser';
 import FAQ from '../components/FAQ';
 import Footer from '../components/Footer';
 
@@ -25,14 +22,24 @@ const Index = () => {
         {/* Main content optimized for waitlist experience */}
         <div className="relative z-10">
           <Hero />
-          <InteractiveDemo />
+          
+          {/* Creator Workshop - The main conversion focus */}
+          <CreatorWorkshop />
+          
+          {/* Simple Demo for immediate engagement */}
+          <section className="py-12 px-4">
+            <div className="max-w-4xl mx-auto">
+              <SimpleDemo />
+            </div>
+          </section>
+          
+          {/* Multi-path signup for different user types */}
+          <section className="py-20 px-4">
+            <MultiPathSignup />
+          </section>
+          
           <CommunityMetrics />
-          <HowItWorks />
-          <KeyFeatures />
-          <CreatorGallery />
           <WaitlistBenefits />
-          <PromptCompetition />
-          <CodexTeaser />
           <FAQ />
           <Footer />
         </div>
