@@ -84,6 +84,80 @@ export type Database = {
         }
         Relationships: []
       }
+      event_registrations: {
+        Row: {
+          event_id: string | null
+          id: string
+          registered_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          event_id?: string | null
+          id?: string
+          registered_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          event_id?: string | null
+          id?: string
+          registered_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_registrations_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          created_at: string | null
+          description: string
+          end_date: string | null
+          event_type: string
+          id: string
+          max_participants: number | null
+          registration_deadline: string | null
+          reward_pool: number | null
+          start_date: string
+          status: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          end_date?: string | null
+          event_type: string
+          id?: string
+          max_participants?: number | null
+          registration_deadline?: string | null
+          reward_pool?: number | null
+          start_date: string
+          status?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          end_date?: string | null
+          event_type?: string
+          id?: string
+          max_participants?: number | null
+          registration_deadline?: string | null
+          reward_pool?: number | null
+          start_date?: string
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       game_prompts: {
         Row: {
           admin_comment: string | null
@@ -126,6 +200,116 @@ export type Database = {
         }
         Relationships: []
       }
+      gig_applications: {
+        Row: {
+          applicant_id: string | null
+          applied_at: string | null
+          cover_letter: string | null
+          gig_id: string | null
+          id: string
+          status: string | null
+        }
+        Insert: {
+          applicant_id?: string | null
+          applied_at?: string | null
+          cover_letter?: string | null
+          gig_id?: string | null
+          id?: string
+          status?: string | null
+        }
+        Update: {
+          applicant_id?: string | null
+          applied_at?: string | null
+          cover_letter?: string | null
+          gig_id?: string | null
+          id?: string
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gig_applications_gig_id_fkey"
+            columns: ["gig_id"]
+            isOneToOne: false
+            referencedRelation: "gigs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      gigs: {
+        Row: {
+          created_at: string | null
+          creator_id: string | null
+          description: string
+          duration_days: number | null
+          id: string
+          location: string | null
+          reward_amount: number
+          role_type: string
+          skills_required: string[] | null
+          status: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          creator_id?: string | null
+          description: string
+          duration_days?: number | null
+          id?: string
+          location?: string | null
+          reward_amount: number
+          role_type: string
+          skills_required?: string[] | null
+          status?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          creator_id?: string | null
+          description?: string
+          duration_days?: number | null
+          id?: string
+          location?: string | null
+          reward_amount?: number
+          role_type?: string
+          skills_required?: string[] | null
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          created_at: string | null
+          id: string
+          message: string
+          read: boolean | null
+          title: string
+          type: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          message: string
+          read?: boolean | null
+          title: string
+          type?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          message?: string
+          read?: boolean | null
+          title?: string
+          type?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -135,6 +319,9 @@ export type Database = {
           gagsty_chips: number | null
           id: string
           profile_completed: boolean | null
+          referral_code: string | null
+          referred_by: string | null
+          role: string | null
           updated_at: string | null
           username: string | null
         }
@@ -146,6 +333,9 @@ export type Database = {
           gagsty_chips?: number | null
           id: string
           profile_completed?: boolean | null
+          referral_code?: string | null
+          referred_by?: string | null
+          role?: string | null
           updated_at?: string | null
           username?: string | null
         }
@@ -157,8 +347,44 @@ export type Database = {
           gagsty_chips?: number | null
           id?: string
           profile_completed?: boolean | null
+          referral_code?: string | null
+          referred_by?: string | null
+          role?: string | null
           updated_at?: string | null
           username?: string | null
+        }
+        Relationships: []
+      }
+      referrals: {
+        Row: {
+          created_at: string | null
+          id: string
+          referral_code: string
+          referred_email: string
+          referred_user_id: string | null
+          referrer_id: string | null
+          reward_claimed: boolean | null
+          status: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          referral_code: string
+          referred_email: string
+          referred_user_id?: string | null
+          referrer_id?: string | null
+          reward_claimed?: boolean | null
+          status?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          referral_code?: string
+          referred_email?: string
+          referred_user_id?: string | null
+          referrer_id?: string | null
+          reward_claimed?: boolean | null
+          status?: string | null
         }
         Relationships: []
       }
