@@ -1,8 +1,8 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Zap, Trophy, GamepadIcon } from 'lucide-react';
+import { Sparkles, Zap, Trophy, GamepadIcon, Shield } from 'lucide-react';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -38,10 +38,10 @@ const Hero = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            Submit a prompt. Let AI & community build it. You earn. We publish.
+            Submit your game concept. Let our AI & community build it. You earn rewards. We publish.
           </p>
 
-          {/* Value Props */}
+          {/* Key Features Snippets */}
           <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400 mt-8">
             <div className="flex items-center hover:text-blue-400 transition-colors">
               <Sparkles className="mr-2 text-blue-400" size={18} />
@@ -55,13 +55,17 @@ const Hero = () => {
               <Zap className="mr-2 text-orange-400" size={18} />
               <span>Community Driven</span>
             </div>
+            <div className="flex items-center hover:text-green-400 transition-colors">
+              <Shield className="mr-2 text-green-400" size={18} />
+              <span>Play-to-Own</span>
+            </div>
           </div>
         </div>
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
           <Button 
-            onClick={() => navigate('/battle')}
+            onClick={() => navigate('/prompt-battle')}
             className="bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold px-8 py-4 text-lg rounded-xl transition-all duration-300 transform hover:scale-105"
           >
             <Trophy className="mr-2" size={20} />
