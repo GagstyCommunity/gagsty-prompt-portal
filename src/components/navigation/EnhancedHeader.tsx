@@ -1,30 +1,81 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X, ChevronDown, GamepadIcon } from 'lucide-react';
 
 const EnhancedHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const location = useLocation();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const primaryNavItems = [
     { name: 'How It Works', href: '/how-it-works' },
     { name: 'Prompt Battle', href: '/prompt-battle' },
     { name: 'Submit Prompt', href: '/submit' },
-    { name: 'Earn', href: '/events' },
-    { name: 'Community', href: '/leaderboard' },
-    { name: 'Codex', href: '/codex' },
   ];
 
-  const secondaryNavItems = [
-    { name: 'About', href: '/about' },
-    { name: 'Jobs', href: '/jobs' },
-    { name: 'Contact', href: '/contact' },
+  const earnDropdownItems = [
+    { name: 'Events & Challenges', href: '/events', description: 'Join competitions and earn rewards' },
+    { name: 'Gigs Marketplace', href: '/jobs', description: 'Find freelance opportunities' },
+    { name: 'Referral Program', href: '/referral', description: 'Earn by inviting friends' },
+  ];
+
+  const communityDropdownItems = [
+    { name: 'Leaderboard', href: '/leaderboard', description: 'Top creators and earners' },
+    { name: 'Community Hub', href: '/community', description: 'Connect with other creators' },
+    { name: 'Success Stories', href: '/stories', description: 'Creator spotlights and achievements' },
+  ];
+
+  const moreDropdownItems = [
+    { name: 'About Us', href: '/about', description: 'Our mission and team' },
+    { name: 'Codex', href: '/codex', description: 'Learning resources and guides' },
+    { name: 'Contact', href: '/contact', description: 'Get in touch with us' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
+
+  const toggleDropdown = (dropdown: string) => {
+    setOpenDropdown(openDropdown === dropdown ? null : dropdown);
+  };
+
+  const DropdownMenu = ({ items, isOpen }: { items: typeof earnDropdownItems; isOpen: boolean }) => {
+    if (!isOpen) return null;
+    
+    return (
+      <div className="absolute top-full left-0 mt-2 w-72 bg-gray-900/95 backdrop-blur-lg border border-gray-700 rounded-xl shadow-2xl z-50 animate-fade-in">
+        <div className="p-2">
+          {items.map((item, index) => (
+            <Link
+              key={item.name}
+              to={item.href}
+              className="block p-3 rounded-lg hover:bg-gray-800/50 transition-colors group"
+              onClick={() => setOpenDropdown(null)}
+            >
+              <div className="text-white font-medium group-hover:text-blue-400 transition-colors">
+                {item.name}
+              </div>
+              <div className="text-sm text-gray-400 mt-1">
+                {item.description}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-lg border-b border-gray-800/50">
@@ -39,7 +90,7 @@ const EnhancedHeader = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-8" ref={dropdownRef}>
             {primaryNavItems.map((item) => (
               <Link
                 key={item.name}
@@ -52,41 +103,52 @@ const EnhancedHeader = () => {
               </Link>
             ))}
             
+            {/* Earn Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => toggleDropdown('earn')}
+                className="flex items-center text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors"
+              >
+                Earn
+                <ChevronDown className={`ml-1 w-4 h-4 transition-transform ${openDropdown === 'earn' ? 'rotate-180' : ''}`} />
+              </button>
+              <DropdownMenu items={earnDropdownItems} isOpen={openDropdown === 'earn'} />
+            </div>
+
+            {/* Community Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => toggleDropdown('community')}
+                className="flex items-center text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors"
+              >
+                Community
+                <ChevronDown className={`ml-1 w-4 h-4 transition-transform ${openDropdown === 'community' ? 'rotate-180' : ''}`} />
+              </button>
+              <DropdownMenu items={communityDropdownItems} isOpen={openDropdown === 'community'} />
+            </div>
+            
             {/* More dropdown */}
             <div className="relative">
               <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                onClick={() => toggleDropdown('more')}
                 className="flex items-center text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors"
               >
                 More
-                <ChevronDown className="ml-1 w-4 h-4" />
+                <ChevronDown className={`ml-1 w-4 h-4 transition-transform ${openDropdown === 'more' ? 'rotate-180' : ''}`} />
               </button>
-              
-              {isDropdownOpen && (
-                <div className="absolute top-full right-0 mt-2 w-48 bg-gray-900 border border-gray-800 rounded-lg shadow-xl z-50">
-                  {secondaryNavItems.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      className="block px-4 py-2 text-sm text-gray-300 hover:text-blue-400 hover:bg-gray-800/50 transition-colors first:rounded-t-lg last:rounded-b-lg"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
+              <DropdownMenu items={moreDropdownItems} isOpen={openDropdown === 'more'} />
             </div>
           </nav>
 
-          {/* CTA Buttons */}
+          {/* Standardized CTA Buttons */}
           <div className="hidden lg:flex items-center space-x-4">
             <Link to="/auth">
-              <Button variant="outline" className="border-blue-600 text-blue-300 hover:bg-blue-600/20">
+              <Button variant="outline" className="btn-secondary border-blue-600 text-blue-300 hover:bg-blue-600/20">
                 Sign In
               </Button>
             </Link>
             <Link to="/auth">
-              <Button className="bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold px-6 py-2 rounded-lg">
+              <Button className="btn-primary">
                 Join Waitlist
               </Button>
             </Link>
@@ -101,7 +163,7 @@ const EnhancedHeader = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Enhanced Mobile Navigation */}
         {isMenuOpen && (
           <div className="lg:hidden bg-gray-900/95 backdrop-blur-lg border-t border-gray-800/50 animate-fade-in">
             <div className="px-4 py-6 space-y-4">
@@ -119,26 +181,57 @@ const EnhancedHeader = () => {
               ))}
               
               <div className="pt-4 border-t border-gray-800">
-                {secondaryNavItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="block py-2 text-sm text-gray-400 hover:text-blue-400 transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+                <div className="space-y-3">
+                  <div className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Earn</div>
+                  {earnDropdownItems.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className="block py-2 text-sm text-gray-400 hover:text-blue-400 transition-colors ml-4"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+                
+                <div className="space-y-3 mt-4">
+                  <div className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Community</div>
+                  {communityDropdownItems.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className="block py-2 text-sm text-gray-400 hover:text-blue-400 transition-colors ml-4"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+                
+                <div className="space-y-3 mt-4">
+                  <div className="text-sm font-semibold text-gray-400 uppercase tracking-wider">More</div>
+                  {moreDropdownItems.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className="block py-2 text-sm text-gray-400 hover:text-blue-400 transition-colors ml-4"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
               
-              <div className="pt-4 space-y-3">
+              <div className="pt-4 space-y-3 border-t border-gray-800">
                 <Link to="/auth" className="block" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="outline" className="w-full border-blue-600 text-blue-300 hover:bg-blue-600/20">
+                  <Button variant="outline" className="w-full btn-secondary border-blue-600 text-blue-300 hover:bg-blue-600/20">
                     Sign In
                   </Button>
                 </Link>
                 <Link to="/auth" className="block" onClick={() => setIsMenuOpen(false)}>
-                  <Button className="w-full bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600">
+                  <Button className="w-full btn-primary">
                     Join Waitlist
                   </Button>
                 </Link>

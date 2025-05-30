@@ -3,162 +3,173 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Sparkles, Users, Zap } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
-import { Crown, Star, Users } from 'lucide-react';
 
 const WaitlistSection = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    role: ''
-  });
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [email, setEmail] = useState('');
+  const [role, setRole] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const roleOptions = [
+    { value: 'creator', label: 'Game Creator', description: 'I want to submit game ideas' },
+    { value: 'developer', label: 'Developer', description: 'I want to build games' },
+    { value: 'designer', label: 'Designer', description: 'I create game assets and UI' },
+    { value: 'player', label: 'Player', description: 'I want to play and vote on games' },
+    { value: 'investor', label: 'Investor', description: 'I\'m interested in investing' },
+    { value: 'other', label: 'Other', description: 'I\'m interested in the platform' },
+  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.role) {
+    
+    if (!email || !role) {
       toast({
         title: "Missing Information",
-        description: "Please fill in all fields to join the waitlist.",
-        variant: "destructive"
+        description: "Please fill in both email and role fields.",
+        variant: "destructive",
       });
       return;
     }
 
-    setLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setSubmitted(true);
-      setLoading(false);
+    setIsSubmitting(true);
+
+    try {
+      // Simulate API call - replace with actual implementation
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
       toast({
-        title: "Welcome to Gagsty! 🎮",
-        description: "You're now on our exclusive waitlist. Get ready to build the future!",
+        title: "Welcome to the Waitlist!",
+        description: "You'll be notified when we launch. Check your email for confirmation.",
       });
-    }, 1000);
+      
+      setEmail('');
+      setRole('');
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  if (submitted) {
-    return (
-      <section className="py-20 px-4 bg-gradient-to-r from-violet-900/20 to-orange-900/20">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-800 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-violet-500 to-orange-500 rounded-full mb-6">
-              <Crown className="w-8 h-8 text-white" />
-            </div>
-            
-            <h3 className="text-3xl font-bold text-white mb-4">Welcome to the Creator Community!</h3>
-            <p className="text-xl text-gray-300 mb-6">
-              You're creator #{Math.floor(Math.random() * 50) + 2847} in our exclusive waitlist
-            </p>
-            
-            <div className="flex flex-wrap justify-center gap-4 text-sm">
-              <div className="flex items-center bg-violet-500/20 px-4 py-2 rounded-full">
-                <Star className="w-4 h-4 text-violet-400 mr-2" />
-                <span className="text-violet-300">Early Beta Access</span>
-              </div>
-              <div className="flex items-center bg-orange-500/20 px-4 py-2 rounded-full">
-                <Users className="w-4 h-4 text-orange-400 mr-2" />
-                <span className="text-orange-300">Bonus G-Chips</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const benefits = [
+    {
+      icon: Sparkles,
+      title: "Early Access",
+      description: "Be among the first to create and play games"
+    },
+    {
+      icon: Zap,
+      title: "Beta Features",
+      description: "Test new features before public release"
+    },
+    {
+      icon: Users,
+      title: "Founding Member",
+      description: "Special status and exclusive rewards"
+    }
+  ];
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-r from-violet-900/20 to-orange-900/20">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
+    <section id="waitlist" className="py-20 px-4 relative">
+      <div className="max-w-4xl mx-auto text-center">
+        {/* Header */}
+        <div className="mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-violet-400 to-orange-400 bg-clip-text text-transparent">
-              Join Gagsty & Get Early Access
-            </span>
+            <span className="text-gradient-primary">Join the Revolution</span>
           </h2>
-          <p className="text-xl text-gray-300">
-            Top 500 waitlisters get early beta access & bonus Chips
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            Be part of the future of game creation. Get early access and exclusive benefits when we launch.
           </p>
         </div>
 
-        <div className="bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-800">
+        {/* Benefits Grid */}
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          {benefits.map((benefit, index) => (
+            <div key={index} className="card-tertiary card-interactive p-6">
+              <div className="text-blue-400 mb-4 flex justify-center">
+                <benefit.icon size={32} />
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">{benefit.title}</h3>
+              <p className="text-gray-400 text-sm">{benefit.description}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Waitlist Form */}
+        <div className="card-primary max-w-md mx-auto p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                  Full Name
-                </label>
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder="Enter your full name"
-                  value={formData.name}
-                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                  className="bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:border-violet-500 focus:ring-violet-500/20 h-12"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                  Email Address
-                </label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={formData.email}
-                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                  className="bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:border-violet-500 focus:ring-violet-500/20 h-12"
-                  required
-                />
-              </div>
+            <div>
+              <Input
+                type="email"
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="form-input text-center"
+                required
+              />
             </div>
 
             <div>
-              <label htmlFor="role" className="block text-sm font-medium text-gray-300 mb-2">
-                What's your role?
-              </label>
-              <Select onValueChange={(value) => setFormData(prev => ({ ...prev, role: value }))}>
-                <SelectTrigger className="bg-gray-800/50 border-gray-700 text-white h-12">
-                  <SelectValue placeholder="Select your role" />
+              <Select value={role} onValueChange={setRole} required>
+                <SelectTrigger className="form-select text-center">
+                  <SelectValue placeholder="What's your role?" />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-800 border-gray-700">
-                  <SelectItem value="player">Player/Gamer</SelectItem>
-                  <SelectItem value="developer">Game Developer</SelectItem>
-                  <SelectItem value="designer">Game Designer</SelectItem>
-                  <SelectItem value="artist">Artist/Creator</SelectItem>
-                  <SelectItem value="student">Student</SelectItem>
-                  <SelectItem value="entrepreneur">Entrepreneur</SelectItem>
-                  <SelectItem value="investor">Investor</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
+                <SelectContent className="bg-gray-900 border-gray-700">
+                  {roleOptions.map((option) => (
+                    <SelectItem 
+                      key={option.value} 
+                      value={option.value}
+                      className="text-white hover:bg-gray-800 focus:bg-gray-800"
+                    >
+                      <div className="text-left">
+                        <div className="font-medium">{option.label}</div>
+                        <div className="text-sm text-gray-400">{option.description}</div>
+                      </div>
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
 
-            <Button 
+            <Button
               type="submit"
-              disabled={loading}
-              className="w-full bg-gradient-to-r from-violet-500 to-orange-500 hover:from-violet-600 hover:to-orange-600 text-white font-semibold py-4 text-lg rounded-xl transition-all duration-300 transform hover:scale-105"
+              disabled={isSubmitting}
+              className="w-full btn-primary btn-large"
             >
-              {loading ? (
-                <>
-                  <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2" />
-                  Joining Waitlist...
-                </>
+              {isSubmitting ? (
+                <div className="flex items-center">
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2" />
+                  Joining...
+                </div>
               ) : (
                 <>
-                  <Crown className="mr-2" size={20} />
-                  Join Exclusive Waitlist
+                  <Sparkles className="mr-2" size={20} />
+                  Join Waitlist
                 </>
               )}
             </Button>
           </form>
-          
-          <div className="mt-6 text-center text-sm text-gray-400">
-            <p>✨ Free access + Bonus G-Chips + Founding Member Badge</p>
+
+          <p className="text-xs text-gray-400 mt-4 leading-relaxed">
+            By joining our waitlist, you agree to receive updates about Gagsty. 
+            We respect your privacy and won't spam you.
+          </p>
+        </div>
+
+        {/* Social Proof */}
+        <div className="mt-12 flex flex-wrap justify-center gap-4">
+          <div className="bg-gray-900/30 backdrop-blur-sm px-6 py-3 rounded-full border border-gray-800">
+            <span className="text-blue-400 font-bold text-lg">15,000+</span>
+            <span className="text-gray-300 ml-2">On Waitlist</span>
+          </div>
+          <div className="bg-gray-900/30 backdrop-blur-sm px-6 py-3 rounded-full border border-gray-800">
+            <span className="text-violet-400 font-bold text-lg">500+</span>
+            <span className="text-gray-300 ml-2">Beta Testers</span>
           </div>
         </div>
       </div>

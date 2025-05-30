@@ -4,6 +4,7 @@ import EnhancedHeader from '../components/navigation/EnhancedHeader';
 import Hero from '../components/Hero';
 import HowPromptToGameWorks from '../components/HowPromptToGameWorks';
 import PromptBattlePreview from '../components/PromptBattlePreview';
+import EcosystemPreview from '../components/EcosystemPreview';
 import WhyGagsty from '../components/WhyGagsty';
 import WaitlistSection from '../components/WaitlistSection';
 import BadgesLeaderboardPreview from '../components/BadgesLeaderboardPreview';
@@ -30,6 +31,9 @@ const Index = () => {
           
           {/* Prompt Battle Cards Preview */}
           <PromptBattlePreview />
+          
+          {/* Complete Ecosystem */}
+          <EcosystemPreview />
           
           {/* Why Gagsty? */}
           <WhyGagsty />
