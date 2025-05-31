@@ -158,65 +158,65 @@ const Submit = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-gagsty-deep text-gagsty-primary">
       <EnhancedHeader />
       
       <main className="pt-24 pb-16">
         <div className="max-w-6xl mx-auto px-4">
           {/* Enhanced Header */}
           <div className="text-center mb-12">
-            <div className="inline-block p-4 rounded-2xl bg-gradient-to-r from-blue-500 via-violet-500 to-orange-500 shadow-2xl transform hover:scale-105 transition-transform mb-6">
-              <Lightbulb className="w-8 h-8 text-white" />
+            <div className="inline-block p-4 rounded-2xl bg-gradient-to-r from-[#A084FF] via-[#00C6FB] to-[#16FF6F] shadow-2xl transform hover:scale-105 transition-transform mb-6 gagsty-glow-hover">
+              <Lightbulb className="w-8 h-8 text-[#121212]" />
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
+              <span className="text-gagsty-gradient">
                 Submit Your Game Prompt
               </span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gagsty-secondary max-w-3xl mx-auto leading-relaxed">
               Transform your wildest game ideas into reality. Submit a prompt and let our AI + community bring it to life.
             </p>
           </div>
 
           {/* Tips Section */}
           <div className="mb-12">
-            <Card className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border-blue-800/30">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center text-xl">
-                  <Lightbulb className="mr-3 text-yellow-400" size={24} />
-                  Writing Tips for Great Prompts
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+            <div className="gagsty-card-featured">
+              <div className="p-6">
+                <div className="flex items-center mb-6">
+                  <Lightbulb className="mr-3 text-[#FFB800]" size={24} />
+                  <h2 className="text-xl font-bold text-gagsty-primary">Writing Tips for Great Prompts</h2>
+                </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                   {tips.map((tip, index) => (
-                    <div key={index} className="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg">
-                      <div className="flex-shrink-0">
-                        <tip.icon className="w-6 h-6 text-blue-400" />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-medium mb-1">{tip.title}</h4>
-                        <p className="text-gray-400 text-sm">{tip.description}</p>
+                    <div key={index} className="gagsty-card gagsty-lift-hover p-4">
+                      <div className="flex items-start space-x-3">
+                        <div className="flex-shrink-0">
+                          <tip.icon className="w-6 h-6 text-[#00C6FB]" />
+                        </div>
+                        <div>
+                          <h4 className="text-gagsty-primary font-medium mb-1">{tip.title}</h4>
+                          <p className="text-gagsty-secondary text-sm">{tip.description}</p>
+                        </div>
                       </div>
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Enhanced Submit Form */}
             <div className="lg:col-span-2">
-              <Card className="bg-gray-900/50 border-gray-800">
-                <CardHeader>
-                  <CardTitle className="text-white flex items-center text-2xl">
-                    <Trophy className="mr-3 text-yellow-500" />
-                    New Game Prompt
-                  </CardTitle>
-                  <p className="text-gray-400">Fill out the details below to submit your game idea</p>
-                </CardHeader>
-                <CardContent>
+              <div className="gagsty-card">
+                <div className="p-6 border-b border-[#262A34]">
+                  <div className="flex items-center mb-2">
+                    <Trophy className="mr-3 text-[#FFB800]" />
+                    <h2 className="text-2xl font-bold text-gagsty-primary">New Game Prompt</h2>
+                  </div>
+                  <p className="text-gagsty-secondary">Fill out the details below to submit your game idea</p>
+                </div>
+                <div className="p-6">
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-6">
                       <FormFieldEnhanced
@@ -234,7 +234,7 @@ const Submit = () => {
                             }
                           }}
                           placeholder="e.g., Cyberpunk Cat Café"
-                          className="bg-gray-800 border-gray-700 text-white focus:border-blue-500 focus:ring-blue-500"
+                          className="gagsty-input"
                         />
                       </FormFieldEnhanced>
 
@@ -252,7 +252,7 @@ const Submit = () => {
                               setErrors({ ...errors, gameType: '' });
                             }
                           }}
-                          className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="gagsty-select w-full"
                         >
                           <option value="">Select game type</option>
                           {gameTypes.map((type) => (
@@ -274,15 +274,15 @@ const Submit = () => {
                         value={formData.description}
                         onChange={handleDescriptionChange}
                         placeholder="Describe your game idea in detail. What makes it unique? What's the gameplay like? Focus on core mechanics, theme, and player experience."
-                        className="bg-gray-800 border-gray-700 text-white min-h-[140px] resize-none focus:border-blue-500 focus:ring-blue-500"
+                        className="gagsty-textarea"
                       />
                       <div className="flex justify-between items-center mt-2">
-                        <div className={`text-sm ${charCount > maxChars * 0.9 ? 'text-orange-400' : 'text-gray-400'}`}>
+                        <div className={`text-sm ${charCount > maxChars * 0.9 ? 'text-[#FFB800]' : 'text-gagsty-secondary'}`}>
                           {charCount < 50 && (
-                            <span className="text-red-400">Minimum 50 characters required</span>
+                            <span className="text-[#FF3D5A]">Minimum 50 characters required</span>
                           )}
                         </div>
-                        <div className={`text-sm ${charCount > maxChars * 0.9 ? 'text-orange-400' : 'text-gray-400'}`}>
+                        <div className={`text-sm ${charCount > maxChars * 0.9 ? 'text-[#FFB800]' : 'text-gagsty-secondary'}`}>
                           {Math.max(0, maxChars - charCount)} characters remaining
                         </div>
                       </div>
@@ -294,7 +294,7 @@ const Submit = () => {
                       helpText="Add a reference image or concept art (recommended: 400x300px, JPG/PNG)"
                     >
                       <div className="flex items-center space-x-2">
-                        <Upload className="text-gray-400 flex-shrink-0" size={20} />
+                        <Upload className="text-gagsty-secondary flex-shrink-0" size={20} />
                         <Input
                           value={formData.thumbnailUrl}
                           onChange={(e) => {
@@ -304,7 +304,7 @@ const Submit = () => {
                             }
                           }}
                           placeholder="https://example.com/image.jpg"
-                          className="bg-gray-800 border-gray-700 text-white focus:border-blue-500 focus:ring-blue-500"
+                          className="gagsty-input"
                           type="url"
                         />
                       </div>
@@ -324,132 +324,116 @@ const Submit = () => {
                       </EnhancedButton>
                     </div>
                   </form>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
 
             {/* Enhanced Sidebar */}
             <div className="space-y-6">
               {/* Creator Journey Card */}
-              <Card className="bg-gradient-to-br from-purple-900/30 via-blue-900/30 to-emerald-900/30 border-purple-700/50">
-                <CardHeader>
-                  <CardTitle className="text-white flex items-center text-lg">
-                    <Coins className="mr-2 text-yellow-500" />
-                    Your Creator Journey
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
+              <div className="gagsty-card-featured">
+                <div className="p-6">
+                  <div className="flex items-center mb-4">
+                    <Coins className="mr-2 text-[#FFB800]" />
+                    <h3 className="text-lg font-bold text-gagsty-primary">Your Creator Journey</h3>
+                  </div>
                   {user ? (
                     <div className="space-y-4">
-                      <div className="flex justify-between items-center p-3 bg-yellow-500/10 rounded-lg border border-yellow-500/30">
-                        <span className="text-gray-300">G-Chips Balance</span>
-                        <span className="text-yellow-500 font-bold text-lg">1,250</span>
+                      <div className="flex justify-between items-center p-3 bg-[#FFB800]/10 rounded-lg border border-[#FFB800]/30">
+                        <span className="text-gagsty-secondary">G-Chips Balance</span>
+                        <span className="text-[#FFB800] font-bold text-lg">1,250</span>
                       </div>
                       
                       <div className="space-y-3">
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-400">Progress to Creative Badge ✨</span>
-                          <span className="text-blue-400 font-semibold">3/5</span>
+                          <span className="text-gagsty-secondary">Progress to Creative Badge ✨</span>
+                          <span className="text-[#00C6FB] font-semibold">3/5</span>
                         </div>
-                        <div className="w-full bg-gray-700 rounded-full h-3">
-                          <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-500" style={{ width: '60%' }}></div>
+                        <div className="gagsty-progress">
+                          <div className="gagsty-progress-fill" style={{ width: '60%' }}></div>
                         </div>
-                        <p className="text-xs text-gray-500">2 more prompts needed for next badge!</p>
+                        <p className="text-xs text-gagsty-muted">2 more prompts needed for next badge!</p>
                       </div>
                       
-                      <EnhancedButton
-                        variant="tertiary"
-                        size="sm"
-                        className="w-full"
+                      <button
+                        className="btn-gagsty-tertiary w-full text-sm"
                         onClick={() => navigate('/leaderboard')}
                       >
                         View All Badges & Rewards
-                      </EnhancedButton>
+                      </button>
                     </div>
                   ) : (
                     <div className="text-center py-6">
                       <div className="text-4xl mb-3">🚀</div>
-                      <p className="text-gray-400 mb-4">Sign in to track your progress and earn rewards!</p>
-                      <EnhancedButton
-                        variant="primary"
-                        size="default"
+                      <p className="text-gagsty-secondary mb-4">Sign in to track your progress and earn rewards!</p>
+                      <button
+                        className="btn-gagsty-primary w-full"
                         onClick={() => navigate('/auth')}
-                        className="w-full"
                       >
                         Sign In
-                      </EnhancedButton>
+                      </button>
                     </div>
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
 
               {/* Recent Submissions Card */}
-              <Card className="bg-gray-900/50 border-gray-800">
-                <CardHeader>
-                  <CardTitle className="text-white text-lg">Your Recent Prompts</CardTitle>
-                </CardHeader>
-                <CardContent>
+              <div className="gagsty-card">
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-gagsty-primary mb-4">Your Recent Prompts</h3>
                   {user ? (
                     <div className="space-y-4">
-                      <div className="p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+                      <div className="gagsty-card p-4">
                         <div className="flex justify-between items-start mb-2">
-                          <h4 className="text-white font-medium text-sm">Space Cat Adventure</h4>
-                          <Badge className="bg-blue-500/20 text-blue-300 text-xs">
-                            In Review
-                          </Badge>
+                          <h4 className="text-gagsty-primary font-medium text-sm">Space Cat Adventure</h4>
+                          <span className="gagsty-badge-primary text-xs">In Review</span>
                         </div>
-                        <p className="text-gray-400 text-xs mb-2">Submitted 2 days ago</p>
-                        <p className="text-gray-500 text-xs">A cosmic journey featuring feline astronauts exploring distant galaxies...</p>
+                        <p className="text-gagsty-secondary text-xs mb-2">Submitted 2 days ago</p>
+                        <p className="text-gagsty-muted text-xs">A cosmic journey featuring feline astronauts exploring distant galaxies...</p>
                       </div>
                       
-                      <div className="p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+                      <div className="gagsty-card p-4">
                         <div className="flex justify-between items-start mb-2">
-                          <h4 className="text-white font-medium text-sm">Neon Racing League</h4>
-                          <Badge className="bg-green-500/20 text-green-300 text-xs">
-                            Approved
-                          </Badge>
+                          <h4 className="text-gagsty-primary font-medium text-sm">Neon Racing League</h4>
+                          <span className="gagsty-badge-success text-xs">Approved</span>
                         </div>
-                        <p className="text-gray-400 text-xs mb-2">Submitted 1 week ago</p>
-                        <p className="text-gray-500 text-xs">High-speed cyberpunk racing through neon-lit cityscapes...</p>
+                        <p className="text-gagsty-secondary text-xs mb-2">Submitted 1 week ago</p>
+                        <p className="text-gagsty-muted text-xs">High-speed cyberpunk racing through neon-lit cityscapes...</p>
                       </div>
                       
-                      <EnhancedButton
-                        variant="secondary"
-                        size="sm"
-                        className="w-full"
+                      <button
+                        className="btn-gagsty-secondary w-full text-sm"
                         onClick={() => navigate('/dashboard')}
                       >
                         View All Submissions
-                      </EnhancedButton>
+                      </button>
                     </div>
                   ) : (
                     <div className="text-center py-8">
                       <div className="text-4xl mb-3">📝</div>
-                      <p className="text-gray-400 text-sm">
+                      <p className="text-gagsty-secondary text-sm">
                         Sign in to see your submissions
                       </p>
                     </div>
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
 
               {/* Help Card */}
-              <Card className="bg-gradient-to-br from-orange-900/30 to-red-900/30 border-orange-800/30">
-                <CardContent className="text-center py-6">
+              <div className="gagsty-card-featured">
+                <div className="text-center py-6 px-6">
                   <div className="text-3xl mb-3">💡</div>
-                  <p className="text-gray-300 mb-4 text-sm">
+                  <p className="text-gagsty-secondary mb-4 text-sm">
                     Need help writing a great prompt? Check out our comprehensive guides!
                   </p>
-                  <EnhancedButton
-                    variant="tertiary"
-                    size="sm"
+                  <button
+                    className="btn-gagsty-tertiary text-sm w-full"
                     onClick={() => navigate('/codex')}
-                    className="border-orange-500 text-orange-300 hover:bg-orange-500/20"
                   >
                     View Prompt Writing Guide
-                  </EnhancedButton>
-                </CardContent>
-              </Card>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

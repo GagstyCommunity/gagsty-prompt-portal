@@ -14,40 +14,74 @@ import Footer from '../components/Footer';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-gagsty-deep text-gagsty-primary">
       <EnhancedHeader />
       
       <main className="pt-16">
-        {/* Enhanced animated background */}
-        <div className="fixed inset-0 bg-gradient-to-br from-blue-900/10 via-violet-900/10 to-orange-900/10 pointer-events-none" />
-        <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,191,255,0.1),transparent_50%)] pointer-events-none" />
+        {/* Hero: Turn Prompts into Playable Games */}
+        <Hero />
         
-        <div className="relative z-10 space-y-20">
-          {/* Hero: Turn Prompts into Playable Games */}
-          <Hero />
-          
-          {/* How Prompt-to-Game Works */}
+        {/* Section Divider */}
+        <div className="gagsty-divider-neon" />
+        
+        {/* How Prompt-to-Game Works */}
+        <div className="gagsty-section-alternate">
           <HowPromptToGameWorks />
-          
-          {/* Prompt Battle Cards Preview */}
+        </div>
+        
+        {/* Section Divider */}
+        <div className="gagsty-divider" />
+        
+        {/* Prompt Battle Cards Preview */}
+        <div className="gagsty-section-primary">
           <PromptBattlePreview />
-          
-          {/* Complete Ecosystem */}
+        </div>
+        
+        {/* Section Divider */}
+        <div className="gagsty-divider-thick" />
+        
+        {/* Complete Ecosystem */}
+        <div className="gagsty-section-featured">
           <EcosystemPreview />
-          
-          {/* Why Gagsty? */}
+        </div>
+        
+        {/* Section Divider */}
+        <div className="gagsty-divider" />
+        
+        {/* Why Gagsty? */}
+        <div className="gagsty-section-alternate">
           <WhyGagsty />
-          
-          {/* Waitlist Section */}
+        </div>
+        
+        {/* Section Divider */}
+        <div className="gagsty-divider-neon" />
+        
+        {/* Waitlist Section */}
+        <div className="gagsty-section-primary">
           <WaitlistSection />
-          
-          {/* Badges & Leaderboard Preview */}
+        </div>
+        
+        {/* Section Divider */}
+        <div className="gagsty-divider" />
+        
+        {/* Badges & Leaderboard Preview */}
+        <div className="gagsty-section-alternate">
           <BadgesLeaderboardPreview />
-          
-          {/* Codex Preview */}
+        </div>
+        
+        {/* Section Divider */}
+        <div className="gagsty-divider-thick" />
+        
+        {/* Codex Preview */}
+        <div className="gagsty-section-featured">
           <CodexPreview />
-          
-          {/* Community Shoutouts */}
+        </div>
+        
+        {/* Section Divider */}
+        <div className="gagsty-divider" />
+        
+        {/* Community Shoutouts */}
+        <div className="gagsty-section-primary">
           <CommunityShoutouts />
         </div>
       </main>
