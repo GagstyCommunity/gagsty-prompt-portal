@@ -1,6 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -110,29 +111,32 @@
   body {
     @apply bg-[#121212] text-[#F2F2F2];
     font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    letter-spacing: 0.015em;
   }
 
-  /* Enhanced Typography for Dark Theme */
+  /* Enhanced Typography for Dark Theme with Cyberpunk Fonts */
   h1 {
-    font-family: 'Clash Display', 'Inter', sans-serif;
+    font-family: 'Orbitron', 'Clash Display', 'Inter', sans-serif;
     font-size: clamp(2rem, 5vw, 3.5rem);
     line-height: 1.1;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--gagsty-text-primary);
+    text-shadow: 0 0 20px rgba(160, 132, 255, 0.3);
   }
 
   h2 {
-    font-family: 'Clash Display', 'Inter', sans-serif;
+    font-family: 'Orbitron', 'Clash Display', 'Inter', sans-serif;
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     line-height: 1.2;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--gagsty-text-primary);
+    text-shadow: 0 0 15px rgba(0, 198, 251, 0.3);
   }
 
   h3 {
-    font-family: 'Clash Display', 'Inter', sans-serif;
+    font-family: 'Orbitron', 'Clash Display', 'Inter', sans-serif;
     font-size: clamp(1.25rem, 3vw, 1.75rem);
     line-height: 1.3;
     font-weight: 600;
@@ -149,24 +153,98 @@
   }
 
   .display-xl {
-    font-family: 'Clash Display', 'Inter', sans-serif;
+    font-family: 'Orbitron', 'Clash Display', 'Inter', sans-serif;
     font-size: clamp(3rem, 8vw, 4.5rem);
     line-height: 1.05;
     font-weight: 800;
     letter-spacing: -0.03em;
+    text-shadow: 0 0 30px rgba(160, 132, 255, 0.4);
   }
 }
 
 @layer components {
-  /* Dark Theme Card System */
+  /* Launch Timer Cyberpunk Styling */
+  .gagsty-launch-timer {
+    @apply relative z-10;
+  }
+
+  .gagsty-timer-display {
+    @apply flex items-center justify-center space-x-4 mb-6;
+  }
+
+  .gagsty-timer-unit {
+    @apply text-center;
+  }
+
+  .gagsty-timer-number {
+    @apply text-4xl md:text-6xl font-bold bg-gradient-to-r from-[#A084FF] via-[#00C6FB] to-[#16FF6F] bg-clip-text text-transparent;
+    font-family: 'Orbitron', monospace;
+    text-shadow: 0 0 20px rgba(160, 132, 255, 0.5);
+  }
+
+  .gagsty-timer-label {
+    @apply text-xs md:text-sm text-[#8B8FA3] font-semibold tracking-wider mt-1;
+    font-family: 'Orbitron', monospace;
+  }
+
+  .gagsty-timer-separator {
+    @apply text-3xl md:text-5xl font-bold text-[#A084FF] animate-pulse;
+    font-family: 'Orbitron', monospace;
+  }
+
+  /* Enhanced Geometric Dividers */
+  .gagsty-divider-scanline {
+    @apply relative h-16 w-full my-12 overflow-hidden;
+  }
+
+  .gagsty-scanline-animation {
+    @apply absolute inset-0 opacity-30;
+    background: linear-gradient(90deg, transparent 0%, #00C6FB 20%, #A084FF 50%, #16FF6F 80%, transparent 100%);
+    animation: scanline 3s linear infinite;
+  }
+
+  .gagsty-divider-circuit {
+    @apply relative h-16 w-full my-12 flex items-center justify-center;
+  }
+
+  .gagsty-circuit-path {
+    animation: circuitFlow 4s ease-in-out infinite;
+  }
+
+  .gagsty-circuit-node {
+    animation: nodeGlow 2s ease-in-out infinite alternate;
+  }
+
+  .gagsty-divider-pulse {
+    @apply relative h-4 w-full my-12;
+  }
+
+  .gagsty-pulse-line {
+    @apply h-full w-full rounded-full;
+    background: linear-gradient(90deg, #A084FF 0%, #00C6FB 50%, #16FF6F 100%);
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  /* Dark Theme Card System with Enhanced Effects */
   .gagsty-card {
-    @apply bg-[#181A20] rounded-2xl p-6 border border-[#262A34] transition-all duration-300;
+    @apply bg-[#181A20] rounded-2xl p-6 border border-[#262A34] transition-all duration-300 relative overflow-hidden;
     box-shadow: 0 2px 24px 0 rgba(160, 132, 255, 0.10);
   }
 
+  .gagsty-card::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300 rounded-2xl;
+    background: linear-gradient(45deg, rgba(160, 132, 255, 0.1), rgba(0, 198, 251, 0.1));
+  }
+
   .gagsty-card:hover {
-    box-shadow: 0 2px 32px 0 rgba(0, 198, 251, 0.25);
-    transform: translateY(-2px);
+    box-shadow: 0 8px 40px 0 rgba(0, 198, 251, 0.25);
+    transform: translateY(-4px) scale(1.02);
+    border-color: rgba(160, 132, 255, 0.4);
+  }
+
+  .gagsty-card:hover::before {
+    @apply opacity-100;
   }
 
   .gagsty-card-elevated {
@@ -179,66 +257,85 @@
   }
 
   .gagsty-card-interactive:hover {
-    @apply border-[#A084FF]/30;
-    box-shadow: 0 4px 40px 0 rgba(160, 132, 255, 0.3);
+    @apply border-[#A084FF]/40;
+    box-shadow: 0 12px 48px 0 rgba(160, 132, 255, 0.35);
+    transform: translateY(-6px) scale(1.03);
   }
 
   .gagsty-card-featured {
     @apply gagsty-card;
     background: linear-gradient(135deg, #181A20 0%, #1A1D23 100%);
-    border: 1px solid rgba(160, 132, 255, 0.2);
+    border: 1px solid rgba(160, 132, 255, 0.3);
   }
 
-  /* Section Backgrounds */
+  .gagsty-card-featured::after {
+    content: '';
+    @apply absolute inset-0 opacity-20 rounded-2xl;
+    background: radial-gradient(circle at 50% 50%, rgba(160, 132, 255, 0.2), transparent 70%);
+    animation: featuredGlow 4s ease-in-out infinite;
+  }
+
+  /* Section Backgrounds with Enhanced Gradients */
   .gagsty-section-primary {
-    @apply bg-[#121212] py-16;
+    @apply bg-[#121212] py-16 relative;
   }
 
   .gagsty-section-alternate {
-    @apply bg-[#181A20] py-16;
+    @apply py-16 relative;
+    background: linear-gradient(135deg, #181A20 0%, #1A1D23 100%);
   }
 
   .gagsty-section-featured {
-    background: linear-gradient(90deg, #23274D 0%, #171921 100%);
-    @apply py-16;
+    @apply py-16 relative;
+    background: linear-gradient(135deg, #23274D 0%, #171921 50%, #1A1D23 100%);
   }
 
   .gagsty-section-hero {
-    background: linear-gradient(135deg, #181A20 0%, #23274D 100%);
-    @apply py-20 min-h-screen flex items-center;
+    @apply py-20 min-h-screen flex items-center relative overflow-hidden;
+    background: radial-gradient(ellipse at center, #23274D 0%, #181A20 50%, #121212 100%);
   }
 
-  /* Section Dividers */
-  .gagsty-divider {
-    @apply h-px w-full my-16;
-    background: linear-gradient(90deg, transparent 0%, rgba(160, 132, 255, 0.3) 50%, transparent 100%);
+  .gagsty-section-hero::before {
+    content: '';
+    @apply absolute inset-0 opacity-30;
+    background-image: 
+      radial-gradient(circle at 20% 80%, rgba(160, 132, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(0, 198, 251, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(22, 255, 111, 0.1) 0%, transparent 50%);
+    animation: backgroundPulse 8s ease-in-out infinite;
   }
 
-  .gagsty-divider-neon {
-    @apply h-1 w-full my-10 rounded-full;
-    background: linear-gradient(90deg, #A084FF 0%, #00C6FB 50%, #16FF6F 100%);
-    opacity: 0.7;
-  }
-
-  .gagsty-divider-thick {
-    @apply h-2 w-24 mx-auto my-12 rounded-full;
-    background: linear-gradient(90deg, #A084FF 0%, #00C6FB 100%);
-  }
-
-  /* Enhanced Button System */
+  /* Enhanced Button System with Cyberpunk Effects */
   .btn-gagsty-primary {
     background: linear-gradient(90deg, #A084FF 0%, #00C6FB 100%);
-    @apply text-[#121212] font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg border-0;
+    @apply text-[#121212] font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg border-0 relative overflow-hidden;
     box-shadow: 0 4px 20px rgba(160, 132, 255, 0.4);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-gagsty-primary::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: linear-gradient(90deg, #B394FF 0%, #1AD6FB 100%);
   }
 
   .btn-gagsty-primary:hover {
-    box-shadow: 0 6px 30px rgba(160, 132, 255, 0.6);
-    filter: brightness(1.1);
+    box-shadow: 0 8px 32px rgba(160, 132, 255, 0.6);
+    filter: brightness(1.15);
+  }
+
+  .btn-gagsty-primary:hover::before {
+    @apply opacity-100;
   }
 
   .btn-gagsty-secondary {
-    @apply bg-transparent border-2 border-[#A084FF] text-[#A084FF] font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:bg-[#A084FF]/20 hover:text-[#00C6FB];
+    @apply bg-transparent border-2 border-[#A084FF] text-[#A084FF] font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:bg-[#A084FF]/20 hover:text-[#00C6FB] relative overflow-hidden;
+    box-shadow: 0 0 20px rgba(160, 132, 255, 0.2);
+  }
+
+  .btn-gagsty-secondary:hover {
+    box-shadow: 0 0 30px rgba(160, 132, 255, 0.4);
+    border-color: #00C6FB;
   }
 
   .btn-gagsty-tertiary {
@@ -248,16 +345,26 @@
   .btn-gagsty-success {
     background: linear-gradient(90deg, #16FF6F 0%, #3DFF8D 100%);
     @apply text-[#121212] font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg border-0;
+    box-shadow: 0 4px 20px rgba(22, 255, 111, 0.4);
   }
 
   .btn-gagsty-danger {
     background: linear-gradient(90deg, #FF3D5A 0%, #FF61F6 100%);
     @apply text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg border-0;
+    box-shadow: 0 4px 20px rgba(255, 61, 90, 0.4);
   }
 
-  /* Form Elements */
+  /* Enhanced Form Elements */
   .gagsty-input {
     @apply bg-[#181A20] border border-[#262A34] rounded-lg px-4 py-3 text-[#F2F2F2] placeholder-[#8B8FA3] focus:border-[#A084FF] focus:ring-2 focus:ring-[#A084FF]/20 transition-all duration-200;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .gagsty-input:focus {
+    box-shadow: 
+      inset 0 2px 4px rgba(0, 0, 0, 0.2),
+      0 0 0 3px rgba(160, 132, 255, 0.1),
+      0 0 20px rgba(160, 132, 255, 0.2);
   }
 
   .gagsty-textarea {
@@ -268,46 +375,62 @@
     @apply gagsty-input cursor-pointer;
   }
 
-  /* Text Gradients */
+  /* Text Gradients with Enhanced Effects */
   .text-gagsty-gradient {
     background: linear-gradient(90deg, #A084FF 0%, #00C6FB 100%);
     @apply bg-clip-text text-transparent;
+    filter: drop-shadow(0 0 8px rgba(160, 132, 255, 0.3));
   }
 
   .text-gagsty-gradient-success {
     background: linear-gradient(90deg, #16FF6F 0%, #3DFF8D 100%);
     @apply bg-clip-text text-transparent;
+    filter: drop-shadow(0 0 8px rgba(22, 255, 111, 0.3));
   }
 
   .text-gagsty-gradient-warning {
     background: linear-gradient(90deg, #FFB800 0%, #FF8A00 100%);
     @apply bg-clip-text text-transparent;
+    filter: drop-shadow(0 0 8px rgba(255, 184, 0, 0.3));
   }
 
-  /* Badges */
+  /* Enhanced Badges with Glow */
   .gagsty-badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border relative;
+    font-family: 'Orbitron', monospace;
+    letter-spacing: 0.05em;
   }
 
   .gagsty-badge-primary {
     @apply gagsty-badge bg-[#A084FF]/20 text-[#A084FF] border-[#A084FF]/30;
+    box-shadow: 0 0 10px rgba(160, 132, 255, 0.3);
   }
 
   .gagsty-badge-success {
     @apply gagsty-badge bg-[#16FF6F]/20 text-[#16FF6F] border-[#16FF6F]/30;
+    box-shadow: 0 0 10px rgba(22, 255, 111, 0.3);
   }
 
   .gagsty-badge-warning {
     @apply gagsty-badge bg-[#FFB800]/20 text-[#FFB800] border-[#FFB800]/30;
+    box-shadow: 0 0 10px rgba(255, 184, 0, 0.3);
   }
 
   .gagsty-badge-error {
     @apply gagsty-badge bg-[#FF3D5A]/20 text-[#FF3D5A] border-[#FF3D5A]/30;
+    box-shadow: 0 0 10px rgba(255, 61, 90, 0.3);
   }
 
-  /* Loading States */
+  /* Loading States with Cyberpunk Feel */
   .gagsty-skeleton {
-    @apply bg-[#1A1D23] animate-pulse rounded;
+    @apply bg-[#1A1D23] animate-pulse rounded relative overflow-hidden;
+  }
+
+  .gagsty-skeleton::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(90deg, transparent, rgba(160, 132, 255, 0.1), transparent);
+    animation: shimmer 2s infinite;
   }
 
   .gagsty-shimmer {
@@ -317,68 +440,108 @@
   .gagsty-shimmer::after {
     content: '';
     @apply absolute inset-0 -translate-x-full;
-    background: linear-gradient(90deg, transparent, rgba(160, 132, 255, 0.1), transparent);
+    background: linear-gradient(90deg, transparent, rgba(160, 132, 255, 0.2), transparent);
     animation: shimmer 2s infinite;
   }
 
-  /* Navigation */
+  /* Navigation with Cyberpunk Enhancement */
   .gagsty-nav {
     @apply bg-[#121212]/95 backdrop-blur-sm border-b border-[#262A34];
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   }
 
   .gagsty-nav-link {
-    @apply text-[#B3B8C5] hover:text-[#A084FF] transition-colors duration-200 font-medium;
+    @apply text-[#B3B8C5] hover:text-[#A084FF] transition-all duration-200 font-medium relative;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.05em;
+  }
+
+  .gagsty-nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#A084FF] to-[#00C6FB] transition-all duration-300;
+  }
+
+  .gagsty-nav-link:hover::after {
+    @apply w-full;
   }
 
   .gagsty-nav-link.active {
     @apply text-[#A084FF];
   }
 
-  /* Dropdowns */
+  .gagsty-nav-link.active::after {
+    @apply w-full;
+  }
+
+  /* Dropdowns with Enhanced Cyberpunk Style */
   .gagsty-dropdown {
-    @apply bg-[#181A20] border border-[#262A34] rounded-xl shadow-2xl z-50;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    @apply bg-[#181A20] border border-[#262A34] rounded-xl shadow-2xl z-50 backdrop-blur-sm;
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(160, 132, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .gagsty-dropdown-item {
-    @apply px-4 py-3 text-[#F2F2F2] hover:bg-[#1A1D23] hover:text-[#A084FF] transition-colors duration-200 cursor-pointer;
+    @apply px-4 py-3 text-[#F2F2F2] hover:bg-[#1A1D23] hover:text-[#A084FF] transition-all duration-200 cursor-pointer relative;
   }
 
-  /* Modal/Dialog */
+  .gagsty-dropdown-item:hover {
+    box-shadow: inset 0 0 0 1px rgba(160, 132, 255, 0.2);
+  }
+
+  /* Modal/Dialog with Cyberpunk Enhancement */
   .gagsty-modal {
-    @apply bg-[#181A20] border border-[#262A34] rounded-2xl shadow-2xl;
+    @apply bg-[#181A20] border border-[#262A34] rounded-2xl shadow-2xl backdrop-blur-sm;
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.8),
+      0 0 0 1px rgba(160, 132, 255, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .gagsty-modal-overlay {
-    @apply bg-black/70 backdrop-blur-sm;
+    @apply bg-black/80 backdrop-blur-sm;
   }
 
-  /* Progress Bars */
+  /* Progress Bars with Cyberpunk Glow */
   .gagsty-progress {
-    @apply w-full bg-[#262A34] rounded-full h-3 overflow-hidden;
+    @apply w-full bg-[#262A34] rounded-full h-3 overflow-hidden relative;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   .gagsty-progress-fill {
     background: linear-gradient(90deg, #A084FF 0%, #00C6FB 100%);
-    @apply h-full transition-all duration-500 ease-out rounded-full;
+    @apply h-full transition-all duration-500 ease-out rounded-full relative;
+    box-shadow: 0 0 10px rgba(160, 132, 255, 0.5);
   }
 
-  /* Hover Effects */
+  .gagsty-progress-fill::after {
+    content: '';
+    @apply absolute inset-0 rounded-full;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: progressShimmer 2s infinite;
+  }
+
+  /* Enhanced Hover Effects */
   .gagsty-glow-hover:hover {
-    box-shadow: 0 0 20px rgba(160, 132, 255, 0.4);
+    box-shadow: 0 0 30px rgba(160, 132, 255, 0.5);
   }
 
   .gagsty-lift-hover:hover {
-    @apply transform -translate-y-1;
+    @apply transform -translate-y-2 scale-105;
   }
 
-  /* Status Indicators */
+  /* Status Indicators with Enhanced Animation */
   .gagsty-status-live {
-    @apply inline-block w-2 h-2 bg-[#16FF6F] rounded-full animate-pulse;
+    @apply inline-block w-2 h-2 bg-[#16FF6F] rounded-full;
+    animation: livePulse 1.5s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(22, 255, 111, 0.6);
   }
 
   .gagsty-status-pending {
-    @apply inline-block w-2 h-2 bg-[#FFB800] rounded-full animate-pulse;
+    @apply inline-block w-2 h-2 bg-[#FFB800] rounded-full;
+    animation: pendingPulse 2s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(255, 184, 0, 0.6);
   }
 
   .gagsty-status-offline {
@@ -441,11 +604,11 @@
 
   /* Gradient Backgrounds */
   .bg-gagsty-gradient-hero {
-    background: linear-gradient(135deg, #181A20 0%, #23274D 100%);
+    background: radial-gradient(ellipse at center, #23274D 0%, #181A20 50%, #121212 100%);
   }
 
   .bg-gagsty-gradient-section {
-    background: linear-gradient(90deg, #23274D 0%, #171921 100%);
+    background: linear-gradient(135deg, #23274D 0%, #171921 50%, #1A1D23 100%);
   }
 
   .bg-gagsty-gradient-card {
@@ -459,7 +622,7 @@
     box-shadow: 0 0 20px rgba(160, 132, 255, 0.2);
   }
   to {
-    box-shadow: 0 0 30px rgba(160, 132, 255, 0.4);
+    box-shadow: 0 0 30px rgba(160, 132, 255, 0.6);
   }
 }
 
@@ -509,6 +672,94 @@
   }
 }
 
+/* New Cyberpunk Animations */
+@keyframes scanline {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes circuitFlow {
+  0%, 100% {
+    stroke-dasharray: 0 1000;
+  }
+  50% {
+    stroke-dasharray: 1000 0;
+  }
+}
+
+@keyframes nodeGlow {
+  0% {
+    r: 3;
+    opacity: 0.7;
+  }
+  100% {
+    r: 5;
+    opacity: 1;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(160, 132, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(160, 132, 255, 0.8);
+  }
+}
+
+@keyframes backgroundPulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes featuredGlow {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes progressShimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes livePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes pendingPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.15);
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .gagsty-card,
@@ -526,6 +777,14 @@
   .gagsty-section-hero {
     @apply py-16;
   }
+
+  .gagsty-timer-number {
+    @apply text-3xl;
+  }
+
+  .gagsty-timer-separator {
+    @apply text-2xl;
+  }
 }
 
 /* Accessibility */
@@ -539,7 +798,10 @@
   .animate-glow,
   .animate-float,
   .gagsty-status-live,
-  .gagsty-status-pending {
+  .gagsty-status-pending,
+  .gagsty-scanline-animation,
+  .gagsty-circuit-path,
+  .gagsty-circuit-node {
     animation: none;
   }
 }
@@ -547,4 +809,5 @@
 /* Focus Styles */
 .focus-visible:focus-visible {
   @apply outline-none ring-2 ring-[#A084FF] ring-offset-2 ring-offset-[#121212];
+  box-shadow: 0 0 0 3px rgba(160, 132, 255, 0.3);
 }

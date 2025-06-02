@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Sparkles, Zap, Trophy, GamepadIcon, Shield } from 'lucide-react';
+import LaunchTimer from './LaunchTimer';
+import ParticleBackground from './ParticleBackground';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -37,6 +39,9 @@ const Hero = () => {
 
   return (
     <section className="gagsty-section-hero relative overflow-hidden">
+      {/* Particle Background */}
+      <ParticleBackground />
+      
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-[#00C6FB] rounded-full animate-pulse opacity-60" />
@@ -55,19 +60,24 @@ const Hero = () => {
 
         {/* Main Headlines */}
         <div className="space-y-6">
-          <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+          <h1 className="display-xl leading-tight">
             <span className="text-gagsty-gradient">
-              Build a Game
+              World's First AI + Web3
             </span>
             <br />
             <span className="text-gagsty-primary">
-              with just a Prompt
+              Prompt-to-Game Platform
             </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-gagsty-secondary max-w-4xl mx-auto leading-relaxed">
             Submit your game concept. Let our AI & community build it. You earn rewards. We publish.
           </p>
+
+          {/* Launch Timer */}
+          <div className="my-12">
+            <LaunchTimer />
+          </div>
 
           {/* Key Features with Tooltips */}
           <TooltipProvider>
@@ -119,7 +129,7 @@ const Hero = () => {
             <div className="inline-block w-2 h-2 bg-[#16FF6F] rounded-full ml-2 gagsty-status-live" title="Live count" />
           </div>
           <div className="gagsty-card gagsty-lift-hover px-6 py-3 rounded-full border border-[#262A34]">
-            <span className="text-[#16FF6F] font-semibold">Dec 2024</span>
+            <span className="text-[#16FF6F] font-semibold">Aug 30, 2024</span>
             <span className="text-gagsty-secondary ml-1">Launch Date</span>
           </div>
         </div>

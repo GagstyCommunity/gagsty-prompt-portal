@@ -11,6 +11,7 @@ import BadgesLeaderboardPreview from '../components/BadgesLeaderboardPreview';
 import CodexPreview from '../components/CodexPreview';
 import CommunityShoutouts from '../components/CommunityShoutouts';
 import Footer from '../components/Footer';
+import GeometricDivider from '../components/GeometricDivider';
 
 const Index = () => {
   return (
@@ -21,64 +22,64 @@ const Index = () => {
         {/* Hero: Turn Prompts into Playable Games */}
         <Hero />
         
-        {/* Section Divider */}
-        <div className="gagsty-divider-neon" />
+        {/* Enhanced Section Divider */}
+        <GeometricDivider variant="circuit" />
         
         {/* How Prompt-to-Game Works */}
         <div className="gagsty-section-alternate">
           <HowPromptToGameWorks />
         </div>
         
-        {/* Section Divider */}
-        <div className="gagsty-divider" />
+        {/* Enhanced Section Divider */}
+        <GeometricDivider variant="scanline" />
         
         {/* Prompt Battle Cards Preview */}
         <div className="gagsty-section-primary">
           <PromptBattlePreview />
         </div>
         
-        {/* Section Divider */}
-        <div className="gagsty-divider-thick" />
+        {/* Enhanced Section Divider */}
+        <GeometricDivider variant="pulse" />
         
         {/* Complete Ecosystem */}
         <div className="gagsty-section-featured">
           <EcosystemPreview />
         </div>
         
-        {/* Section Divider */}
-        <div className="gagsty-divider" />
+        {/* Enhanced Section Divider */}
+        <GeometricDivider variant="neon" />
         
         {/* Why Gagsty? */}
         <div className="gagsty-section-alternate">
           <WhyGagsty />
         </div>
         
-        {/* Section Divider */}
-        <div className="gagsty-divider-neon" />
+        {/* Enhanced Section Divider */}
+        <GeometricDivider variant="circuit" />
         
         {/* Waitlist Section */}
         <div className="gagsty-section-primary">
           <WaitlistSection />
         </div>
         
-        {/* Section Divider */}
-        <div className="gagsty-divider" />
+        {/* Enhanced Section Divider */}
+        <GeometricDivider variant="scanline" />
         
         {/* Badges & Leaderboard Preview */}
         <div className="gagsty-section-alternate">
           <BadgesLeaderboardPreview />
         </div>
         
-        {/* Section Divider */}
-        <div className="gagsty-divider-thick" />
+        {/* Enhanced Section Divider */}
+        <GeometricDivider variant="pulse" />
         
         {/* Codex Preview */}
         <div className="gagsty-section-featured">
           <CodexPreview />
         </div>
         
-        {/* Section Divider */}
-        <div className="gagsty-divider" />
+        {/* Enhanced Section Divider */}
+        <GeometricDivider variant="neon" />
         
         {/* Community Shoutouts */}
         <div className="gagsty-section-primary">
