@@ -116,7 +116,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-gagsty-deep text-gagsty-primary">
       <EnhancedHeader />
       
       <div className="relative pt-16">
@@ -127,21 +127,21 @@ const HowItWorks = () => {
           {/* Hero Section */}
           <section className="py-20 px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <Badge className="bg-gradient-to-r from-purple-600 to-emerald-600 text-white px-4 py-2 mb-6">
+              <Badge className="gagsty-badge-primary px-4 py-2 mb-6">
                 <Play className="mr-2" size={16} />
                 How It Works
               </Badge>
               
               <h1 className="display-xl mb-6">
-                From <span className="text-gradient">Idea to Game</span> in Minutes
+                From <span className="text-gagsty-gradient">Idea to Game</span> in Minutes
               </h1>
               
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
+              <p className="text-xl text-gagsty-secondary max-w-3xl mx-auto leading-relaxed mb-8">
                 Our AI-powered platform transforms your creative ideas into fully playable games. 
                 No coding, no complex tools - just your imagination and our technology.
               </p>
               
-              <Button className="btn-primary btn-large">
+              <Button className="btn-gagsty-primary text-lg px-8 py-4">
                 <MessageSquare className="mr-2" size={20} />
                 Start Creating Now
               </Button>
@@ -153,7 +153,7 @@ const HowItWorks = () => {
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">The Creation Process</h2>
-                <p className="text-xl text-gray-300">Four simple steps from concept to published game</p>
+                <p className="text-xl text-gagsty-secondary">Four simple steps from concept to published game</p>
               </div>
 
               {/* Interactive Steps */}
@@ -161,10 +161,10 @@ const HowItWorks = () => {
                 {steps.map((step, index) => (
                   <Card 
                     key={index}
-                    className={`cursor-pointer transition-all duration-300 ${
+                    className={`cursor-pointer transition-all duration-300 gagsty-lift-hover ${
                       activeStep === index 
-                        ? 'card-primary scale-105' 
-                        : 'card-secondary hover-lift'
+                        ? 'border-[#A084FF] shadow-2xl shadow-[#A084FF]/30 scale-105' 
+                        : 'hover:border-[#A084FF]/50'
                     }`}
                     onClick={() => setActiveStep(index)}
                   >
@@ -172,26 +172,26 @@ const HowItWorks = () => {
                       <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${step.color} flex items-center justify-center mx-auto mb-4 text-white`}>
                         {step.icon}
                       </div>
-                      <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                      <p className="text-gray-400 text-sm">{step.description}</p>
+                      <h3 className="text-lg font-semibold mb-2 text-gagsty-primary">{step.title}</h3>
+                      <p className="text-gagsty-secondary text-sm">{step.description}</p>
                     </CardContent>
                   </Card>
                 ))}
               </div>
 
               {/* Active Step Details */}
-              <Card className="card-primary">
+              <Card className="border-[#A084FF]/30 bg-gradient-to-br from-[#181A20] to-[#1A1D23]">
                 <CardContent className="p-8">
                   <div className="flex items-start space-x-6">
                     <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${steps[activeStep].color} flex items-center justify-center text-white flex-shrink-0`}>
                       {steps[activeStep].icon}
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-display font-bold mb-4">{steps[activeStep].title}</h3>
-                      <p className="text-gray-300 mb-4 leading-relaxed">{steps[activeStep].description}</p>
-                      <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-800">
-                        <p className="text-emerald-400 text-sm font-medium mb-2">Example:</p>
-                        <p className="text-gray-300 italic">{steps[activeStep].example}</p>
+                      <h3 className="text-2xl font-display font-bold mb-4 text-gagsty-primary">{steps[activeStep].title}</h3>
+                      <p className="text-gagsty-secondary mb-4 leading-relaxed">{steps[activeStep].description}</p>
+                      <div className="bg-[#121212]/50 rounded-lg p-4 border border-[#262A34]">
+                        <p className="text-[#16FF6F] text-sm font-medium mb-2">Example:</p>
+                        <p className="text-gagsty-secondary italic">{steps[activeStep].example}</p>
                       </div>
                     </div>
                   </div>
@@ -205,20 +205,20 @@ const HowItWorks = () => {
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">Powerful Features</h2>
-                <p className="text-xl text-gray-300">Everything you need to create amazing games</p>
+                <p className="text-xl text-gagsty-secondary">Everything you need to create amazing games</p>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {features.map((feature, index) => (
-                  <Card key={index} className="card-secondary hover-lift">
+                  <Card key={index} className="gagsty-lift-hover">
                     <CardContent className="p-6">
                       <div className="flex items-start space-x-4">
                         <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-purple-600 to-emerald-600 flex items-center justify-center text-white flex-shrink-0">
                           {feature.icon}
                         </div>
                         <div>
-                          <h4 className="text-lg font-semibold mb-2">{feature.title}</h4>
-                          <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
+                          <h4 className="text-lg font-semibold mb-2 text-gagsty-primary">{feature.title}</h4>
+                          <p className="text-gagsty-secondary text-sm leading-relaxed">{feature.description}</p>
                         </div>
                       </div>
                     </CardContent>
@@ -233,29 +233,29 @@ const HowItWorks = () => {
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">What Can You Create?</h2>
-                <p className="text-xl text-gray-300">Explore different game genres and their earning potential</p>
+                <p className="text-xl text-gagsty-secondary">Explore different game genres and their earning potential</p>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {gameTypes.map((type, index) => (
-                  <Card key={index} className="card-secondary hover-lift">
+                  <Card key={index} className="gagsty-lift-hover">
                     <CardContent className="p-6">
-                      <h4 className="text-lg font-semibold mb-3">{type.category}</h4>
+                      <h4 className="text-lg font-semibold mb-3 text-gagsty-primary">{type.category}</h4>
                       
                       <div className="space-y-3 mb-4">
                         {type.examples.map((example, i) => (
                           <div key={i} className="flex items-center space-x-2">
-                            <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                            <span className="text-sm text-gray-300">{example}</span>
+                            <CheckCircle className="w-4 h-4 text-[#16FF6F] flex-shrink-0" />
+                            <span className="text-sm text-gagsty-secondary">{example}</span>
                           </div>
                         ))}
                       </div>
                       
                       <div className="space-y-2">
-                        <Badge variant="outline" className="text-xs">
+                        <Badge className="gagsty-badge-primary text-xs">
                           {type.difficulty}
                         </Badge>
-                        <div className="text-emerald-400 font-semibold text-sm">
+                        <div className="text-[#16FF6F] font-semibold text-sm">
                           {type.earnings}
                         </div>
                       </div>
@@ -269,21 +269,21 @@ const HowItWorks = () => {
           {/* Interactive Demo Preview */}
           <section className="py-16 px-4">
             <div className="max-w-4xl mx-auto">
-              <Card className="card-primary">
+              <Card className="border-[#A084FF]/30 bg-gradient-to-br from-[#181A20] to-[#1A1D23]">
                 <CardContent className="p-8 text-center">
-                  <Gamepad2 className="w-16 h-16 text-purple-400 mx-auto mb-6" />
-                  <h3 className="text-2xl font-display font-bold mb-4">Ready to See It in Action?</h3>
-                  <p className="text-gray-300 mb-6 leading-relaxed">
+                  <Gamepad2 className="w-16 h-16 text-[#A084FF] mx-auto mb-6" />
+                  <h3 className="text-2xl font-display font-bold mb-4 text-gagsty-primary">Ready to See It in Action?</h3>
+                  <p className="text-gagsty-secondary mb-6 leading-relaxed">
                     Try our interactive demo to experience the full game creation process. 
                     Create a simple game in under 5 minutes and see how easy it really is.
                   </p>
                   
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button className="btn-primary btn-large">
+                    <Button className="btn-gagsty-primary text-lg px-8 py-4">
                       <Play className="mr-2" size={20} />
                       Try Interactive Demo
                     </Button>
-                    <Button variant="outline" className="btn-large border-purple-600 text-purple-300 hover:bg-purple-600/20">
+                    <Button className="btn-gagsty-secondary text-lg px-8 py-4">
                       <ArrowRight className="mr-2" size={20} />
                       Join Waitlist
                     </Button>
@@ -298,44 +298,44 @@ const HowItWorks = () => {
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">Common Questions</h2>
-                <p className="text-xl text-gray-300">Quick answers to help you get started</p>
+                <p className="text-xl text-gagsty-secondary">Quick answers to help you get started</p>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
-                <Card className="card-secondary">
+                <Card className="gagsty-lift-hover">
                   <CardContent className="p-6">
-                    <h4 className="text-lg font-semibold mb-3">Do I need coding experience?</h4>
-                    <p className="text-gray-400 text-sm leading-relaxed">
+                    <h4 className="text-lg font-semibold mb-3 text-gagsty-primary">Do I need coding experience?</h4>
+                    <p className="text-gagsty-secondary text-sm leading-relaxed">
                       Not at all! Our platform is designed for creators without technical backgrounds. 
                       Just describe your game idea in natural language.
                     </p>
                   </CardContent>
                 </Card>
 
-                <Card className="card-secondary">
+                <Card className="gagsty-lift-hover">
                   <CardContent className="p-6">
-                    <h4 className="text-lg font-semibold mb-3">How complex can my games be?</h4>
-                    <p className="text-gray-400 text-sm leading-relaxed">
+                    <h4 className="text-lg font-semibold mb-3 text-gagsty-primary">How complex can my games be?</h4>
+                    <p className="text-gagsty-secondary text-sm leading-relaxed">
                       From simple puzzles to complex RPGs - our AI can handle a wide range of game types 
                       and mechanics. The more detailed your description, the better.
                     </p>
                   </CardContent>
                 </Card>
 
-                <Card className="card-secondary">
+                <Card className="gagsty-lift-hover">
                   <CardContent className="p-6">
-                    <h4 className="text-lg font-semibold mb-3">How do I earn money?</h4>
-                    <p className="text-gray-400 text-sm leading-relaxed">
+                    <h4 className="text-lg font-semibold mb-3 text-gagsty-primary">How do I earn money?</h4>
+                    <p className="text-gagsty-secondary text-sm leading-relaxed">
                       You earn 60% of all revenue from your published games through our G-Chips system. 
                       Players pay to play, and you get paid automatically.
                     </p>
                   </CardContent>
                 </Card>
 
-                <Card className="card-secondary">
+                <Card className="gagsty-lift-hover">
                   <CardContent className="p-6">
-                    <h4 className="text-lg font-semibold mb-3">Can I collaborate with others?</h4>
-                    <p className="text-gray-400 text-sm leading-relaxed">
+                    <h4 className="text-lg font-semibold mb-3 text-gagsty-primary">Can I collaborate with others?</h4>
+                    <p className="text-gagsty-secondary text-sm leading-relaxed">
                       Yes! You can invite other creators to collaborate on projects and share revenue 
                       based on contributions.
                     </p>

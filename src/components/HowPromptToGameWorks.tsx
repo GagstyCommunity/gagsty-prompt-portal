@@ -61,16 +61,16 @@ const HowPromptToGameWorks = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
+            <span className="text-gagsty-gradient">
               From Idea to Game in Minutes
             </span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+          <p className="text-xl text-gagsty-secondary max-w-3xl mx-auto mb-8">
             Our AI-powered platform transforms your creative ideas into fully playable games. No coding, no complex tools – just your imagination and our technology.
           </p>
           <Button 
             onClick={() => navigate('/submit')}
-            className="bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-300"
+            className="btn-gagsty-primary text-lg px-8 py-4"
           >
             Start Creating Now
           </Button>
@@ -78,7 +78,7 @@ const HowPromptToGameWorks = () => {
 
         {/* Process Steps */}
         <div className="space-y-8">
-          <h3 className="text-3xl font-bold text-center text-white mb-12">
+          <h3 className="text-3xl font-bold text-center text-gagsty-primary mb-12">
             The Gagsty Creation Cycle: Your Journey from Concept to Published Game
           </h3>
           
@@ -89,7 +89,7 @@ const HowPromptToGameWorks = () => {
                 <div key={index} className="relative">
                   {/* Connection Line */}
                   {index < steps.length - 1 && (
-                    <div className="hidden md:block absolute left-8 top-24 w-0.5 h-16 bg-gradient-to-b from-gray-600 to-gray-800" />
+                    <div className="hidden md:block absolute left-8 top-24 w-0.5 h-16 bg-gradient-to-b from-[#8B8FA3] to-[#262A34]" />
                   )}
                   
                   <div className="flex flex-col md:flex-row items-start gap-6">
@@ -97,26 +97,25 @@ const HowPromptToGameWorks = () => {
                     <div className="flex flex-col items-center">
                       <div className={`relative inline-flex items-center justify-center w-16 h-16 rounded-2xl border-2 ${getColorClasses(step.color)} mb-2`}>
                         <Icon size={28} />
-                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-white text-black rounded-full flex items-center justify-center text-sm font-bold">
+                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-gagsty-primary text-[#121212] rounded-full flex items-center justify-center text-sm font-bold">
                           {index + 1}
                         </div>
                       </div>
                       {index < steps.length - 1 && (
-                        <ArrowRight className="md:hidden text-gray-600 mt-4" size={20} />
+                        <ArrowRight className="md:hidden text-[#8B8FA3] mt-4" size={20} />
                       )}
                     </div>
                     
                     {/* Step Content */}
                     <div className="flex-1 text-center md:text-left">
-                      <h4 className="text-2xl font-bold text-white mb-2">{step.title}</h4>
-                      <p className="text-lg text-gray-400 mb-4 font-medium">({step.subtitle})</p>
-                      <p className="text-gray-300 leading-relaxed mb-6 max-w-3xl">
+                      <h4 className="text-2xl font-bold text-gagsty-primary mb-2">{step.title}</h4>
+                      <p className="text-lg text-gagsty-secondary mb-4 font-medium">({step.subtitle})</p>
+                      <p className="text-gagsty-secondary leading-relaxed mb-6 max-w-3xl">
                         {step.description}
                       </p>
                       <Button 
                         onClick={() => navigate(step.link)}
-                        variant="outline"
-                        className="border-gray-600 text-gray-300 hover:bg-gray-700"
+                        className="btn-gagsty-secondary"
                       >
                         {step.linkText}
                       </Button>
@@ -129,8 +128,8 @@ const HowPromptToGameWorks = () => {
         </div>
 
         {/* Ecosystem Section */}
-        <div className="mt-20 pt-16 border-t border-gray-800">
-          <h3 className="text-3xl font-bold text-center text-white mb-12">
+        <div className="mt-20 pt-16 border-t border-gagsty-subtle">
+          <h3 className="text-3xl font-bold text-center text-gagsty-primary mb-12">
             More Than Just Creation: An Entire Ecosystem
           </h3>
           
@@ -157,10 +156,10 @@ const HowPromptToGameWorks = () => {
                 icon: "📚"
               }
             ].map((component, index) => (
-              <div key={index} className="bg-gray-900/50 backdrop-blur-sm p-6 rounded-2xl border border-gray-800 hover:border-gray-700 transition-all duration-300">
+              <div key={index} className="gagsty-card gagsty-lift-hover">
                 <div className="text-4xl mb-4 text-center">{component.icon}</div>
-                <h4 className="text-lg font-semibold text-white mb-3">{component.title}</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">{component.description}</p>
+                <h4 className="text-lg font-semibold text-gagsty-primary mb-3">{component.title}</h4>
+                <p className="text-gagsty-secondary text-sm leading-relaxed">{component.description}</p>
               </div>
             ))}
           </div>
@@ -168,13 +167,13 @@ const HowPromptToGameWorks = () => {
 
         {/* Final CTA */}
         <div className="text-center mt-16">
-          <h3 className="text-2xl font-bold text-white mb-4">Your Game Idea Awaits</h3>
-          <p className="text-gray-300 mb-8">
+          <h3 className="text-2xl font-bold text-gagsty-primary mb-4">Your Game Idea Awaits</h3>
+          <p className="text-gagsty-secondary mb-8">
             Join thousands of creators building the next generation of games. Submit your prompt today and see where your imagination takes you.
           </p>
           <Button 
             onClick={() => navigate('/submit')}
-            className="bg-gradient-to-r from-violet-500 to-orange-500 hover:from-violet-600 hover:to-orange-600 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-300"
+            className="btn-gagsty-primary text-lg px-8 py-4"
           >
             Submit Your Game Prompt
           </Button>
