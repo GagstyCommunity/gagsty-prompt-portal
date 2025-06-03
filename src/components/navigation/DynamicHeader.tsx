@@ -281,7 +281,7 @@ const DynamicHeader = () => {
                       key={item.name}
                       to={item.href}
                       className="block py-2 text-sm text-gray-400 hover:text-blue-400 transition-colors ml-4"
-                      onClick={() => setIsMenuDown(false)}
+                      onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
                     </Link>
