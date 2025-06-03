@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
-import Header from '@/components/Header';
+import DynamicHeader from '@/components/navigation/DynamicHeader';
 import { GamepadIcon, Gift, Users, Coins, Share2 } from 'lucide-react';
 
 const Auth = () => {
@@ -76,7 +76,7 @@ const Auth = () => {
           } else {
             toast({
               title: "Welcome to Gagsty! 🚀",
-              description: "Account created successfully. You've earned 500 Gagsty Chips!",
+              description: "Account created successfully. You've earned 500 Chips!",
             });
             navigate('/dashboard');
           }
@@ -105,7 +105,7 @@ const Auth = () => {
   if (showWaitlistSuccess) {
     return (
       <div className="min-h-screen bg-black text-white">
-        <Header />
+        <DynamicHeader />
         <div className="pt-24 pb-12 px-4">
           <div className="max-w-lg mx-auto">
             <Card className="bg-gray-900/50 border-gray-800">
@@ -124,7 +124,7 @@ const Auth = () => {
                 <div className="p-4 bg-blue-900/20 rounded-xl border border-blue-500/30">
                   <h3 className="text-white font-semibold mb-2 flex items-center">
                     <Share2 className="mr-2 text-blue-400" size={16} />
-                    Move up the list and earn extra G-Chips!
+                    Move up the list and earn extra Chips!
                   </h3>
                   <p className="text-gray-300 text-sm mb-3">
                     Share your unique referral link:
@@ -168,7 +168,7 @@ const Auth = () => {
                   <div className="space-y-2">
                     {[
                       { icon: "🎮", text: "First access to the platform" },
-                      { icon: "🪙", text: "500 bonus G-Chips on launch" },
+                      { icon: "🪙", text: "500 bonus Chips on launch" },
                       { icon: "🏆", text: "Exclusive 'Early Adopter' badge" },
                       { icon: "📧", text: "Platform updates and insider news" }
                     ].map((benefit, index) => (
@@ -196,7 +196,7 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <Header />
+      <DynamicHeader />
       <div className="pt-24 pb-12 px-4">
         <div className="max-w-md mx-auto">
           <div className="text-center mb-8">
@@ -225,7 +225,7 @@ const Auth = () => {
                     🚀 Early Access
                   </Badge>
                   <p className="text-gray-400 text-sm">
-                    Get exclusive early access + 500 bonus G-Chips
+                    Get exclusive early access + 500 bonus Chips
                   </p>
                 </div>
               )}
@@ -300,7 +300,7 @@ const Auth = () => {
                     </div>
                     <div className="flex items-center text-gray-300">
                       <Gift className="mr-2 text-green-400" size={14} />
-                      <span>500 G-Chips bonus for early supporters</span>
+                      <span>500 Chips bonus for early supporters</span>
                     </div>
                     <div className="flex items-center text-gray-300">
                       <Share2 className="mr-2 text-violet-400" size={14} />

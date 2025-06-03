@@ -1,6 +1,6 @@
 
 import React from 'react';
-import EnhancedHeader from '../components/navigation/EnhancedHeader';
+import DynamicHeader from '../components/navigation/DynamicHeader';
 import Hero from '../components/Hero';
 import HowPromptToGameWorks from '../components/HowPromptToGameWorks';
 import PromptBattlePreview from '../components/PromptBattlePreview';
@@ -16,7 +16,7 @@ import GeometricDivider from '../components/GeometricDivider';
 const Index = () => {
   return (
     <div className="min-h-screen bg-gagsty-deep text-gagsty-primary">
-      <EnhancedHeader />
+      <DynamicHeader />
       
       <main className="pt-16">
         {/* Hero: Turn Prompts into Playable Games */}

@@ -39,7 +39,7 @@ const HowPromptToGameWorks = () => {
       icon: Rocket,
       title: "Publish, Earn & Own",
       subtitle: "60% Revenue Share",
-      description: "Polished games are published on the Gagsty platform and potentially other marketplaces. As the original prompt creator, you earn a significant share of the game's revenue and G-Chips.",
+      description: "Polished games are published on the Gagsty platform and potentially other marketplaces. As the original prompt creator, you earn a significant share of the game's revenue and Chips.",
       link: "/events",
       linkText: "Learn About Earning Potential",
       color: "green"
@@ -136,8 +136,8 @@ const HowPromptToGameWorks = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
-                title: "G-Chips - The Platform Currency",
-                description: "Earn G-Chips by submitting winning prompts, voting, testing games, completing freelance gigs, and participating in events.",
+                title: "Chips - The Platform Currency",
+                description: "Earn Chips by submitting winning prompts, voting, testing games, completing freelance gigs, and participating in events.",
                 icon: "🪙"
               },
               {

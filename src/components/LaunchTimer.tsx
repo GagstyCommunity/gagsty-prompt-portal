@@ -13,7 +13,7 @@ const LaunchTimer = () => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
-    const targetDate = new Date('2024-08-30T00:00:00Z');
+    const targetDate = new Date('2025-08-30T00:00:00Z');
     
     const calculateTimeLeft = () => {
       const now = new Date();
@@ -71,7 +71,7 @@ const LaunchTimer = () => {
         </div>
         
         <p className="text-gagsty-secondary text-sm">
-          Sign up for early access & get bonus Gagsty Chips!
+          Sign up for early access & get bonus Chips!
         </p>
       </div>
     </div>
