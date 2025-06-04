@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -20,7 +21,7 @@ const AdminPrompts = () => {
   const [prompts, setPrompts] = useState<any[]>([]);
   const [selectedPrompt, setSelectedPrompt] = useState<any>(null);
   const [adminComment, setAdminComment] = useState('');
-  const [chipsReward, setChipsReward] = useState(0);
+  const [chipsReward, setChipsReward] = useState(100);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -41,33 +42,47 @@ const AdminPrompts = () => {
       setPrompts(data || []);
     } catch (error) {
       console.error('Error fetching prompts:', error);
+      toast({
+        title: "Error",
+        description: "Failed to fetch prompts",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
   };
 
-  const updatePromptStatus = async (promptId: string, status: string, comment: string, chipsReward: number) => {
+  const updatePromptStatus = async (promptId: string, status: string, comment: string, chips: number) => {
     try {
       const { error } = await supabase
         .from('game_prompts')
         .update({ 
           status, 
           admin_comment: comment,
-          chips_reward: chipsReward
+          chips_reward: chips
         })
         .eq('id', promptId);
 
       if (error) throw error;
 
       // If approved and chips reward > 0, add chips to user
-      if (status === 'approved' && chipsReward > 0) {
+      if (status === 'approved' && chips > 0) {
         const prompt = prompts.find(p => p.id === promptId);
         if (prompt) {
-          // Update user's chips directly in profiles table
+          // Get current user chips
+          const { data: currentProfile } = await supabase
+            .from('profiles')
+            .select('gagsty_chips')
+            .eq('id', prompt.user_id)
+            .single();
+          
+          const currentChips = currentProfile?.gagsty_chips || 0;
+          
+          // Update user's chips
           const { error: chipsError } = await supabase
             .from('profiles')
             .update({ 
-              gagsty_chips: chipsReward 
+              gagsty_chips: currentChips + chips 
             })
             .eq('id', prompt.user_id);
           
@@ -79,10 +94,13 @@ const AdminPrompts = () => {
 
       toast({
         title: "Prompt Updated",
-        description: `Prompt has been ${status}`,
+        description: `Prompt has been ${status}${chips > 0 && status === 'approved' ? ` and ${chips} chips awarded` : ''}`,
       });
 
       fetchPrompts();
+      setSelectedPrompt(null);
+      setAdminComment('');
+      setChipsReward(100);
     } catch (error) {
       console.error('Error updating prompt:', error);
       toast({
@@ -95,22 +113,33 @@ const AdminPrompts = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'approved': return 'bg-green-500';
-      case 'rejected': return 'bg-red-500';
-      case 'in_review': return 'bg-blue-500';
-      default: return 'bg-yellow-500';
+      case 'approved': return 'bg-green-600';
+      case 'rejected': return 'bg-red-600';
+      case 'in_review': return 'bg-blue-600';
+      default: return 'bg-yellow-600';
     }
   };
 
   if (loading) {
-    return <div className="text-white">Loading prompts...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-yellow-400"></div>
+      </div>
+    );
   }
 
   return (
     <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-white">Prompt Management</h2>
+        <Button onClick={fetchPrompts} className="bg-blue-600 hover:bg-blue-700">
+          Refresh
+        </Button>
+      </div>
+
       <Card className="bg-gray-900/50 border-gray-800">
         <CardHeader>
-          <CardTitle className="text-white">All Prompt Submissions</CardTitle>
+          <CardTitle className="text-white">All Prompt Submissions ({prompts.length})</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
@@ -128,7 +157,7 @@ const AdminPrompts = () => {
               {prompts.map((prompt) => (
                 <TableRow key={prompt.id} className="border-gray-700">
                   <TableCell className="text-white font-medium">{prompt.title}</TableCell>
-                  <TableCell className="text-gray-300">{prompt.profiles?.full_name || 'Anonymous'}</TableCell>
+                  <TableCell className="text-gray-300">{prompt.profiles?.full_name || prompt.profiles?.username || 'Anonymous'}</TableCell>
                   <TableCell className="text-gray-300">{prompt.game_type}</TableCell>
                   <TableCell>
                     <Badge className={`${getStatusColor(prompt.status)} text-white`}>
@@ -140,7 +169,11 @@ const AdminPrompts = () => {
                   </TableCell>
                   <TableCell>
                     <Button
-                      onClick={() => setSelectedPrompt(prompt)}
+                      onClick={() => {
+                        setSelectedPrompt(prompt);
+                        setAdminComment(prompt.admin_comment || '');
+                        setChipsReward(prompt.chips_reward || 100);
+                      }}
                       className="bg-blue-600 hover:bg-blue-700"
                       size="sm"
                     >
@@ -162,7 +195,12 @@ const AdminPrompts = () => {
           <CardContent className="space-y-4">
             <div>
               <h3 className="text-white font-medium mb-2">Description:</h3>
-              <p className="text-gray-300">{selectedPrompt.description}</p>
+              <p className="text-gray-300 bg-gray-800/30 p-3 rounded">{selectedPrompt.description}</p>
+            </div>
+
+            <div>
+              <h3 className="text-white font-medium mb-2">Game Type:</h3>
+              <p className="text-gray-300">{selectedPrompt.game_type}</p>
             </div>
 
             <div>
@@ -195,25 +233,28 @@ const AdminPrompts = () => {
                 onClick={() => updatePromptStatus(selectedPrompt.id, 'approved', adminComment, chipsReward)}
                 className="bg-green-600 hover:bg-green-700"
               >
+                <CheckCircle className="mr-2" size={16} />
                 Approve
               </Button>
               <Button
-                onClick={() => updatePromptStatus(selectedPrompt.id, 'rejected', adminComment, chipsReward)}
+                onClick={() => updatePromptStatus(selectedPrompt.id, 'rejected', adminComment, 0)}
                 className="bg-red-600 hover:bg-red-700"
               >
+                <XCircle className="mr-2" size={16} />
                 Reject
               </Button>
               <Button
-                onClick={() => updatePromptStatus(selectedPrompt.id, 'in_review', adminComment, chipsReward)}
+                onClick={() => updatePromptStatus(selectedPrompt.id, 'in_review', adminComment, 0)}
                 className="bg-blue-600 hover:bg-blue-700"
               >
+                <Eye className="mr-2" size={16} />
                 Mark In Review
               </Button>
               <Button
                 onClick={() => {
                   setSelectedPrompt(null);
                   setAdminComment('');
-                  setChipsReward(0);
+                  setChipsReward(100);
                 }}
                 variant="outline"
                 className="border-gray-600 text-gray-300 hover:bg-gray-800"

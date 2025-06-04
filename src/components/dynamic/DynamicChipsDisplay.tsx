@@ -17,7 +17,7 @@ const DynamicChipsDisplay: React.FC<DynamicChipsDisplayProps> = ({
   if (loading) {
     return (
       <div className={`flex items-center space-x-2 ${className}`}>
-        <Coins className="text-yellow-500 animate-pulse" size={20} />
+        <Coins className="text-yellow-400 animate-pulse" size={20} />
         <span className="text-gray-400">Loading...</span>
       </div>
     );
@@ -27,7 +27,7 @@ const DynamicChipsDisplay: React.FC<DynamicChipsDisplayProps> = ({
 
   return (
     <div className={`flex items-center space-x-2 ${className}`}>
-      <Coins className="text-yellow-500" size={20} />
+      <Coins className="text-yellow-400" size={20} />
       <span className="text-white font-semibold">
         {chips.toLocaleString()}
         {showLabel && <span className="text-gray-400 ml-1">Chips</span>}
