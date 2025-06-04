@@ -14,11 +14,13 @@ import DynamicLeaderboard from '../components/dynamic/DynamicLeaderboard';
 import DynamicEventsList from '../components/dynamic/DynamicEventsList';
 import UserBadges from '../components/UserBadges';
 import { useAuth } from '../contexts/AuthContext';
+import { useUserData } from '../hooks/useUserData';
 
 const Dashboard = () => {
   const { user, loading } = useAuth();
+  const { profile, loading: profileLoading } = useUserData();
 
-  if (loading) {
+  if (loading || profileLoading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-yellow-500"></div>
@@ -37,20 +39,23 @@ const Dashboard = () => {
     );
   }
 
+  // Calculate waitlist position based on chips (temporary logic)
+  const waitlistPosition = Math.max(1, 1000 - Math.floor((profile?.gagsty_chips || 0) / 10));
+
   return (
     <div className="min-h-screen bg-black text-white">
       <DynamicHeader />
       
       <main className="pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4">
-          <WelcomeHeader />
+          <WelcomeHeader profile={profile} waitlistPosition={waitlistPosition} />
           
           <div className="grid lg:grid-cols-3 gap-8 mb-12">
             {/* Left Column - Main Dashboard Content */}
             <div className="lg:col-span-2 space-y-8">
               <div className="grid md:grid-cols-2 gap-6">
-                <ChipsOverview />
-                <WaitlistStatus />
+                <ChipsOverview profile={profile} />
+                <WaitlistStatus profile={profile} />
               </div>
               
               <GameIdeas />
