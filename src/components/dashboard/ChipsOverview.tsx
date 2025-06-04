@@ -33,25 +33,25 @@ const ChipsOverview: React.FC<ChipsOverviewProps> = ({ profile }) => {
       <CardHeader>
         <CardTitle className="text-white flex items-center">
           <Coins className="mr-2 text-yellow-500" />
-          My G-Chips
+          My Chips
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Current Balance */}
         <div className="text-center p-6 bg-gradient-to-r from-yellow-600/20 to-orange-600/20 rounded-lg border border-yellow-600/30">
           <div className="text-4xl font-bold text-yellow-500 mb-2">{currentChips}</div>
-          <div className="text-gray-300">G-Chips Balance</div>
+          <div className="text-gray-300">Chips Balance</div>
         </div>
 
         {/* Progress to Next Reward */}
         <div>
           <div className="flex justify-between items-center mb-2">
             <span className="text-gray-300">Progress to Next Reward</span>
-            <span className="text-yellow-500 font-medium">{nextRewardThreshold} G-Chips</span>
+            <span className="text-yellow-500 font-medium">{nextRewardThreshold} Chips</span>
           </div>
           <Progress value={progressToNextReward} className="mb-2" />
           <div className="text-sm text-gray-400">
-            {nextRewardThreshold - currentChips} G-Chips to unlock exclusive tool access
+            {nextRewardThreshold - currentChips} Chips to unlock exclusive tool access
           </div>
         </div>
 
@@ -73,7 +73,7 @@ const ChipsOverview: React.FC<ChipsOverviewProps> = ({ profile }) => {
 
         {/* Upcoming Tasks */}
         <div>
-          <h3 className="text-white font-medium mb-3">Earn More G-Chips:</h3>
+          <h3 className="text-white font-medium mb-3">Earn More Chips:</h3>
           <div className="space-y-2">
             {upcomingTasks.map((task, index) => (
               <div 

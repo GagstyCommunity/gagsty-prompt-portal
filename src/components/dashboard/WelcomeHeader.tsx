@@ -44,7 +44,7 @@ const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ profile, waitlistPosition
             <div className="flex items-center space-x-3">
               <Coins className="text-yellow-500" size={24} />
               <div>
-                <h3 className="text-white font-semibold">G-Chips</h3>
+                <h3 className="text-white font-semibold">Chips</h3>
                 <p className="text-2xl font-bold text-yellow-500">{profile?.gagsty_chips || 0}</p>
                 <p className="text-sm text-gray-400">Earned so far</p>
               </div>

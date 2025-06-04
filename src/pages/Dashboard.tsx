@@ -1,6 +1,6 @@
 
 import React from 'react';
-import DynamicHeader from '../components/navigation/DynamicHeader';
+import UserDashboardHeader from '../components/navigation/UserDashboardHeader';
 import Footer from '../components/Footer';
 import WelcomeHeader from '../components/dashboard/WelcomeHeader';
 import ChipsOverview from '../components/dashboard/ChipsOverview';
@@ -44,7 +44,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <DynamicHeader />
+      <UserDashboardHeader />
       
       <main className="pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4">

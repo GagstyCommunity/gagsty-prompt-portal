@@ -22,7 +22,7 @@ const Events = () => {
       icon: Palette,
       title: "Prompt Marathons",
       description: "Speed challenges to create the most creative game prompts within a time limit.",
-      color: "violet"
+      color: "purple"
     },
     {
       icon: Code,
@@ -34,7 +34,7 @@ const Events = () => {
       icon: Megaphone,
       title: "Referral Challenges",
       description: "Grow the community by bringing friends and earn rewards for successful referrals.",
-      color: "green"
+      color: "yellow"
     }
   ];
 
@@ -48,7 +48,7 @@ const Events = () => {
           <div className="text-center mb-12">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-                Earn Gagsty Chips via Events
+                Earn Chips via Events
               </span>
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -62,11 +62,18 @@ const Events = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {eventTypes.map((eventType, index) => {
                 const Icon = eventType.icon;
+                const colorClasses = {
+                  blue: 'bg-blue-500/10 border-blue-500/30 text-blue-400',
+                  purple: 'bg-purple-500/10 border-purple-500/30 text-purple-400',
+                  orange: 'bg-orange-500/10 border-orange-500/30 text-orange-400',
+                  yellow: 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400'
+                };
+                
                 return (
                   <Card key={index} className="bg-gray-900/50 border-gray-800 hover:border-gray-700 transition-all duration-300 hover:transform hover:scale-105">
                     <CardContent className="p-6 text-center">
-                      <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-${eventType.color}-500/10 border border-${eventType.color}-500/30 mb-4`}>
-                        <Icon className={`text-${eventType.color}-400`} size={28} />
+                      <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl border mb-4 ${colorClasses[eventType.color as keyof typeof colorClasses]}`}>
+                        <Icon size={28} />
                       </div>
                       <h3 className="text-lg font-semibold text-white mb-3">{eventType.title}</h3>
                       <p className="text-gray-400 text-sm leading-relaxed">{eventType.description}</p>

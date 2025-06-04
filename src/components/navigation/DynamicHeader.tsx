@@ -24,6 +24,11 @@ const DynamicHeader = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
+
   const handleSignOut = async () => {
     await signOut();
     navigate('/');
@@ -113,7 +118,10 @@ const DynamicHeader = () => {
               </div>
               <span className="text-xl font-display font-bold text-white">GAGSTY</span>
             </Link>
-            <div className="text-gray-400">Loading...</div>
+            <div className="flex items-center space-x-2">
+              <div className="animate-pulse bg-gray-700 h-8 w-16 rounded"></div>
+              <div className="animate-pulse bg-gray-700 h-8 w-20 rounded"></div>
+            </div>
           </div>
         </div>
       </header>
@@ -206,12 +214,12 @@ const DynamicHeader = () => {
             ) : (
               <>
                 <Link to="/auth">
-                  <Button variant="outline" className="btn-secondary border-blue-600 text-blue-300 hover:bg-blue-600/20">
+                  <Button variant="outline" className="border-blue-600 text-blue-300 hover:bg-blue-600/20">
                     Sign In
                   </Button>
                 </Link>
                 <Link to="/auth">
-                  <Button className="btn-primary">
+                  <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
                     Join Waitlist
                   </Button>
                 </Link>
@@ -223,6 +231,7 @@ const DynamicHeader = () => {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="lg:hidden p-2 text-gray-300 hover:text-white transition-colors"
+            aria-label="Toggle menu"
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -311,12 +320,12 @@ const DynamicHeader = () => {
                 ) : (
                   <>
                     <Link to="/auth" className="block" onClick={() => setIsMenuOpen(false)}>
-                      <Button variant="outline" className="w-full btn-secondary border-blue-600 text-blue-300 hover:bg-blue-600/20">
+                      <Button variant="outline" className="w-full border-blue-600 text-blue-300 hover:bg-blue-600/20">
                         Sign In
                       </Button>
                     </Link>
                     <Link to="/auth" className="block" onClick={() => setIsMenuOpen(false)}>
-                      <Button className="w-full btn-primary">
+                      <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
                         Join Waitlist
                       </Button>
                     </Link>
