@@ -19,6 +19,9 @@ import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import PromptBattle from "./pages/PromptBattle";
 import Leaderboard from "./pages/Leaderboard";
+import Community from "./pages/Community";
+import Insights from "./pages/Insights";
+import Welcome from "./pages/Welcome";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +42,9 @@ const App = () => (
             <Route path="/battle" element={<Battle />} />
             <Route path="/prompt-battle" element={<PromptBattle />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/insights" element={<Insights />} />
+            <Route path="/welcome" element={<Welcome />} />
             <Route path="/events" element={<Events />} />
             <Route path="/jobs" element={<Jobs />} />
             <Route path="/about" element={<About />} />
