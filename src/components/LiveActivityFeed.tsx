@@ -36,44 +36,55 @@ const LiveActivityFeed = () => {
       // Fetch recent prompts
       const { data: recentPrompts } = await supabase
         .from('game_prompts')
-        .select('*, profiles(full_name, username)')
+        .select('id, title, user_id, created_at')
         .order('created_at', { ascending: false })
         .limit(3);
 
       // Fetch recent user signups
       const { data: recentUsers } = await supabase
         .from('profiles')
-        .select('full_name, username, created_at')
+        .select('id, full_name, username, created_at')
         .order('created_at', { ascending: false })
         .limit(3);
 
       const activityData: Activity[] = [];
 
       // Add prompt activities
-      recentPrompts?.forEach((prompt, index) => {
-        activityData.push({
-          id: `prompt-${prompt.id}`,
-          action: 'submitted a game prompt',
-          user: prompt.profiles?.username || prompt.profiles?.full_name || 'Anonymous',
-          details: prompt.title,
-          time: new Date(prompt.created_at).toLocaleTimeString(),
-          type: 'prompt',
-          avatar: '🎮'
-        });
-      });
+      if (recentPrompts) {
+        for (const prompt of recentPrompts) {
+          // Fetch user profile for each prompt
+          const { data: userProfile } = await supabase
+            .from('profiles')
+            .select('username, full_name')
+            .eq('id', prompt.user_id)
+            .single();
+
+          activityData.push({
+            id: `prompt-${prompt.id}`,
+            action: 'submitted a game prompt',
+            user: userProfile?.username || userProfile?.full_name || 'Anonymous',
+            details: prompt.title,
+            time: new Date(prompt.created_at).toLocaleTimeString(),
+            type: 'prompt',
+            avatar: '🎮'
+          });
+        }
+      }
 
       // Add signup activities
-      recentUsers?.forEach((user, index) => {
-        activityData.push({
-          id: `signup-${user.username}-${index}`,
-          action: 'joined the waitlist',
-          user: user.username || user.full_name || 'Anonymous',
-          details: 'Ready to create amazing games!',
-          time: new Date(user.created_at).toLocaleTimeString(),
-          type: 'signup',
-          avatar: '🚀'
+      if (recentUsers) {
+        recentUsers.forEach((user, index) => {
+          activityData.push({
+            id: `signup-${user.id}-${index}`,
+            action: 'joined the waitlist',
+            user: user.username || user.full_name || 'Anonymous',
+            details: 'Ready to create amazing games!',
+            time: new Date(user.created_at).toLocaleTimeString(),
+            type: 'signup',
+            avatar: '🚀'
+          });
         });
-      });
+      }
 
       // Add some simulated activities for demo purposes
       const simulatedActivities: Activity[] = [
