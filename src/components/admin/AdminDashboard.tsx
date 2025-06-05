@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -72,22 +71,31 @@ const AdminDashboard = () => {
         .order('gagsty_chips', { ascending: false })
         .limit(5);
 
-      // Fetch recent prompts for activity
+      // Fetch recent prompts and then get user data separately
       const { data: recentPrompts } = await supabase
         .from('game_prompts')
-        .select(`
-          *,
-          profiles!inner(full_name, username)
-        `)
+        .select('*')
         .order('created_at', { ascending: false })
         .limit(5);
 
-      const activityData = recentPrompts?.map(prompt => ({
-        action: 'Prompt submitted',
-        user: prompt.profiles?.username || prompt.profiles?.full_name || 'Anonymous',
-        time: new Date(prompt.created_at).toLocaleString(),
-        type: 'prompt'
-      })) || [];
+      // Get user profiles for the recent prompts
+      const activityData = [];
+      if (recentPrompts) {
+        for (const prompt of recentPrompts) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('full_name, username')
+            .eq('id', prompt.user_id)
+            .single();
+          
+          activityData.push({
+            action: 'Prompt submitted',
+            user: profile?.username || profile?.full_name || 'Anonymous',
+            time: new Date(prompt.created_at).toLocaleString(),
+            type: 'prompt'
+          });
+        }
+      }
 
       setStats({
         totalUsers: totalUsers || 0,
