@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import DynamicHeader from '@/components/navigation/DynamicHeader';
-import { GamepadIcon, Gift, Users, Coins, Share2 } from 'lucide-react';
+import { GamepadIcon, Gift, Users, Coins, Share2, Trophy } from 'lucide-react';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -52,7 +52,7 @@ const Auth = () => {
             title: "Welcome back! 🎮",
             description: "Successfully signed in.",
           });
-          navigate('/dashboard');
+          navigate('/welcome');
         }
       } else {
         // For waitlist signup (pre-launch), just show success without actual account creation
@@ -61,8 +61,8 @@ const Auth = () => {
           setReferralCode(generateReferralCode());
           setShowWaitlistSuccess(true);
           toast({
-            title: "You're on the List! 🚀",
-            description: "Thanks for joining the Gagsty waitlist! Check your email for next steps.",
+            title: "You earned 500 Chips! 🚀",
+            description: "Welcome to Gagsty! Complete your profile to earn 100 more chips.",
           });
         } else {
           // Full signup mode (post-launch)
@@ -75,10 +75,10 @@ const Auth = () => {
             });
           } else {
             toast({
-              title: "Welcome to Gagsty! 🚀",
-              description: "Account created successfully. You've earned 500 Chips!",
+              title: "You earned 500 Chips! 🚀",
+              description: "Welcome to Gagsty! Complete your profile to earn 100 more chips.",
             });
-            navigate('/dashboard');
+            navigate('/welcome');
           }
         }
       }
@@ -104,41 +104,46 @@ const Auth = () => {
 
   if (showWaitlistSuccess) {
     return (
-      <div className="min-h-screen bg-black text-white">
+      <div className="min-h-screen bg-gagsty-deep text-gagsty-primary">
         <DynamicHeader />
         <div className="pt-24 pb-12 px-4">
           <div className="max-w-lg mx-auto">
-            <Card className="bg-gray-900/50 border-gray-800">
+            <Card className="gagsty-card-featured">
               <CardHeader className="text-center">
-                <div className="mx-auto mb-4 p-4 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-500 w-fit">
-                  <Gift className="w-8 h-8 text-white" />
+                <div className="mx-auto mb-4 p-4 rounded-2xl bg-gradient-to-r from-[#16FF6F] to-[#FFB800] w-fit">
+                  <Trophy className="w-8 h-8 text-[#121212]" />
                 </div>
-                <CardTitle className="text-white text-2xl">You're on the List!</CardTitle>
+                <CardTitle className="text-gagsty-primary text-2xl">You Earned 500 Chips!</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                <p className="text-gray-300 text-center">
-                  Thanks for joining the Gagsty waitlist! We'll notify you as soon as early access opens.
+                <div className="text-center p-4 bg-gradient-to-r from-[#FFB800]/20 to-[#16FF6F]/20 rounded-lg border border-[#FFB800]/30">
+                  <div className="text-3xl font-bold text-[#FFB800] mb-2">🪙 500 Chips</div>
+                  <div className="text-gagsty-secondary">Welcome bonus added to your account!</div>
+                  <div className="text-sm text-[#16FF6F] mt-2">+ Complete your profile for 100 more chips</div>
+                </div>
+
+                <p className="text-gagsty-secondary text-center">
+                  Thanks for joining Gagsty! You're now part of an exclusive community building the future of AI gaming.
                 </p>
 
                 {/* Referral Section */}
-                <div className="p-4 bg-blue-900/20 rounded-xl border border-blue-500/30">
-                  <h3 className="text-white font-semibold mb-2 flex items-center">
-                    <Share2 className="mr-2 text-blue-400" size={16} />
-                    Move up the list and earn extra Chips!
+                <div className="p-4 bg-[#00C6FB]/10 rounded-xl border border-[#00C6FB]/30">
+                  <h3 className="text-gagsty-primary font-semibold mb-2 flex items-center">
+                    <Share2 className="mr-2 text-[#00C6FB]" size={16} />
+                    Earn More Chips by Sharing!
                   </h3>
-                  <p className="text-gray-300 text-sm mb-3">
-                    Share your unique referral link:
+                  <p className="text-gagsty-secondary text-sm mb-3">
+                    Share your unique referral link and earn 100 chips for every friend who joins:
                   </p>
                   <div className="flex gap-2">
                     <Input
                       value={`gagsty.com/join?ref=${referralCode}`}
                       readOnly
-                      className="bg-gray-800 border-gray-700 text-white text-sm"
+                      className="bg-[#1A1D24] border-[#262A34] text-gagsty-primary text-sm"
                     />
                     <Button
                       onClick={copyReferralLink}
-                      variant="outline"
-                      className="border-blue-500 text-blue-300 hover:bg-blue-500/20"
+                      className="btn-gagsty-secondary"
                     >
                       Copy
                     </Button>
@@ -146,15 +151,14 @@ const Auth = () => {
                   <div className="flex gap-2 mt-3">
                     <Button
                       size="sm"
-                      className="bg-blue-600 hover:bg-blue-700 flex-1"
-                      onClick={() => window.open(`https://twitter.com/intent/tweet?text=Just joined the @Gagsty waitlist for AI-powered game creation! Join me: gagsty.com/join?ref=${referralCode}`, '_blank')}
+                      className="btn-gagsty-primary flex-1"
+                      onClick={() => window.open(`https://twitter.com/intent/tweet?text=Just joined @Gagsty and earned 500 chips! Join me in building the future of AI gaming: gagsty.com/join?ref=${referralCode}`, '_blank')}
                     >
                       Share on Twitter
                     </Button>
                     <Button
                       size="sm"
-                      variant="outline"
-                      className="border-gray-600 text-gray-300 hover:bg-gray-700 flex-1"
+                      className="btn-gagsty-secondary flex-1"
                       onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=https://gagsty.com/join?ref=${referralCode}`, '_blank')}
                     >
                       Share on Facebook
@@ -164,27 +168,28 @@ const Auth = () => {
 
                 {/* Benefits */}
                 <div className="space-y-3">
-                  <h4 className="text-white font-semibold">Your Early Access Benefits:</h4>
+                  <h4 className="text-gagsty-primary font-semibold">Your Creator Benefits:</h4>
                   <div className="space-y-2">
                     {[
-                      { icon: "🎮", text: "First access to the platform" },
-                      { icon: "🪙", text: "500 bonus Chips on launch" },
-                      { icon: "🏆", text: "Exclusive 'Early Adopter' badge" },
-                      { icon: "📧", text: "Platform updates and insider news" }
+                      { icon: "🪙", text: "500 Chips in your account", color: "text-[#FFB800]" },
+                      { icon: "🎮", text: "Early access to AI game creation", color: "text-[#00C6FB]" },
+                      { icon: "🏆", text: "Exclusive 'Early Adopter' badge", color: "text-[#A084FF]" },
+                      { icon: "💰", text: "Revenue sharing when we launch", color: "text-[#16FF6F]" }
                     ].map((benefit, index) => (
-                      <div key={index} className="flex items-center text-gray-300">
+                      <div key={index} className="flex items-center text-gagsty-secondary">
                         <span className="mr-3 text-lg">{benefit.icon}</span>
-                        <span>{benefit.text}</span>
+                        <span className={benefit.color}>{benefit.text}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 <Button
-                  onClick={() => navigate('/')}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                  onClick={() => navigate('/dashboard')}
+                  className="btn-gagsty-primary w-full"
                 >
-                  Back to Home
+                  <Trophy className="mr-2" size={16} />
+                  Complete Profile & Earn 100 More Chips
                 </Button>
               </CardContent>
             </Card>
@@ -195,37 +200,43 @@ const Auth = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-gagsty-deep text-gagsty-primary">
       <DynamicHeader />
       <div className="pt-24 pb-12 px-4">
         <div className="max-w-md mx-auto">
           <div className="text-center mb-8">
-            <div className="inline-block p-4 rounded-2xl bg-gradient-to-r from-blue-500 via-violet-500 to-orange-500 shadow-2xl mb-4">
-              <GamepadIcon className="w-8 h-8 text-white" />
+            <div className="inline-block p-4 rounded-2xl bg-gradient-to-r from-[#A084FF] via-[#00C6FB] to-[#16FF6F] shadow-2xl mb-4">
+              <GamepadIcon className="w-8 h-8 text-[#121212]" />
             </div>
-            <h1 className="text-3xl font-bold text-white mb-2">
-              {isLogin ? 'Welcome Back!' : 'Join Gagsty'}
+            <h1 className="text-3xl font-bold text-gagsty-primary mb-2">
+              {isLogin ? 'Welcome Back!' : 'Earn 500 Chips!'}
             </h1>
-            <p className="text-gray-400">
+            <p className="text-gagsty-secondary">
               {isLogin 
                 ? 'Sign in to continue building games' 
-                : 'Be first to access AI-powered game creation'
+                : 'Join Gagsty and get 500 chips instantly + 100 more for completing your profile'
               }
             </p>
           </div>
 
-          <Card className="bg-gray-900/50 border-gray-800">
+          <Card className="gagsty-card-featured">
             <CardHeader>
-              <CardTitle className="text-center text-white">
-                {isLogin ? 'Sign In' : 'Join the Waitlist'}
+              <CardTitle className="text-center text-gagsty-primary">
+                {isLogin ? 'Sign In' : 'Join & Earn 500 Chips'}
               </CardTitle>
               {!isLogin && (
                 <div className="text-center space-y-2">
-                  <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-500/30">
-                    🚀 Early Access
-                  </Badge>
-                  <p className="text-gray-400 text-sm">
-                    Get exclusive early access + 500 bonus Chips
+                  <div className="flex items-center justify-center space-x-2">
+                    <Badge className="gagsty-badge-warning">
+                      🪙 500 Chips
+                    </Badge>
+                    <span className="text-gagsty-secondary">+</span>
+                    <Badge className="gagsty-badge-success">
+                      + 100 Bonus
+                    </Badge>
+                  </div>
+                  <p className="text-gagsty-secondary text-sm">
+                    Instant rewards for new creators joining the future of gaming
                   </p>
                 </div>
               )}
@@ -234,14 +245,14 @@ const Auth = () => {
               <form onSubmit={handleSubmit} className="space-y-4">
                 {!isLogin && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gagsty-secondary mb-2">
                       Full Name
                     </label>
                     <Input
                       type="text"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="bg-gray-800 border-gray-700 text-white"
+                      className="bg-[#1A1D24] border-[#262A34] text-gagsty-primary"
                       placeholder="Enter your full name"
                       required
                     />
@@ -249,14 +260,14 @@ const Auth = () => {
                 )}
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gagsty-secondary mb-2">
                     Email
                   </label>
                   <Input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="bg-gray-800 border-gray-700 text-white"
+                    className="bg-[#1A1D24] border-[#262A34] text-gagsty-primary"
                     placeholder="Enter your email"
                     required
                   />
@@ -264,14 +275,14 @@ const Auth = () => {
 
                 {isLogin && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gagsty-secondary mb-2">
                       Password
                     </label>
                     <Input
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="bg-gray-800 border-gray-700 text-white"
+                      className="bg-[#1A1D24] border-[#262A34] text-gagsty-primary"
                       placeholder="Enter your password"
                       required
                     />
@@ -280,31 +291,35 @@ const Auth = () => {
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                  className="btn-gagsty-primary w-full"
                   disabled={loading}
                 >
-                  {loading ? 'Loading...' : isLogin ? 'Sign In' : 'Join Waitlist'}
+                  {loading ? 'Loading...' : isLogin ? 'Sign In' : 'Join & Earn 500 Chips'}
                 </Button>
               </form>
 
               {!isLogin && (
-                <div className="mt-6 p-4 bg-gray-800/50 rounded-lg">
-                  <h4 className="text-white font-medium mb-3 flex items-center">
-                    <Coins className="mr-2 text-yellow-500" size={16} />
-                    Waitlist Benefits
+                <div className="mt-6 p-4 bg-[#1A1D24] rounded-lg">
+                  <h4 className="text-gagsty-primary font-medium mb-3 flex items-center">
+                    <Coins className="mr-2 text-[#FFB800]" size={16} />
+                    What You'll Get
                   </h4>
                   <div className="space-y-2 text-sm">
-                    <div className="flex items-center text-gray-300">
-                      <Users className="mr-2 text-blue-400" size={14} />
-                      <span>Priority access when we launch</span>
+                    <div className="flex items-center text-gagsty-secondary">
+                      <Gift className="mr-2 text-[#FFB800]" size={14} />
+                      <span>500 Chips welcome bonus (instantly)</span>
                     </div>
-                    <div className="flex items-center text-gray-300">
-                      <Gift className="mr-2 text-green-400" size={14} />
-                      <span>500 Chips bonus for early supporters</span>
+                    <div className="flex items-center text-gagsty-secondary">
+                      <Trophy className="mr-2 text-[#16FF6F]" size={14} />
+                      <span>100 more chips for completing profile</span>
                     </div>
-                    <div className="flex items-center text-gray-300">
-                      <Share2 className="mr-2 text-violet-400" size={14} />
-                      <span>Referral rewards to move up the queue</span>
+                    <div className="flex items-center text-gagsty-secondary">
+                      <Users className="mr-2 text-[#00C6FB]" size={14} />
+                      <span>Early access to AI game creation platform</span>
+                    </div>
+                    <div className="flex items-center text-gagsty-secondary">
+                      <Share2 className="mr-2 text-[#A084FF]" size={14} />
+                      <span>Earn 100 chips per friend you refer</span>
                     </div>
                   </div>
                 </div>
@@ -313,9 +328,9 @@ const Auth = () => {
               <div className="mt-4 text-center">
                 <button
                   onClick={() => setIsLogin(!isLogin)}
-                  className="text-blue-400 hover:text-blue-300 text-sm"
+                  className="text-[#00C6FB] hover:text-[#16FF6F] text-sm transition-colors"
                 >
-                  {isLogin ? "Don't have an account? Join waitlist" : "Already have an account? Sign in"}
+                  {isLogin ? "New to Gagsty? Join & earn 500 chips" : "Already have an account? Sign in"}
                 </button>
               </div>
             </CardContent>

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -14,7 +14,6 @@ import {
   Zap,
   User,
   LogOut,
-  Settings,
   Crown
 } from 'lucide-react';
 
@@ -24,6 +23,7 @@ const EnhancedHeader = () => {
   const { user, signOut } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
   const navItems = [
     { 
@@ -62,6 +62,23 @@ const EnhancedHeader = () => {
 
   const isActivePath = (path: string) => location.pathname === path;
 
+  // Close user menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setShowUserMenu(false);
+      }
+    };
+
+    if (showUserMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showUserMenu]);
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-gagsty-deep/95 backdrop-blur-md border-b border-[#262A34]">
       <div className="max-w-6xl mx-auto px-4">
@@ -85,10 +102,10 @@ const EnhancedHeader = () => {
             {navItems.map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.name} className="relative">
+                <div key={item.name} className="relative group">
                   <button
                     onClick={() => navigate(item.path)}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all hover:bg-[#262A34] group ${
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all hover:bg-[#262A34] ${
                       isActivePath(item.path) 
                         ? 'bg-[#262A34] text-[#00C6FB]' 
                         : 'text-gagsty-secondary hover:text-gagsty-primary'
@@ -113,7 +130,7 @@ const EnhancedHeader = () => {
           {/* User Section */}
           <div className="flex items-center space-x-4">
             {user ? (
-              <div className="relative">
+              <div className="relative" ref={userMenuRef}>
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   className="flex items-center space-x-3 p-2 rounded-lg hover:bg-[#262A34] transition-colors"
@@ -189,10 +206,10 @@ const EnhancedHeader = () => {
                   Sign In
                 </Button>
                 <Button
-                  onClick={() => navigate('/submit')}
+                  onClick={() => navigate('/auth')}
                   className="btn-gagsty-primary hidden sm:inline-flex"
                 >
-                  Get Early Access
+                  Earn 500 Chips
                 </Button>
               </div>
             )}
@@ -253,26 +270,18 @@ const EnhancedHeader = () => {
                 </Button>
                 <Button
                   onClick={() => {
-                    navigate('/submit');
+                    navigate('/auth');
                     setIsMenuOpen(false);
                   }}
                   className="btn-gagsty-primary w-full"
                 >
-                  Get Early Access
+                  Earn 500 Chips
                 </Button>
               </div>
             )}
           </div>
         )}
       </div>
-
-      {/* Click outside to close user menu */}
-      {showUserMenu && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={() => setShowUserMenu(false)}
-        />
-      )}
     </header>
   );
 };
