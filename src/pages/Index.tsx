@@ -2,6 +2,7 @@
 import React from 'react';
 import DynamicHeader from '../components/navigation/DynamicHeader';
 import Hero from '../components/Hero';
+import SocialProofBand from '../components/SocialProofBand';
 import HowPromptToGameWorks from '../components/HowPromptToGameWorks';
 import PromptBattlePreview from '../components/PromptBattlePreview';
 import EcosystemPreview from '../components/EcosystemPreview';
@@ -10,6 +11,7 @@ import WaitlistSection from '../components/WaitlistSection';
 import BadgesLeaderboardPreview from '../components/BadgesLeaderboardPreview';
 import CodexPreview from '../components/CodexPreview';
 import CommunityShoutouts from '../components/CommunityShoutouts';
+import LiveActivityFeed from '../components/LiveActivityFeed';
 import Footer from '../components/Footer';
 import GeometricDivider from '../components/GeometricDivider';
 
@@ -21,6 +23,9 @@ const Index = () => {
       <main className="pt-16">
         {/* Hero: Turn Prompts into Playable Games */}
         <Hero />
+        
+        {/* Social Proof Band */}
+        <SocialProofBand />
         
         {/* Enhanced Section Divider */}
         <GeometricDivider variant="circuit" />
@@ -57,9 +62,23 @@ const Index = () => {
         {/* Enhanced Section Divider */}
         <GeometricDivider variant="circuit" />
         
-        {/* Waitlist Section */}
-        <div className="gagsty-section-primary">
-          <WaitlistSection />
+        {/* Community Activity Section */}
+        <div className="gagsty-section-primary py-20">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Waitlist Section - Takes up 2 columns */}
+              <div className="lg:col-span-2">
+                <WaitlistSection />
+              </div>
+              
+              {/* Live Activity Feed - Takes up 1 column */}
+              <div className="lg:col-span-1">
+                <div className="sticky top-24">
+                  <LiveActivityFeed />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         
         {/* Enhanced Section Divider */}

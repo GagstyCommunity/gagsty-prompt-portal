@@ -3,9 +3,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Sparkles, Zap, Trophy, GamepadIcon, Shield } from 'lucide-react';
+import { Sparkles, Zap, Trophy, GamepadIcon, Shield, Play, Users } from 'lucide-react';
 import LaunchTimer from './LaunchTimer';
 import ParticleBackground from './ParticleBackground';
+import LiveCounters from './LiveCounters';
+import ScarcityIndicator from './ScarcityIndicator';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -62,22 +64,39 @@ const Hero = () => {
         <div className="space-y-6">
           <h1 className="display-xl leading-tight">
             <span className="text-gagsty-gradient">
-              World's First AI + Web3
+              Turn Your Wildest Game Ideas
             </span>
             <br />
             <span className="text-gagsty-primary">
-              Prompt-to-Game Platform
+              Into Reality With One Prompt
             </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-gagsty-secondary max-w-4xl mx-auto leading-relaxed">
-            Submit your game concept. Let our AI & community build it. You earn rewards. We publish.
+            Join <span className="text-[#00C6FB] font-semibold">4,847 creators</span> building the future of AI gaming. 
+            Submit your concept. Let our AI + community bring it to life. <span className="text-[#16FF6F] font-semibold">You earn rewards.</span>
           </p>
 
-          {/* Launch Timer */}
-          <div className="my-12">
-            <LaunchTimer />
+          {/* Demo Video Preview */}
+          <div className="my-8">
+            <div className="gagsty-card-featured p-6 max-w-2xl mx-auto gagsty-lift-hover cursor-pointer group">
+              <div className="flex items-center justify-center mb-4">
+                <div className="w-16 h-16 bg-gradient-to-r from-[#A084FF] to-[#00C6FB] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                  <Play className="text-white ml-1" size={24} />
+                </div>
+              </div>
+              <h3 className="text-gagsty-primary font-bold mb-2">Watch AI Create "Fortnite 2.0" in 45 Seconds</h3>
+              <p className="text-gagsty-secondary text-sm">See how our AI transforms a single sentence into a playable game concept</p>
+              <div className="flex items-center justify-center mt-4 space-x-4 text-xs text-gagsty-muted">
+                <span>👀 12,847 views</span>
+                <span>⭐ 4.9/5 rating</span>
+                <span>🔥 #1 trending</span>
+              </div>
+            </div>
           </div>
+
+          {/* Live Counters */}
+          <LiveCounters />
 
           {/* Key Features with Tooltips */}
           <TooltipProvider>
@@ -102,36 +121,29 @@ const Hero = () => {
         {/* Enhanced CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
           <Button 
-            onClick={() => navigate('/prompt-battle')}
-            className="btn-gagsty-primary text-lg px-8 py-4"
+            onClick={() => navigate('/submit')}
+            className="btn-gagsty-primary text-lg px-8 py-4 group"
           >
-            <Trophy className="mr-2" size={20} />
-            Try Prompt Battle
+            <Trophy className="mr-2 group-hover:rotate-12 transition-transform" size={20} />
+            Submit Your Game Idea
           </Button>
           <Button 
-            onClick={() => navigate('/auth')}
+            onClick={() => navigate('/prompt-battle')}
             className="btn-gagsty-secondary text-lg px-8 py-4"
           >
-            Join Waitlist
+            <Zap className="mr-2" size={20} />
+            Try Prompt Battle
           </Button>
         </div>
 
-        {/* Enhanced Stats Bar with Dynamic Indicators */}
-        <div className="mt-12 flex flex-wrap justify-center gap-4">
-          <div className="gagsty-card gagsty-lift-hover px-6 py-3 rounded-full border border-[#262A34]">
-            <span className="text-[#00C6FB] font-semibold">2,847+</span>
-            <span className="text-gagsty-secondary ml-1">Creators Building</span>
-            <div className="inline-block w-2 h-2 bg-[#16FF6F] rounded-full ml-2 gagsty-status-live" title="Live count" />
-          </div>
-          <div className="gagsty-card gagsty-lift-hover px-6 py-3 rounded-full border border-[#262A34]">
-            <span className="text-[#A084FF] font-semibold">156</span>
-            <span className="text-gagsty-secondary ml-1">Game Concepts</span>
-            <div className="inline-block w-2 h-2 bg-[#16FF6F] rounded-full ml-2 gagsty-status-live" title="Live count" />
-          </div>
-          <div className="gagsty-card gagsty-lift-hover px-6 py-3 rounded-full border border-[#262A34]">
-            <span className="text-[#16FF6F] font-semibold">Aug 30, 2024</span>
-            <span className="text-gagsty-secondary ml-1">Launch Date</span>
-          </div>
+        {/* Scarcity & Social Proof */}
+        <div className="mt-12 max-w-lg mx-auto">
+          <ScarcityIndicator />
+        </div>
+
+        {/* Launch Timer */}
+        <div className="my-12">
+          <LaunchTimer />
         </div>
 
         {/* Scroll Indicator */}
