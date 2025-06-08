@@ -1,7 +1,10 @@
 
-import React from 'react';
-import DynamicHeader from '../components/navigation/DynamicHeader';
-import Hero from '../components/Hero';
+import React, { useState } from 'react';
+import EnhancedHeader from '../components/enhanced/EnhancedHeader';
+import PremiumHero from '../components/enhanced/PremiumHero';
+import EnhancedParticleBackground from '../components/enhanced/EnhancedParticleBackground';
+import ChatBot from '../components/chatbot/ChatBot';
+import ChatBotTrigger from '../components/chatbot/ChatBotTrigger';
 import SocialProofBand from '../components/SocialProofBand';
 import HowPromptToGameWorks from '../components/HowPromptToGameWorks';
 import PromptBattlePreview from '../components/PromptBattlePreview';
@@ -16,22 +19,38 @@ import Footer from '../components/Footer';
 import GeometricDivider from '../components/GeometricDivider';
 
 const Index = () => {
+  const [isChatBotOpen, setIsChatBotOpen] = useState(false);
+
+  const toggleChatBot = () => {
+    setIsChatBotOpen(!isChatBotOpen);
+  };
+
   return (
-    <div className="min-h-screen bg-gagsty-deep text-gagsty-primary">
-      <DynamicHeader />
+    <div className="min-h-screen bg-gagsty-deep text-gagsty-primary relative overflow-hidden">
+      {/* Enhanced Particle Background */}
+      <EnhancedParticleBackground 
+        density={80}
+        colors={['#A084FF', '#00C6FB', '#16FF6F', '#FF61F6']}
+        interactive={true}
+      />
       
-      <main className="pt-16">
-        {/* Hero: Turn Prompts into Playable Games */}
-        <Hero />
+      {/* Enhanced Header */}
+      <EnhancedHeader />
+      
+      <main className="relative z-10">
+        {/* Premium Hero Section */}
+        <PremiumHero />
         
         {/* Social Proof Band */}
-        <SocialProofBand />
+        <div className="relative z-10">
+          <SocialProofBand />
+        </div>
         
         {/* Enhanced Section Divider */}
         <GeometricDivider variant="circuit" />
         
         {/* How Prompt-to-Game Works */}
-        <div className="gagsty-section-alternate">
+        <div className="gagsty-section-alternate relative z-10">
           <HowPromptToGameWorks />
         </div>
         
@@ -39,7 +58,7 @@ const Index = () => {
         <GeometricDivider variant="scanline" />
         
         {/* Prompt Battle Cards Preview */}
-        <div className="gagsty-section-primary">
+        <div className="gagsty-section-primary relative z-10">
           <PromptBattlePreview />
         </div>
         
@@ -47,7 +66,7 @@ const Index = () => {
         <GeometricDivider variant="pulse" />
         
         {/* Complete Ecosystem */}
-        <div className="gagsty-section-featured">
+        <div className="gagsty-section-featured relative z-10">
           <EcosystemPreview />
         </div>
         
@@ -55,15 +74,15 @@ const Index = () => {
         <GeometricDivider variant="neon" />
         
         {/* Why Gagsty? */}
-        <div className="gagsty-section-alternate">
+        <div className="gagsty-section-alternate relative z-10">
           <WhyGagsty />
         </div>
         
         {/* Enhanced Section Divider */}
         <GeometricDivider variant="circuit" />
         
-        {/* Community Activity Section */}
-        <div className="gagsty-section-primary py-20">
+        {/* Community Activity Section with Premium Styling */}
+        <div className="gagsty-section-primary py-20 relative z-10">
           <div className="max-w-6xl mx-auto px-4">
             <div className="grid lg:grid-cols-3 gap-8">
               {/* Waitlist Section - Takes up 2 columns */}
@@ -85,7 +104,7 @@ const Index = () => {
         <GeometricDivider variant="scanline" />
         
         {/* Badges & Leaderboard Preview */}
-        <div className="gagsty-section-alternate">
+        <div className="gagsty-section-alternate relative z-10">
           <BadgesLeaderboardPreview />
         </div>
         
@@ -93,7 +112,7 @@ const Index = () => {
         <GeometricDivider variant="pulse" />
         
         {/* Codex Preview */}
-        <div className="gagsty-section-featured">
+        <div className="gagsty-section-featured relative z-10">
           <CodexPreview />
         </div>
         
@@ -101,12 +120,19 @@ const Index = () => {
         <GeometricDivider variant="neon" />
         
         {/* Community Shoutouts */}
-        <div className="gagsty-section-primary">
+        <div className="gagsty-section-primary relative z-10">
           <CommunityShoutouts />
         </div>
       </main>
       
-      <Footer />
+      {/* Enhanced Footer */}
+      <div className="relative z-10">
+        <Footer />
+      </div>
+
+      {/* ChatBot Integration */}
+      <ChatBot isOpen={isChatBotOpen} onToggle={toggleChatBot} />
+      {!isChatBotOpen && <ChatBotTrigger onClick={toggleChatBot} />}
     </div>
   );
 };
