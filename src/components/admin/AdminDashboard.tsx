@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -93,23 +94,33 @@ const AdminDashboard = () => {
         .order('gagsty_chips', { ascending: false })
         .limit(5);
 
-      // Fix the query to properly join game_prompts with profiles
+      // Fetch recent prompts and then get user data separately
       const { data: recentPrompts } = await supabase
         .from('game_prompts')
-        .select(`
-          *,
-          profiles!game_prompts_user_id_fkey(full_name, username)
-        `)
+        .select('*')
         .order('created_at', { ascending: false })
         .limit(10);
 
-      const activityData = recentPrompts?.map(prompt => ({
-        action: `Prompt "${prompt.title}" submitted`,
-        user: prompt.profiles?.username || prompt.profiles?.full_name || 'Anonymous',
-        time: new Date(prompt.created_at).toLocaleString(),
-        type: 'prompt',
-        status: prompt.status
-      })) || [];
+      // Get user data for the prompts
+      let activityData: any[] = [];
+      if (recentPrompts && recentPrompts.length > 0) {
+        const userIds = [...new Set(recentPrompts.map(prompt => prompt.user_id))];
+        const { data: users } = await supabase
+          .from('profiles')
+          .select('id, full_name, username')
+          .in('id', userIds);
+
+        activityData = recentPrompts.map(prompt => {
+          const user = users?.find(u => u.id === prompt.user_id);
+          return {
+            action: `Prompt "${prompt.title}" submitted`,
+            user: user?.username || user?.full_name || 'Anonymous',
+            time: new Date(prompt.created_at).toLocaleString(),
+            type: 'prompt',
+            status: prompt.status
+          };
+        });
+      }
 
       setStats({
         totalUsers: totalUsers || 0,
