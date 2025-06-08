@@ -17,6 +17,7 @@ import CommunityShoutouts from '../components/CommunityShoutouts';
 import LiveActivityFeed from '../components/LiveActivityFeed';
 import Footer from '../components/Footer';
 import GeometricDivider from '../components/GeometricDivider';
+import LaunchTimer from '../components/LaunchTimer';
 
 const Index = () => {
   const [isChatBotOpen, setIsChatBotOpen] = useState(false);
@@ -46,43 +47,16 @@ const Index = () => {
           <SocialProofBand />
         </div>
         
+        {/* Launch Timer - Prominent placement */}
+        <div className="relative z-10">
+          <LaunchTimer />
+        </div>
+        
         {/* Enhanced Section Divider */}
         <GeometricDivider variant="circuit" />
         
-        {/* How Prompt-to-Game Works */}
-        <div className="gagsty-section-alternate relative z-10">
-          <HowPromptToGameWorks />
-        </div>
-        
-        {/* Enhanced Section Divider */}
-        <GeometricDivider variant="scanline" />
-        
-        {/* Prompt Battle Cards Preview */}
-        <div className="gagsty-section-primary relative z-10">
-          <PromptBattlePreview />
-        </div>
-        
-        {/* Enhanced Section Divider */}
-        <GeometricDivider variant="pulse" />
-        
-        {/* Complete Ecosystem */}
+        {/* Main Waitlist Section - Most Important */}
         <div className="gagsty-section-featured relative z-10">
-          <EcosystemPreview />
-        </div>
-        
-        {/* Enhanced Section Divider */}
-        <GeometricDivider variant="neon" />
-        
-        {/* Why Gagsty? */}
-        <div className="gagsty-section-alternate relative z-10">
-          <WhyGagsty />
-        </div>
-        
-        {/* Enhanced Section Divider */}
-        <GeometricDivider variant="circuit" />
-        
-        {/* Community Activity Section with Premium Styling */}
-        <div className="gagsty-section-primary py-20 relative z-10">
           <div className="max-w-6xl mx-auto px-4">
             <div className="grid lg:grid-cols-3 gap-8">
               {/* Waitlist Section - Takes up 2 columns */}
@@ -103,8 +77,40 @@ const Index = () => {
         {/* Enhanced Section Divider */}
         <GeometricDivider variant="scanline" />
         
-        {/* Badges & Leaderboard Preview */}
+        {/* How It Will Work - Future tense */}
         <div className="gagsty-section-alternate relative z-10">
+          <HowPromptToGameWorks />
+        </div>
+        
+        {/* Enhanced Section Divider */}
+        <GeometricDivider variant="pulse" />
+        
+        {/* Coming Soon Previews */}
+        <div className="gagsty-section-primary relative z-10">
+          <PromptBattlePreview />
+        </div>
+        
+        {/* Enhanced Section Divider */}
+        <GeometricDivider variant="neon" />
+        
+        {/* Complete Ecosystem Preview */}
+        <div className="gagsty-section-featured relative z-10">
+          <EcosystemPreview />
+        </div>
+        
+        {/* Enhanced Section Divider */}
+        <GeometricDivider variant="circuit" />
+        
+        {/* Why Join Gagsty Early */}
+        <div className="gagsty-section-alternate relative z-10">
+          <WhyGagsty />
+        </div>
+        
+        {/* Enhanced Section Divider */}
+        <GeometricDivider variant="scanline" />
+        
+        {/* Future Features Preview */}
+        <div className="gagsty-section-primary relative z-10">
           <BadgesLeaderboardPreview />
         </div>
         
@@ -119,7 +125,7 @@ const Index = () => {
         {/* Enhanced Section Divider */}
         <GeometricDivider variant="neon" />
         
-        {/* Community Shoutouts */}
+        {/* Community Building */}
         <div className="gagsty-section-primary relative z-10">
           <CommunityShoutouts />
         </div>
