@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -94,10 +93,13 @@ const AdminDashboard = () => {
         .order('gagsty_chips', { ascending: false })
         .limit(5);
 
-      // Fetch recent activity with enhanced details
+      // Fix the query to properly join game_prompts with profiles
       const { data: recentPrompts } = await supabase
         .from('game_prompts')
-        .select('*, profiles(full_name, username)')
+        .select(`
+          *,
+          profiles!game_prompts_user_id_fkey(full_name, username)
+        `)
         .order('created_at', { ascending: false })
         .limit(10);
 
@@ -223,6 +225,7 @@ const AdminDashboard = () => {
     }
   };
 
+  // ... keep existing code (enhancedStats array definition)
   const enhancedStats = [
     {
       title: "Total Users",
@@ -300,6 +303,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="space-y-6">
+      {/* ... keep existing code (header section) */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
@@ -332,7 +336,7 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Enhanced Stats Grid */}
+      {/* ... keep existing code (Enhanced Stats Grid) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {enhancedStats.map((stat, index) => {
           const Icon = stat.icon;
@@ -358,14 +362,13 @@ const AdminDashboard = () => {
         })}
       </div>
 
-      {/* Quick Actions Panel */}
+      {/* ... keep existing code (Quick Actions Panel, Top Performers, Activity Feed) */}
       <Card className="bg-gray-900/50 border-gray-800">
         <CardHeader>
           <CardTitle className="text-white">Quick Actions</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Bulk Chip Management */}
             <div className="space-y-3">
               <h3 className="text-white font-medium">Bulk Chip Management</h3>
               <div className="flex space-x-2">
@@ -387,7 +390,6 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            {/* Data Export */}
             <div className="space-y-3">
               <h3 className="text-white font-medium">Data Export</h3>
               <div className="flex space-x-2">
@@ -410,7 +412,6 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            {/* System Monitor */}
             <div className="space-y-3">
               <h3 className="text-white font-medium">System Monitor</h3>
               <div className="flex items-center space-x-2">
@@ -433,7 +434,6 @@ const AdminDashboard = () => {
       </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Enhanced Top Performers */}
         <Card className="bg-gray-900/50 border-gray-800">
           <CardHeader>
             <CardTitle className="text-white flex items-center justify-between">
@@ -482,7 +482,6 @@ const AdminDashboard = () => {
           </CardContent>
         </Card>
 
-        {/* Enhanced Activity Feed */}
         <Card className="bg-gray-900/50 border-gray-800">
           <CardHeader>
             <CardTitle className="text-white flex items-center justify-between">
