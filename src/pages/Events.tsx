@@ -1,112 +1,24 @@
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import DynamicHeader from '../components/navigation/DynamicHeader';
-import Footer from '../components/Footer';
-import DynamicEventsList from '../components/dynamic/DynamicEventsList';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Calendar, Gamepad2, Palette, Code, Megaphone } from 'lucide-react';
+import React from 'react';
+import PageLayout from '@/components/layout/PageLayout';
+import DynamicEventsList from '@/components/dynamic/DynamicEventsList';
 
 const Events = () => {
-  const navigate = useNavigate();
-
-  const eventTypes = [
-    {
-      icon: Gamepad2,
-      title: "Live Game Jams",
-      description: "Intensive game creation sessions with community collaboration. Build a themed game in a short time!",
-      color: "blue"
-    },
-    {
-      icon: Palette,
-      title: "Prompt Marathons",
-      description: "Speed challenges to create the most creative game prompts within a time limit.",
-      color: "purple"
-    },
-    {
-      icon: Code,
-      title: "Developer Workshops",
-      description: "Learn from industry experts about game development, AI tools, and Web3 integration.",
-      color: "orange"
-    },
-    {
-      icon: Megaphone,
-      title: "Referral Challenges",
-      description: "Grow the community by bringing friends and earn rewards for successful referrals.",
-      color: "yellow"
-    }
-  ];
-
   return (
-    <div className="min-h-screen bg-black text-white">
-      <DynamicHeader />
-      
-      <main className="pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-                Earn Chips via Events
-              </span>
-            </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Participate in exciting community events, challenges, and competitions to earn rewards and build your reputation.
-            </p>
-          </div>
-
-          {/* Event Types */}
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-white mb-8 text-center">Ways to Participate & Earn</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {eventTypes.map((eventType, index) => {
-                const Icon = eventType.icon;
-                const colorClasses = {
-                  blue: 'bg-blue-500/10 border-blue-500/30 text-blue-400',
-                  purple: 'bg-purple-500/10 border-purple-500/30 text-purple-400',
-                  orange: 'bg-orange-500/10 border-orange-500/30 text-orange-400',
-                  yellow: 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400'
-                };
-                
-                return (
-                  <Card key={index} className="bg-gray-900/50 border-gray-800 hover:border-gray-700 transition-all duration-300 hover:transform hover:scale-105">
-                    <CardContent className="p-6 text-center">
-                      <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl border mb-4 ${colorClasses[eventType.color as keyof typeof colorClasses]}`}>
-                        <Icon size={28} />
-                      </div>
-                      <h3 className="text-lg font-semibold text-white mb-3">{eventType.title}</h3>
-                      <p className="text-gray-400 text-sm leading-relaxed">{eventType.description}</p>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Dynamic Events List */}
-          <div className="mb-16">
-            <DynamicEventsList />
-          </div>
-
-          {/* Newsletter Signup */}
-          <div className="text-center">
-            <h3 className="text-2xl font-bold text-white mb-4">Never Miss an Event</h3>
-            <p className="text-gray-300 mb-8">
-              Get notified about upcoming events, challenges, and competitions.
-            </p>
-            <Button 
-              onClick={() => navigate('/auth')}
-              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 px-8 py-3 rounded-xl"
-            >
-              Join Our Community
-            </Button>
-          </div>
+    <PageLayout>
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+            Upcoming Events
+          </h1>
+          <p className="text-xl text-white/80 max-w-2xl mx-auto">
+            Join our events and earn exclusive rewards while we prepare for launch
+          </p>
         </div>
-      </main>
-      
-      <Footer />
-    </div>
+        
+        <DynamicEventsList />
+      </div>
+    </PageLayout>
   );
 };
 

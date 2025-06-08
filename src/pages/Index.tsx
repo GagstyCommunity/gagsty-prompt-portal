@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import EnhancedHeader from '../components/enhanced/EnhancedHeader';
+import UnifiedHeader from '../components/navigation/UnifiedHeader';
 import PremiumHero from '../components/enhanced/PremiumHero';
 import EnhancedParticleBackground from '../components/enhanced/EnhancedParticleBackground';
 import ChatBot from '../components/chatbot/ChatBot';
@@ -35,8 +35,8 @@ const Index = () => {
         interactive={true}
       />
       
-      {/* Enhanced Header */}
-      <EnhancedHeader />
+      {/* Unified Header */}
+      <UnifiedHeader />
       
       <main className="relative z-10">
         {/* Premium Hero Section */}
