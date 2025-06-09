@@ -12,11 +12,11 @@ interface PageLayoutProps {
 
 const PageLayout = ({ children, showParticles = true, className = '' }: PageLayoutProps) => {
   return (
-    <div className={`min-h-screen bg-gagsty-deep text-gagsty-primary relative overflow-hidden ${className}`}>
+    <div className={`min-h-screen bg-gradient-to-br from-gagsty-deep via-purple-900/20 to-blue-900/20 text-gagsty-primary relative overflow-hidden ${className}`}>
       {/* Enhanced Particle Background */}
       {showParticles && (
         <EnhancedParticleBackground 
-          density={60}
+          density={80}
           colors={['#A084FF', '#00C6FB', '#16FF6F', '#FF61F6']}
           interactive={true}
         />
@@ -26,8 +26,10 @@ const PageLayout = ({ children, showParticles = true, className = '' }: PageLayo
       <UnifiedHeader />
       
       {/* Main Content */}
-      <main className="relative z-10 pt-20">
-        {children}
+      <main className="relative z-10 pt-20 min-h-screen">
+        <div className="bg-gradient-to-r from-purple-500/5 to-blue-500/5 backdrop-blur-sm">
+          {children}
+        </div>
       </main>
       
       {/* Footer */}
