@@ -68,7 +68,23 @@ export const useUserData = () => {
         throw profileError;
       }
 
-      setProfile(profileData);
+      // Transform the data to match our interface with default values
+      if (profileData) {
+        setProfile({
+          id: profileData.id,
+          full_name: profileData.full_name || '',
+          gagsty_chips: profileData.gagsty_chips || 0,
+          profile_completed: profileData.profile_completed || false,
+          username: profileData.username || '',
+          avatar_url: profileData.avatar_url || '',
+          bio: profileData.bio || '',
+          referral_code: profileData.referral_code || '',
+          status: profileData.status || 'active',
+          badge_count: profileData.badge_count || 0,
+          total_referrals: profileData.total_referrals || 0,
+          last_login: profileData.last_login || ''
+        });
+      }
 
       // Fetch user badges
       const { data: badgesData, error: badgesError } = await supabase
