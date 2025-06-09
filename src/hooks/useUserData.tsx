@@ -79,10 +79,10 @@ export const useUserData = () => {
           avatar_url: profileData.avatar_url || '',
           bio: profileData.bio || '',
           referral_code: profileData.referral_code || '',
-          status: profileData.status || 'active',
-          badge_count: profileData.badge_count || 0,
-          total_referrals: profileData.total_referrals || 0,
-          last_login: profileData.last_login || ''
+          status: (profileData as any).status || 'active',
+          badge_count: (profileData as any).badge_count || 0,
+          total_referrals: (profileData as any).total_referrals || 0,
+          last_login: (profileData as any).last_login || ''
         });
       }
 
