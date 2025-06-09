@@ -12,6 +12,10 @@ interface UserProfile {
   avatar_url: string;
   bio: string;
   referral_code: string;
+  status: string;
+  badge_count: number;
+  total_referrals: number;
+  last_login: string;
 }
 
 interface UserBadge {
@@ -53,7 +57,7 @@ export const useUserData = () => {
     try {
       setLoading(true);
       
-      // Fetch user profile
+      // Fetch user profile with all new fields
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('*')
