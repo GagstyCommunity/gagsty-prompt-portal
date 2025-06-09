@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 import PageLayout from '@/components/layout/PageLayout';
@@ -9,6 +9,7 @@ import DashboardSkeleton from '@/components/dashboard/DashboardSkeleton';
 
 const Submit = () => {
   const { user, loading } = useAuth();
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   if (loading) {
     return (
@@ -21,6 +22,11 @@ const Submit = () => {
   if (!user) {
     return <Navigate to="/auth" replace />;
   }
+
+  const handleSubmitSuccess = () => {
+    // Trigger a refresh of the prompts list
+    setRefreshTrigger(prev => prev + 1);
+  };
 
   return (
     <PageLayout>
@@ -36,9 +42,9 @@ const Submit = () => {
         
         <div className="grid lg:grid-cols-2 gap-8">
           <div>
-            <UserPromptSubmission />
+            <UserPromptSubmission onSubmitSuccess={handleSubmitSuccess} />
           </div>
-          <div>
+          <div key={refreshTrigger}>
             <UserPromptsList />
           </div>
         </div>
