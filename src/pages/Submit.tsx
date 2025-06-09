@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
-import PageLayout from '@/components/layout/PageLayout';
+import ProfessionalPageLayout from '@/components/layout/ProfessionalPageLayout';
 import UserPromptSubmission from '@/components/UserPromptSubmission';
 import UserPromptsList from '@/components/UserPromptsList';
 import DashboardSkeleton from '@/components/dashboard/DashboardSkeleton';
@@ -13,9 +13,9 @@ const Submit = () => {
 
   if (loading) {
     return (
-      <PageLayout>
+      <ProfessionalPageLayout>
         <DashboardSkeleton />
-      </PageLayout>
+      </ProfessionalPageLayout>
     );
   }
 
@@ -28,7 +28,7 @@ const Submit = () => {
   };
 
   return (
-    <PageLayout>
+    <ProfessionalPageLayout>
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
@@ -48,7 +48,7 @@ const Submit = () => {
           </div>
         </div>
       </div>
-    </PageLayout>
+    </ProfessionalPageLayout>
   );
 };
 
